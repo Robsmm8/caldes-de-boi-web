@@ -28,6 +28,8 @@ caldesdeboi.com siga sirviéndolas:
 | `experienceWellness` | Tratamiento con barro/lodo termal |
 | `entornoRutas` | Senderistas junto a un puente del valle |
 | `restauranteManantial` | Interior/lobby del Hotel Manantial |
+| `barManantial` | Salón/lounge con chimenea (foto de archivo del hotel, pendiente de una propia del bar) |
+| `clubPiscina` | Piscina exterior con tumbonas |
 
 ## 3. Fotos del entorno (Wikimedia Commons, licencia libre)
 
@@ -44,7 +46,6 @@ se publican tal cual:
 | `entornoPueblos` | [Vall de Boí. Taüll. Sant Martí 1.JPG](https://commons.wikimedia.org/wiki/File:Vall_de_Bo%C3%AD._Ta%C3%BCll._Sant_Mart%C3%AD_1.JPG) | Gustau Erill i Pinyot | CC BY-SA 3.0+ |
 | `experienceGastronomy` | [Escudella Catalana - Barcelona (2011).JPG](https://commons.wikimedia.org/wiki/File:Escudella_Catalana_-_Barcelona_(2011).JPG) | Tamorlan | CC BY 3.0 |
 | `restauranteCaldas` | [Trinxat de La Cerdanya.jpg](https://commons.wikimedia.org/wiki/File:Trinxat_de_La_Cerdanya.jpg) | Kronologiko | CC BY-SA 4.0 |
-| `restauranteBarTermal` | [Croquetas jamón y cecina.jpg](https://commons.wikimedia.org/wiki/File:Croquetas_jam%C3%B3n_y_cecina.jpg) | Amasuela | CC BY-SA 4.0 |
 
 ## Vídeo de portada (opcional, desactivado)
 

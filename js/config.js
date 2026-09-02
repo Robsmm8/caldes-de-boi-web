@@ -72,10 +72,12 @@ const IMAGES = {
 
   // Interior/lobby real del Hotel Manantial, foto caldesdeboi.com
   restauranteManantial:"https://www.caldesdeboi.com/wp-content/uploads/2021/05/Hotel-Manatial-2018-0016.jpg",
+  // Salón/lounge acogedor con chimenea, foto real caldesdeboi.com
+  barManantial:        "https://www.caldesdeboi.com/wp-content/uploads/2021/05/Hotel-Caldas-2018-0014-1024x683.jpg",
   // Trinxat de la Cerdanya, plato de la carta del Restaurante Caldas (Kronologiko, CC BY-SA 4.0)
   restauranteCaldas:   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Trinxat_de_La_Cerdanya.jpg/960px-Trinxat_de_La_Cerdanya.jpg",
-  // Croquetas de jamón, plato de la carta del Bar Termal (Amasuela, CC BY-SA 4.0)
-  restauranteBarTermal:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Croquetas_jam%C3%B3n_y_cecina.jpg/960px-Croquetas_jam%C3%B3n_y_cecina.jpg",
+  // Piscina exterior con tumbonas, foto real caldesdeboi.com
+  clubPiscina:         "https://www.caldesdeboi.com/wp-content/uploads/2021/08/DSCF9537-1.jpg",
 };
 
 /* -------------------------------------------------------------------------
@@ -283,13 +285,13 @@ const RESTAURANTS = [
     ],
   },
   {
-    slug: "bar-termal",
-    name: "Bar Termal & Terraza",
-    hotel: "Balneario",
-    style: "Picoteo y coctelería junto al agua",
-    image: "restauranteBarTermal",
+    slug: "bar-manantial",
+    name: "Bar del Manantial",
+    hotel: "Hotel Manantial",
+    style: "Picoteo y coctelería junto al lobby",
+    image: "barManantial",
     description:
-      "El punto de encuentro informal junto al balneario: tapas, vinos de la zona y cócteles con vistas a la montaña.",
+      "El punto de encuentro informal del Hotel Manantial: tapas, vinos de la zona y coctelería en un ambiente cálido junto a la chimenea.",
     menu: [
       {
         section: "Para picar",
@@ -305,6 +307,41 @@ const RESTAURANTS = [
           { name: "Copa de vino DO Costers del Segre", price: "5€" },
           { name: "Cóctel Manantial (signature)", price: "9€" },
           { name: "Infusión de hierbas de montaña", price: "3.5€" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "club-piscina",
+    name: "Restaurante Club Piscina",
+    hotel: "Balneario",
+    style: "Cocina informal junto a la piscina exterior",
+    image: "clubPiscina",
+    description:
+      "Comida ligera y de temporada para disfrutar al aire libre, junto a la piscina exterior con vistas a la montaña. Abierto en temporada.",
+    menu: [
+      {
+        section: "Para compartir",
+        items: [
+          { name: "Ensalada de temporada con queso de cabra", price: "12€" },
+          { name: "Tabla de embutidos y quesos del valle", price: "17€" },
+          { name: "Nachos con guacamole", price: "9€" },
+        ],
+      },
+      {
+        section: "Platos ligeros",
+        items: [
+          { name: "Hamburguesa de ternera del Pirineo", price: "15€" },
+          { name: "Wrap de pollo y verduras a la brasa", price: "12€" },
+          { name: "Poke bowl de trucha marinada", price: "14€" },
+        ],
+      },
+      {
+        section: "Bebidas y helados",
+        items: [
+          { name: "Cóctel sin alcohol de frutas del bosque", price: "6€" },
+          { name: "Sangría de la casa (copa)", price: "5€" },
+          { name: "Selección de helados artesanos", price: "5€" },
         ],
       },
     ],
