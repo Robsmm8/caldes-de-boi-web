@@ -159,28 +159,7 @@
       <h2 style="margin:0;">El entorno que nos rodea</h2>
       <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--amber-dark);">Ver todas &rarr;</a>
     </div>
-    <div class="entorno-grid">
-      <a class="entorno-item" href="entorno.html#parque-nacional">
-        <img data-img-key="entornoParque" alt="" />
-        <h4>Parque Nacional Aigüestortes i Estany de Sant Maurici</h4>
-      </a>
-      <a class="entorno-item" href="entorno.html#iglesia-taull">
-        <img data-img-key="entornoIglesia" alt="" />
-        <h4>Iglesia de Sant Climent de Taüll</h4>
-      </a>
-      <a class="entorno-item" href="entorno.html#boi-taull-resort">
-        <img data-img-key="entornoEsqui" alt="" />
-        <h4>Estación de esquí Boí Taüll Resort</h4>
-      </a>
-      <a class="entorno-item" href="entorno.html#pueblos-con-encanto">
-        <img data-img-key="entornoPueblos" alt="" />
-        <h4>Pueblos con encanto: Barruera, Taüll, Boí…</h4>
-      </a>
-      <a class="entorno-item" href="entorno.html#rutas-senderos">
-        <img data-img-key="entornoRutas" alt="" />
-        <h4>Rutas y senderos para todos los niveles</h4>
-      </a>
-    </div>
+    <div class="entorno-grid" id="entorno-grid-home"></div>
   </div>
 </section>
 
@@ -188,5 +167,17 @@
 
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("entorno-grid-home").innerHTML = ENTORNO_ITEMS.map(
+      (item) => `
+      <a class="entorno-item" href="entorno.html#${item.slug}">
+        <img data-img-key="${item.image}" alt="${item.name}" />
+        <h4>${item.name}</h4>
+      </a>`
+    ).join("");
+    applyImages();
+  });
+</script>
 </body>
 </html>

@@ -37,7 +37,7 @@
           <h3>${item.name}</h3>
           <p>${item.longDescription}</p>
           ${item.externalLink && item.externalLink !== "#"
-            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">Web oficial &rarr;</a>`
+            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">${item.linkLabel || "Web oficial"} &rarr;</a>`
             : `<span style="font-size:.78rem;color:var(--text-light);">Enlace a web oficial pendiente de asignar (ver <code>ENTORNO_ITEMS</code> en config.js)</span>`}
         </div>
       </div>`

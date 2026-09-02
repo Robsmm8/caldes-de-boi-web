@@ -350,54 +350,60 @@ const RESTAURANTS = [
 
 /* -------------------------------------------------------------------------
    6) ENTORNO — puntos de interés
-   `link` puede apuntar a una web externa (turismo oficial, parque
-   nacional, etc.) cuando exista; mientras tanto se deja "#" y la tarjeta
-   despliega la descripción larga en la propia página entorno.html.
+   `externalLink` apunta a la web oficial de cada sitio; `linkLabel` es el
+   texto del botón que precede a la flecha (p. ej. "Descubrir el Parque").
+   Si `externalLink` se deja en "#", la tarjeta muestra un aviso de que
+   falta asignar el enlace en vez del botón.
    ------------------------------------------------------------------------- */
 const ENTORNO_ITEMS = [
   {
     slug: "parque-nacional",
-    name: "Parque Nacional Aigüestortes i Estany de Sant Maurici",
+    name: "Parque Nacional d'Aigüestortes i Estany de Sant Maurici",
     image: "entornoParque",
     shortDescription: "El único Parque Nacional de Cataluña, a un paso del resort.",
     longDescription:
-      "Un paraíso de lagos glaciares, bosques y alta montaña que se puede recorrer a pie desde el propio complejo. Ofrece rutas guiadas y miradores accesibles para todos los niveles.",
-    externalLink: "#",
+      "Lagos glaciares, bosques y alta montaña en el único Parque Nacional de Cataluña, a pocos minutos de Caldes de Boí.",
+    linkLabel: "Descubrir el Parque",
+    externalLink: "https://parcsnaturals.gencat.cat/es/xarxa-de-parcs/aiguestortes/inici/index.html",
   },
   {
     slug: "iglesia-taull",
-    name: "Iglesia de Sant Climent de Taüll",
+    name: "Sant Climent de Taüll",
     image: "entornoIglesia",
     shortDescription: "Patrimonio Mundial de la UNESCO, joya del arte románico.",
     longDescription:
-      "Una de las iglesias románicas mejor conservadas de Europa, símbolo del Valle de Boí y declarada Patrimonio de la Humanidad junto al resto de iglesias románicas del valle.",
-    externalLink: "#",
+      "Una de las grandes joyas del románico del Valle de Boí y parte del conjunto declarado Patrimonio Mundial por la UNESCO.",
+    linkLabel: "Visitar Sant Climent",
+    externalLink: "https://www.centreromanic.com/es/visita/",
   },
   {
     slug: "boi-taull-resort",
-    name: "Estación de esquí Boí Taüll Resort",
+    name: "Estación de montaña Boí Taüll",
     image: "entornoEsqui",
-    shortDescription: "Esquí alpino y de fondo a pocos minutos en coche.",
+    shortDescription: "Esquí y montaña en uno de los dominios más altos del Pirineo.",
     longDescription:
-      "Con más de 45 km esquiables y vistas privilegiadas sobre el Parque Nacional, es la estación de referencia del Pirineo de Lleida en temporada de nieve.",
-    externalLink: "#",
+      "Esquí y montaña en uno de los dominios más altos del Pirineo, rodeado por el paisaje de la Vall de Boí.",
+    linkLabel: "Descubrir Boí Taüll",
+    externalLink: "https://pirineu365.cat/es/boitaull/inicio/",
   },
   {
     slug: "pueblos-con-encanto",
-    name: "Pueblos con encanto: Barruera, Taüll, Boí…",
+    name: "Pueblos con encanto de la Vall de Boí",
     image: "entornoPueblos",
     shortDescription: "Arquitectura de montaña y tradición viva en cada rincón del valle.",
     longDescription:
-      "Pequeños núcleos de piedra y pizarra donde se conserva la esencia del Pirineo: gastronomía local, artesanía y un ritmo de vida pausado.",
-    externalLink: "#",
+      "Boí, Taüll, Barruera y otros pequeños pueblos conservan la arquitectura, las tradiciones y el ritmo de vida del Pirineo.",
+    linkLabel: "Descubrir los pueblos",
+    externalLink: "https://www.vallboi.cat/es/pueblos-con-encanto",
   },
   {
     slug: "rutas-senderos",
-    name: "Rutas y senderos para todos los niveles",
+    name: "Rutas y senderos",
     image: "entornoRutas",
     shortDescription: "Del paseo familiar a la travesía de alta montaña.",
     longDescription:
-      "Una red de senderos señalizados que sale prácticamente desde la puerta del hotel, con opciones desde 1 hora hasta jornadas completas de montaña.",
-    externalLink: "#",
+      "Caminos para todos los niveles, desde tranquilos paseos por el valle hasta rutas de alta montaña y recorridos por Aigüestortes.",
+    linkLabel: "Ver rutas",
+    externalLink: "https://www.vallboi.cat/es/senderismo",
   },
 ];
