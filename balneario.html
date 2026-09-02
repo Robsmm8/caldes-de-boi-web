@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Balneario · Caldes de Boí</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="balneario">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero page-hero" data-img-key="spaBanner">
+  <div class="container hero-inner">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Aguas Termales</div>
+    <span class="lede">Wellness &amp; Spa</span>
+    <h1>El balneario de Caldes de Boí</h1>
+    <p class="desc">37 manantiales mineromedicinales y un circuito termal centenario a disposición de los huéspedes de ambos hoteles.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Servicios termales</span>
+      <h2>Lista completa de servicios y tratamientos</h2>
+      <p>Este listado se gestiona íntegramente desde <code>js/config.js</code> (array <code>SPA_SERVICES</code>): añadir, quitar o editar un tratamiento no requiere tocar el HTML.</p>
+    </div>
+    <div id="spa-services-list"></div>
+  </div>
+</section>
+
+<section class="split-banner light">
+  <div class="img" data-img-key="spaInterior"></div>
+  <div class="copy">
+    <span class="eyebrow">Reservas de spa</span>
+    <h2>¿Quieres reservar un tratamiento?</h2>
+    <p>Consulta disponibilidad y reserva tu estancia; el acceso al balneario y los tratamientos se gestionan junto con la reserva de hotel.</p>
+    <a href="index.html#hoteles" class="btn btn-dark" style="align-self:flex-start;">Reservar estancia</a>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const byCategory = {};
+    SPA_SERVICES.forEach((s) => {
+      byCategory[s.category] = byCategory[s.category] || [];
+      byCategory[s.category].push(s);
+    });
+    const container = document.getElementById("spa-services-list");
+    container.innerHTML = Object.entries(byCategory)
+      .map(
+        ([category, services]) => `
+        <div class="category-block">
+          <h3>${category}</h3>
+          ${services
+            .map(
+              (s) => `
+            <div class="service-row">
+              <div>
+                <div class="name">${s.name}</div>
+                <p class="desc">${s.description}</p>
+              </div>
+              <div class="duration">${s.duration}</div>
+            </div>`
+            )
+            .join("")}
+        </div>`
+      )
+      .join("");
+  });
+</script>
+</body>
+</html>

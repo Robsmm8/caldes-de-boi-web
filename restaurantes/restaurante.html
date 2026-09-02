@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carta · Caldes de Boí</title>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="restauracion">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero page-hero" data-img-key="experienceGastronomy" id="rest-hero">
+  <div class="container hero-inner">
+    <div class="breadcrumb"><a href="../index.html">Inicio</a> / <a href="../restauracion.html">Restauración</a> / <span id="rest-name-crumb"></span></div>
+    <span class="lede" id="rest-tag"></span>
+    <h1 id="rest-name"></h1>
+    <p class="desc" id="rest-desc"></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:760px;">
+    <div id="rest-menu"></div>
+    <a href="../restauracion.html" class="btn btn-light">&larr; Volver a restaurantes</a>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script>window.SITE_BASE = "../";</script>
+<script src="../js/config.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slug = new URLSearchParams(window.location.search).get("r");
+    const restaurant = RESTAURANTS.find((r) => r.slug === slug) || RESTAURANTS[0];
+
+    document.title = `${restaurant.name} · Caldes de Boí`;
+    document.getElementById("rest-name").textContent = restaurant.name;
+    document.getElementById("rest-name-crumb").textContent = restaurant.name;
+    document.getElementById("rest-tag").textContent = `${restaurant.hotel} · ${restaurant.style}`;
+    document.getElementById("rest-desc").textContent = restaurant.description;
+    document.getElementById("rest-hero").setAttribute("data-img-key", restaurant.image);
+
+    document.getElementById("rest-menu").innerHTML = restaurant.menu
+      .map(
+        (section) => `
+        <div class="menu-section">
+          <h3>${section.section}</h3>
+          ${section.items
+            .map(
+              (item) => `
+            <div class="menu-item">
+              <span>${item.name}</span>
+              <span class="price">${item.price}</span>
+            </div>`
+            )
+            .join("")}
+        </div>`
+      )
+      .join("");
+
+    applyImages();
+  });
+</script>
+</body>
+</html>

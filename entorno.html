@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Entorno · Caldes de Boí</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="entorno">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero page-hero" data-img-key="entornoParque">
+  <div class="container hero-inner">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Entorno</div>
+    <span class="lede">Valle de Boí</span>
+    <h1>El entorno que nos rodea</h1>
+    <p class="desc">Naturaleza, patrimonio y montaña al alcance de un paseo desde el resort.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" id="entorno-list"></div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("entorno-list").innerHTML = ENTORNO_ITEMS.map(
+      (item) => `
+      <div class="entorno-detail" id="${item.slug}">
+        <img data-img-key="${item.image}" alt="${item.name}" />
+        <div class="body">
+          <h3>${item.name}</h3>
+          <p>${item.longDescription}</p>
+          ${item.externalLink && item.externalLink !== "#"
+            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">Web oficial &rarr;</a>`
+            : `<span style="font-size:.78rem;color:var(--text-light);">Enlace a web oficial pendiente de asignar (ver <code>ENTORNO_ITEMS</code> en config.js)</span>`}
+        </div>
+      </div>`
+    ).join("");
+    applyImages();
+  });
+</script>
+</body>
+</html>

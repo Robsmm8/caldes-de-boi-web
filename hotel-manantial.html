@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Manantial · Caldes de Boí</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="hoteles" data-hotel-id="manantial">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero page-hero" data-hotel-hero>
+  <div class="container hero-inner">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Hoteles / <span data-hotel-name></span></div>
+    <h1 data-hotel-name></h1>
+    <p class="desc" data-hotel-tagline></p>
+  </div>
+</section>
+
+<form class="booking-widget container">
+  <div class="bw-field">
+    <label>📅 Llegada</label>
+    <input type="date" name="checkin" />
+  </div>
+  <div class="bw-field">
+    <label>📅 Salida</label>
+    <input type="date" name="checkout" />
+  </div>
+  <div class="bw-field">
+    <label>👤 Huéspedes</label>
+    <select name="guests">
+      <option>1 adulto</option>
+      <option selected>2 adultos</option>
+      <option>2 adultos, 1 niño</option>
+      <option>4 adultos</option>
+    </select>
+  </div>
+  <div class="bw-submit">
+    <button type="submit" class="btn btn-dark">Comprobar disponibilidad</button>
+  </div>
+</form>
+
+<section class="section">
+  <div class="container grid-2" style="align-items:center;">
+    <div>
+      <span class="eyebrow">El hotel</span>
+      <h2 data-hotel-name></h2>
+      <p data-hotel-description></p>
+      <ul data-hotel-highlights style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--text-light);font-size:.92rem;"></ul>
+      <a href="#" class="btn btn-primary" data-scroll-booking>Reservar en este hotel</a>
+    </div>
+    <div>
+      <img data-img-key="roomSuite" style="border-radius:6px;" alt="Habitación" />
+    </div>
+  </div>
+</section>
+
+<section class="split-banner dark">
+  <div class="img" data-img-key="spaInterior"></div>
+  <div class="copy">
+    <span class="eyebrow">Aguas termales</span>
+    <h2>A un paso del balneario</h2>
+    <p>Todos los huéspedes de Caldes de Boí disfrutan de acceso al circuito termal mineromedicinal y a la lista completa de tratamientos del balneario.</p>
+    <a href="balneario.html" class="btn btn-primary" style="align-self:flex-start;">Ver servicios termales</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container center">
+    <span class="eyebrow">Gastronomía</span>
+    <h2>Restaurantes del complejo</h2>
+    <p style="max-width:520px;margin:0 auto 30px;">Descubre los diferentes restaurantes de Caldes de Boí y sus cartas.</p>
+    <a href="restauracion.html" class="btn btn-dark">Ver restaurantes</a>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/hotel-page.js"></script>
+</body>
+</html>

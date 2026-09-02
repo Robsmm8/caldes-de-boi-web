@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caldes de Boí · Balneari Thermal Resort</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero" data-img-key="heroHome">
+  <div class="container hero-inner">
+    <span class="lede">Aguas termales. Montaña. Bienestar.</span>
+    <h1>El poder natural de Caldes de Boí</h1>
+    <p class="desc">37 manantiales mineromedicinales, dos hoteles y un entorno único en el corazón de los Pirineos.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary" data-scroll-booking>Reservar estancia</a>
+      <a href="index.html#hoteles" class="btn btn-outline">Descubrir Caldes de Boí</a>
+    </div>
+  </div>
+</section>
+
+<form class="booking-widget container">
+  <div class="bw-field">
+    <label>📅 Llegada</label>
+    <input type="date" name="checkin" />
+  </div>
+  <div class="bw-field">
+    <label>📅 Salida</label>
+    <input type="date" name="checkout" />
+  </div>
+  <div class="bw-field">
+    <label>👤 Huéspedes</label>
+    <select name="guests">
+      <option>1 adulto</option>
+      <option selected>2 adultos</option>
+      <option>2 adultos, 1 niño</option>
+      <option>2 adultos, 2 niños</option>
+      <option>4 adultos</option>
+    </select>
+  </div>
+  <div class="bw-field">
+    <label>🏨 Hotel</label>
+    <select name="hotel">
+      <option value="any">Cualquiera</option>
+      <option value="manantial">Hotel Manantial</option>
+      <option value="caldas">Hotel Caldas</option>
+    </select>
+  </div>
+  <div class="bw-submit">
+    <button type="submit" class="btn btn-dark">Buscar disponibilidad</button>
+  </div>
+</form>
+
+<section class="container">
+  <div class="feature-strip">
+    <div class="feature-item">
+      <span class="icon">💧</span>
+      <div><h4>37 manantiales</h4><p>Aguas mineromedicinales de origen natural</p></div>
+    </div>
+    <div class="feature-item">
+      <span class="icon">🏛</span>
+      <div><h4>Balneario histórico</h4><p>Más de 2.000 años de tradición</p></div>
+    </div>
+    <div class="feature-item">
+      <span class="icon">🌲</span>
+      <div><h4>Parque Nacional</h4><p>Aigüestortes i Estany de Sant Maurici</p></div>
+    </div>
+    <div class="feature-item">
+      <span class="icon">♡</span>
+      <div><h4>Experiencias todo el año</h4><p>Cada estación, una emoción</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="hoteles">
+  <div class="container">
+    <div class="section-head">
+      <h2>Dos hoteles, dos maneras de vivir Caldes de Boí</h2>
+    </div>
+    <div class="grid-2">
+      <a href="hotel-manantial.html" class="hotel-card" data-img-key="hotelManantialThumb">
+        <div class="body">
+          <h3>Hotel Manantial</h3>
+          <p>Bienestar, tranquilidad y elegancia</p>
+          <span class="btn btn-light btn-sm">Descubrir hotel</span>
+        </div>
+      </a>
+      <a href="hotel-caldas.html" class="hotel-card" data-img-key="hotelCaldasThumb">
+        <div class="body">
+          <h3>Hotel Caldas</h3>
+          <p>Confort, naturaleza y espíritu familiar</p>
+          <span class="btn btn-light btn-sm">Descubrir hotel</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="split-banner dark">
+  <div class="img" data-img-key="spaBanner"></div>
+  <div class="copy">
+    <span class="eyebrow">Aguas termales</span>
+    <h2>El poder natural de nuestras aguas</h2>
+    <p>Bienestar y salud a través del agua termal mineromedicinal. Circuitos, tratamientos y masajes en un entorno único.</p>
+    <a href="balneario.html" class="btn btn-primary" style="align-self:flex-start;">Descubrir balneario</a>
+  </div>
+</section>
+
+<section class="section" id="experiencias">
+  <div class="container">
+    <div class="section-head"><h2>Vive experiencias únicas</h2></div>
+    <div class="exp-icons">
+      <div class="exp-item"><div class="ic">💧</div>Wellness &amp; Spa</div>
+      <div class="exp-item"><div class="ic">🚶</div>Naturaleza</div>
+      <div class="exp-item"><div class="ic">🌲</div>Aventura</div>
+      <div class="exp-item"><div class="ic">🍴</div>Gastronomía</div>
+      <div class="exp-item"><div class="ic">👨‍👩‍👧</div>Familias</div>
+      <div class="exp-item"><div class="ic">🏛</div>Cultura</div>
+    </div>
+    <div class="exp-photos">
+      <a class="exp-photo" href="balneario.html">
+        <img data-img-key="experienceWellness" alt="Wellness & Spa" />
+        <div class="cap"><h4>Bienestar &amp; Spa</h4><p>Relájate y déjate cuidar</p></div>
+      </a>
+      <a class="exp-photo" href="entorno.html">
+        <img data-img-key="experienceNature" alt="Rutas y naturaleza" />
+        <div class="cap"><h4>Rutas y naturaleza</h4><p>Descubre paisajes increíbles</p></div>
+      </a>
+      <a class="exp-photo" href="restauracion.html">
+        <img data-img-key="experienceGastronomy" alt="Gastronomía local" />
+        <div class="cap"><h4>Gastronomía local</h4><p>Sabores del Pirineo</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="split-banner light" style="direction:rtl;">
+  <div class="img" data-img-key="roomSuite"></div>
+  <div class="copy" style="direction:ltr;">
+    <span class="eyebrow">Habitaciones</span>
+    <h2>Tu refugio en la montaña</h2>
+    <p>Habitaciones y suites diseñadas para tu descanso, con todas las comodidades y vistas únicas del Valle de Boí.</p>
+    <div class="room-amenities">
+      <span>📶 WiFi gratuito</span>
+      <span>🔥 Calefacción</span>
+      <span>⛰ Vistas a la montaña</span>
+      <span>📺 TV pantalla plana</span>
+    </div>
+    <a href="hotel-manantial.html" class="btn btn-dark" style="align-self:flex-start;">Ver habitaciones</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head left" style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <h2 style="margin:0;">El entorno que nos rodea</h2>
+      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--amber-dark);">Ver todas &rarr;</a>
+    </div>
+    <div class="entorno-grid">
+      <a class="entorno-item" href="entorno.html#parque-nacional">
+        <img data-img-key="entornoParque" alt="" />
+        <h4>Parque Nacional Aigüestortes i Estany de Sant Maurici</h4>
+      </a>
+      <a class="entorno-item" href="entorno.html#iglesia-taull">
+        <img data-img-key="entornoIglesia" alt="" />
+        <h4>Iglesia de Sant Climent de Taüll</h4>
+      </a>
+      <a class="entorno-item" href="entorno.html#boi-taull-resort">
+        <img data-img-key="entornoEsqui" alt="" />
+        <h4>Estación de esquí Boí Taüll Resort</h4>
+      </a>
+      <a class="entorno-item" href="entorno.html#pueblos-con-encanto">
+        <img data-img-key="entornoPueblos" alt="" />
+        <h4>Pueblos con encanto: Barruera, Taüll, Boí…</h4>
+      </a>
+      <a class="entorno-item" href="entorno.html#rutas-senderos">
+        <img data-img-key="entornoRutas" alt="" />
+        <h4>Rutas y senderos para todos los niveles</h4>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

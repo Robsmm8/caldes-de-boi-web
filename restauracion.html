@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Restauración · Caldes de Boí</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="restauracion">
+
+<header class="site-header" id="site-header"></header>
+
+<section class="hero page-hero" data-img-key="experienceGastronomy">
+  <div class="container hero-inner">
+    <div class="breadcrumb"><a href="index.html">Inicio</a> / Restauración</div>
+    <span class="lede">Gastronomía</span>
+    <h1>Restaurantes del complejo</h1>
+    <p class="desc">Cada espacio gastronómico de Caldes de Boí tiene su propio carácter. Elige uno para ver su carta completa.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Dónde comer</span>
+      <h2>Nuestros restaurantes</h2>
+      <p>Este listado se genera desde <code>js/config.js</code> (array <code>RESTAURANTS</code>): añadir un restaurante nuevo con su carta no requiere crear ningún archivo HTML.</p>
+    </div>
+    <div class="grid-3" id="restaurant-list"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("restaurant-list");
+    container.innerHTML = RESTAURANTS.map(
+      (r) => `
+      <div class="restaurant-card">
+        <img data-img-key="${r.image}" alt="${r.name}" />
+        <div class="body">
+          <span class="tag">${r.hotel}</span>
+          <h3>${r.name}</h3>
+          <p>${r.description}</p>
+          <a class="btn btn-primary btn-sm" href="restaurantes/restaurante.html?r=${r.slug}">Ver carta</a>
+        </div>
+      </div>`
+    ).join("");
+    applyImages();
+  });
+</script>
+</body>
+</html>
