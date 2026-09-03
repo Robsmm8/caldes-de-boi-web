@@ -30,11 +30,11 @@ function renderHeader(activePage) {
       <a href="${BASE}index.html" class="brand">
         <img class="brand-logo" src="${BASE}assets/img/logo-resort.png" alt="Caldes de Boí — Balneari Thermal Resort" />
       </a>
-      <nav class="main-nav">${navHtml}</nav>
+      <nav class="main-nav" id="main-nav">${navHtml}</nav>
       <div class="header-actions">
         <span class="nav-lang">ES ▾</span>
-        <a href="#" class="btn btn-primary btn-sm" data-scroll-booking>Reservar</a>
-        <button class="nav-toggle" aria-label="Menú">☰</button>
+        <button type="button" class="btn btn-primary btn-sm" data-scroll-booking>Reservar</button>
+        <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">☰</button>
       </div>
     </div>`;
 }
@@ -44,17 +44,18 @@ function renderFooter() {
     <div class="container">
       <div class="footer-top">
         <div class="footer-newsletter">
-          <h5>Suscríbete a nuestra newsletter</h5>
+          <h5 id="newsletter-heading">Suscríbete a nuestra newsletter</h5>
           <p style="color:#9aa79a;max-width:340px;">Recibe ofertas exclusivas y novedades de Caldes de Boí.</p>
           <form onsubmit="event.preventDefault(); alert('Gracias por suscribirte (demo).');">
-            <input type="email" placeholder="Tu email" required />
+            <label for="newsletter-email" class="sr-only">Correo electrónico</label>
+            <input type="email" id="newsletter-email" placeholder="Tu email" aria-describedby="newsletter-heading" required />
             <button class="btn btn-primary btn-sm" type="submit">Suscribirme</button>
           </form>
         </div>
         <div>
           <h5 style="color:#fff;">Síguenos</h5>
           <div class="social">
-            <a href="#">◎</a><a href="#">f</a><a href="#">▶</a>
+            <a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a>
           </div>
         </div>
       </div>
@@ -109,7 +110,10 @@ function applyImages() {
     }
     if (el.tagName === "IMG") {
       el.src = url;
-      if (!el.alt) el.alt = key;
+      if (!el.hasAttribute("alt")) {
+        console.warn(`[a11y] <img data-img-key="${key}"> no tiene atributo alt; tratada como decorativa.`);
+        el.alt = "";
+      }
     } else {
       el.style.backgroundImage = `url('${url}')`;
     }
@@ -158,6 +162,8 @@ function buildBookingUrl(hotelId, params) {
   return `${engine.baseUrl}?${qs.toString()}`;
 }
 
+let modalLastFocusedEl = null;
+
 function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests }) {
   const engine = BOOKING_ENGINES[hotelId];
   const url = buildBookingUrl(hotelId, { checkin, checkout, guests });
@@ -169,11 +175,20 @@ function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests }) {
   overlay.querySelector("[data-m-guests]").textContent = guests || "—";
   overlay.querySelector("[data-m-url]").textContent = url;
   overlay.classList.add("open");
+
+  // Accesibilidad del diálogo: recordar el foco anterior y moverlo dentro
+  // del modal (WCAG 2.4.3 / 4.1.2), para restaurarlo al cerrar.
+  modalLastFocusedEl = document.activeElement;
+  overlay.querySelector(".modal-box .btn").focus();
 }
 
 function closeBookingModal() {
   const overlay = document.getElementById("booking-modal");
   if (overlay) overlay.classList.remove("open");
+  if (modalLastFocusedEl) {
+    modalLastFocusedEl.focus();
+    modalLastFocusedEl = null;
+  }
 }
 
 /* Engancha el formulario .booking-widget (si existe en la página) al conector */
@@ -214,9 +229,9 @@ function injectBookingModal() {
   div.id = "booking-modal";
   div.className = "modal-overlay";
   div.innerHTML = `
-    <div class="modal-box">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
       <span class="eyebrow">Simulación · conexión con motor de reservas</span>
-      <h3 data-m-hotel>Hotel</h3>
+      <h3 id="booking-modal-title" data-m-hotel>Hotel</h3>
       <p style="margin-bottom:0;">Este paso, en producción, redirige (o abre en un iframe) el motor de reservas real configurado en <code>js/config.js</code>.</p>
       <div class="row"><span>Motor asignado</span><strong data-m-engine></strong></div>
       <div class="row"><span>Entrada</span><strong data-m-checkin></strong></div>
@@ -242,27 +257,36 @@ document.addEventListener("DOMContentLoaded", () => {
   initBookingWidget();
 
   document.querySelectorAll("[data-scroll-booking]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", () => {
       const widget = document.querySelector(".booking-widget");
-      if (widget) {
-        e.preventDefault();
-        widget.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+      if (widget) widget.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
 
+  // Cerrar el modal de reservas con Escape (WCAG 2.1.1 / 2.1.2)
+  document.addEventListener("keydown", (e) => {
+    const overlay = document.getElementById("booking-modal");
+    if (e.key === "Escape" && overlay && overlay.classList.contains("open")) {
+      closeBookingModal();
+    }
+  });
+
   const toggle = document.querySelector(".nav-toggle");
-  if (toggle) {
+  const nav = document.getElementById("main-nav");
+  if (toggle && nav) {
     toggle.addEventListener("click", () => {
-      const nav = document.querySelector(".main-nav");
-      nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-      nav.style.flexDirection = "column";
-      nav.style.position = "absolute";
-      nav.style.top = "74px";
-      nav.style.left = "0";
-      nav.style.right = "0";
-      nav.style.background = "#16261d";
-      nav.style.padding = "16px 24px";
+      const isOpen = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    });
+    // Cerrar el menú móvil con Escape y devolver el foco al botón
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("open")) {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Abrir menú");
+        toggle.focus();
+      }
     });
   }
 });

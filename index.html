@@ -8,7 +8,11 @@
 </head>
 <body data-page="home">
 
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
 <header class="site-header" id="site-header"></header>
+
+<main id="main">
 
 <section class="hero" data-img-key="heroHome">
   <div class="container hero-inner">
@@ -16,24 +20,24 @@
     <h1>El poder natural de Caldes de Boí</h1>
     <p class="desc">37 manantiales mineromedicinales, dos hoteles y un entorno único en el corazón de los Pirineos.</p>
     <div class="hero-cta">
-      <a href="#" class="btn btn-primary" data-scroll-booking>Reservar estancia</a>
+      <button type="button" class="btn btn-primary" data-scroll-booking>Reservar estancia</button>
       <a href="index.html#hoteles" class="btn btn-outline">Descubrir Caldes de Boí</a>
     </div>
   </div>
 </section>
 
-<form class="booking-widget container">
+<form class="booking-widget container" aria-label="Buscador de disponibilidad">
   <div class="bw-field">
-    <label>📅 Llegada</label>
-    <input type="date" name="checkin" />
+    <label for="home-checkin"><span aria-hidden="true">📅</span> Llegada</label>
+    <input type="date" id="home-checkin" name="checkin" />
   </div>
   <div class="bw-field">
-    <label>📅 Salida</label>
-    <input type="date" name="checkout" />
+    <label for="home-checkout"><span aria-hidden="true">📅</span> Salida</label>
+    <input type="date" id="home-checkout" name="checkout" />
   </div>
   <div class="bw-field">
-    <label>👤 Huéspedes</label>
-    <select name="guests">
+    <label for="home-guests"><span aria-hidden="true">👤</span> Huéspedes</label>
+    <select id="home-guests" name="guests">
       <option>1 adulto</option>
       <option selected>2 adultos</option>
       <option>2 adultos, 1 niño</option>
@@ -42,8 +46,8 @@
     </select>
   </div>
   <div class="bw-field">
-    <label>🏨 Hotel</label>
-    <select name="hotel">
+    <label for="home-hotel"><span aria-hidden="true">🏨</span> Hotel</label>
+    <select id="home-hotel" name="hotel">
       <option value="any">Cualquiera</option>
       <option value="manantial">Hotel Manantial</option>
       <option value="caldas">Hotel Caldas</option>
@@ -57,20 +61,20 @@
 <section class="container">
   <div class="feature-strip">
     <div class="feature-item">
-      <span class="icon">💧</span>
-      <div><h4>37 manantiales</h4><p>Aguas mineromedicinales de origen natural</p></div>
+      <span class="icon" aria-hidden="true">💧</span>
+      <div><h3>37 manantiales</h3><p>Aguas mineromedicinales de origen natural</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon">🏛</span>
-      <div><h4>Balneario histórico</h4><p>Más de 2.000 años de tradición</p></div>
+      <span class="icon" aria-hidden="true">🏛</span>
+      <div><h3>Balneario histórico</h3><p>Más de 2.000 años de tradición</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon">🌲</span>
-      <div><h4>Parque Nacional</h4><p>Aigüestortes i Estany de Sant Maurici</p></div>
+      <span class="icon" aria-hidden="true">🌲</span>
+      <div><h3>Parque Nacional</h3><p>Aigüestortes i Estany de Sant Maurici</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon">♡</span>
-      <div><h4>Experiencias todo el año</h4><p>Cada estación, una emoción</p></div>
+      <span class="icon" aria-hidden="true">♡</span>
+      <div><h3>Experiencias todo el año</h3><p>Cada estación, una emoción</p></div>
     </div>
   </div>
 </section>
@@ -113,25 +117,25 @@
   <div class="container">
     <div class="section-head"><h2>Vive experiencias únicas</h2></div>
     <div class="exp-icons">
-      <div class="exp-item"><div class="ic">💧</div>Wellness &amp; Spa</div>
-      <div class="exp-item"><div class="ic">🚶</div>Naturaleza</div>
-      <div class="exp-item"><div class="ic">🌲</div>Aventura</div>
-      <div class="exp-item"><div class="ic">🍴</div>Gastronomía</div>
-      <div class="exp-item"><div class="ic">👨‍👩‍👧</div>Familias</div>
-      <div class="exp-item"><div class="ic">🏛</div>Cultura</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">💧</div>Wellness &amp; Spa</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🚶</div>Naturaleza</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🌲</div>Aventura</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🍴</div>Gastronomía</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">👨‍👩‍👧</div>Familias</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🏛</div>Cultura</div>
     </div>
     <div class="exp-photos">
       <a class="exp-photo" href="balneario.html">
         <img data-img-key="experienceWellness" alt="Wellness & Spa" />
-        <div class="cap"><h4>Bienestar &amp; Spa</h4><p>Relájate y déjate cuidar</p></div>
+        <div class="cap"><h3>Bienestar &amp; Spa</h3><p>Relájate y déjate cuidar</p></div>
       </a>
       <a class="exp-photo" href="entorno.html">
         <img data-img-key="experienceNature" alt="Rutas y naturaleza" />
-        <div class="cap"><h4>Rutas y naturaleza</h4><p>Descubre paisajes increíbles</p></div>
+        <div class="cap"><h3>Rutas y naturaleza</h3><p>Descubre paisajes increíbles</p></div>
       </a>
       <a class="exp-photo" href="restauracion.html">
         <img data-img-key="experienceGastronomy" alt="Gastronomía local" />
-        <div class="cap"><h4>Gastronomía local</h4><p>Sabores del Pirineo</p></div>
+        <div class="cap"><h3>Gastronomía local</h3><p>Sabores del Pirineo</p></div>
       </a>
     </div>
   </div>
@@ -144,10 +148,10 @@
     <h2>Tu refugio en la montaña</h2>
     <p>Habitaciones y suites diseñadas para tu descanso, con todas las comodidades y vistas únicas del Valle de Boí.</p>
     <div class="room-amenities">
-      <span>📶 WiFi gratuito</span>
-      <span>🔥 Calefacción</span>
-      <span>⛰ Vistas a la montaña</span>
-      <span>📺 TV pantalla plana</span>
+      <span><span aria-hidden="true">📶</span> WiFi gratuito</span>
+      <span><span aria-hidden="true">🔥</span> Calefacción</span>
+      <span><span aria-hidden="true">⛰</span> Vistas a la montaña</span>
+      <span><span aria-hidden="true">📺</span> TV pantalla plana</span>
     </div>
     <a href="hotel-manantial.html" class="btn btn-dark" style="align-self:flex-start;">Ver habitaciones</a>
   </div>
@@ -157,11 +161,13 @@
   <div class="container">
     <div class="section-head left" style="display:flex;justify-content:space-between;align-items:flex-end;">
       <h2 style="margin:0;">El entorno que nos rodea</h2>
-      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--amber-dark);">Ver todas &rarr;</a>
+      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--accent-text);">Ver todas &rarr;</a>
     </div>
     <div class="entorno-grid" id="entorno-grid-home"></div>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer" id="site-footer"></footer>
 
@@ -173,7 +179,7 @@
       (item) => `
       <a class="entorno-item" href="entorno.html#${item.slug}">
         <img data-img-key="${item.image}" alt="${item.name}" />
-        <h4>${item.name}</h4>
+        <h3>${item.name}</h3>
       </a>`
     ).join("");
     applyImages();

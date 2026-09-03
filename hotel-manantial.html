@@ -8,7 +8,11 @@
 </head>
 <body data-page="hoteles" data-hotel-id="manantial">
 
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
 <header class="site-header" id="site-header"></header>
+
+<main id="main">
 
 <section class="hero page-hero" data-hotel-hero>
   <div class="container hero-inner">
@@ -18,18 +22,18 @@
   </div>
 </section>
 
-<form class="booking-widget container">
+<form class="booking-widget container" aria-label="Comprobar disponibilidad en este hotel">
   <div class="bw-field">
-    <label>📅 Llegada</label>
-    <input type="date" name="checkin" />
+    <label for="manantial-checkin"><span aria-hidden="true">📅</span> Llegada</label>
+    <input type="date" id="manantial-checkin" name="checkin" />
   </div>
   <div class="bw-field">
-    <label>📅 Salida</label>
-    <input type="date" name="checkout" />
+    <label for="manantial-checkout"><span aria-hidden="true">📅</span> Salida</label>
+    <input type="date" id="manantial-checkout" name="checkout" />
   </div>
   <div class="bw-field">
-    <label>👤 Huéspedes</label>
-    <select name="guests">
+    <label for="manantial-guests"><span aria-hidden="true">👤</span> Huéspedes</label>
+    <select id="manantial-guests" name="guests">
       <option>1 adulto</option>
       <option selected>2 adultos</option>
       <option>2 adultos, 1 niño</option>
@@ -48,7 +52,7 @@
       <h2 data-hotel-name></h2>
       <p data-hotel-description></p>
       <ul data-hotel-highlights style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--text-light);font-size:.92rem;"></ul>
-      <a href="#" class="btn btn-primary" data-scroll-booking>Reservar en este hotel</a>
+      <button type="button" class="btn btn-primary" data-scroll-booking>Reservar en este hotel</button>
     </div>
     <div>
       <img data-img-key="roomSuite" style="border-radius:6px;" alt="Habitación" />
@@ -74,6 +78,8 @@
     <a href="restauracion.html" class="btn btn-dark">Ver restaurantes</a>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer" id="site-footer"></footer>
 
