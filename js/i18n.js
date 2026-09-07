@@ -181,6 +181,8 @@ const UI_STRINGS = {
     btn_volver_hoteles: "Tornar a hotels",
 
     hotel_eyebrow: "L'hotel", btn_reservar_este_hotel: "Reservar en aquest hotel",
+    hotel_rooms_eyebrow: "Allotjament", hotel_rooms_title: "Tria la teva habitació",
+    hotel_rooms_desc: "Cada habitació del complex té el seu propi caràcter. Descobreix quina s'adapta millor a la teva estada.",
     hotel_termal_title: "A un pas del balneari",
     hotel_termal_desc: "Tots els hostes de Caldes de Boí gaudeixen d'accés al circuit termal mineromedicinal i a la llista completa de tractaments del balneari.",
     btn_ver_servicios_termales: "Veure serveis termals",
@@ -292,6 +294,8 @@ const UI_STRINGS = {
     btn_volver_hoteles: "Volver a hoteles",
 
     hotel_eyebrow: "El hotel", btn_reservar_este_hotel: "Reservar en este hotel",
+    hotel_rooms_eyebrow: "Alojamiento", hotel_rooms_title: "Elige tu habitación",
+    hotel_rooms_desc: "Cada habitación del complejo tiene su propio carácter. Descubre cuál encaja mejor con tu estancia.",
     hotel_termal_title: "A un paso del balneario",
     hotel_termal_desc: "Todos los huéspedes de Caldes de Boí disfrutan de acceso al circuito termal mineromedicinal y a la lista completa de tratamientos del balneario.",
     btn_ver_servicios_termales: "Ver servicios termales",
@@ -403,6 +407,8 @@ const UI_STRINGS = {
     btn_volver_hoteles: "Back to hotels",
 
     hotel_eyebrow: "The hotel", btn_reservar_este_hotel: "Book this hotel",
+    hotel_rooms_eyebrow: "Accommodation", hotel_rooms_title: "Choose your room",
+    hotel_rooms_desc: "Every room at the resort has its own character. Discover which one best fits your stay.",
     hotel_termal_title: "Steps from the spa",
     hotel_termal_desc: "All Caldes de Boí guests enjoy access to the mineral-medicinal thermal circuit and the full list of spa treatments.",
     btn_ver_servicios_termales: "View thermal services",
@@ -514,6 +520,8 @@ const UI_STRINGS = {
     btn_volver_hoteles: "Retour aux hôtels",
 
     hotel_eyebrow: "L'hôtel", btn_reservar_este_hotel: "Réserver cet hôtel",
+    hotel_rooms_eyebrow: "Hébergement", hotel_rooms_title: "Choisissez votre chambre",
+    hotel_rooms_desc: "Chaque chambre du complexe a son propre caractère. Découvrez celle qui convient le mieux à votre séjour.",
     hotel_termal_title: "À deux pas des thermes",
     hotel_termal_desc: "Tous les clients de Caldes de Boí bénéficient de l'accès au circuit thermal minéro-médicinal et à la liste complète des soins des thermes.",
     btn_ver_servicios_termales: "Voir les services thermaux",

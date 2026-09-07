@@ -16,6 +16,23 @@ function renderHotelPage() {
   const list = document.querySelector("[data-hotel-highlights]");
   list.innerHTML = tr(hotel.highlights).map((h) => `<li>✓ ${h}</li>`).join("");
 
+  const roomsGrid = document.getElementById("room-types-grid");
+  if (roomsGrid) {
+    const rooms = ROOM_TYPES[hotelId] || [];
+    roomsGrid.innerHTML = rooms
+      .map(
+        (room) => `
+        <div class="room-type-card">
+          <img data-img-key="${room.image}" alt="${tr(room.name)}" />
+          <div class="body">
+            <h3>${tr(room.name)}</h3>
+            <p>${tr(room.description)}</p>
+          </div>
+        </div>`
+      )
+      .join("");
+  }
+
   const form = document.querySelector(".booking-widget");
   if (form) form.dataset.fixedHotel = hotelId;
 

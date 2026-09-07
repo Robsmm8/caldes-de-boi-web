@@ -44,6 +44,17 @@ const IMAGES = {
   barManantial:        "https://www.caldesdeboi.com/wp-content/uploads/2021/05/Hotel-Caldas-2018-0014-1024x683.jpg",
   restauranteCaldas:   "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Trinxat_de_La_Cerdanya.jpg/960px-Trinxat_de_La_Cerdanya.jpg",
   clubPiscina:         "https://www.caldesdeboi.com/wp-content/uploads/2021/08/DSCF9537-1.jpg",
+
+  // Modalidades de habitación — fotos reales caldesdeboi.com
+  roomManantialEstandar:      "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Estandar.jpg",
+  roomManantialSuperior:      "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Doble-Superior.jpg",
+  roomManantialFamiliar:      "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Familiar-Sup-1.jpg",
+  roomManantialJuniorSuite:   "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Junior-Suite.jpg",
+  roomManantialSuite:         "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Suite.jpg",
+  roomManantialSuiteAdaptada: "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Suite-2.jpg",
+  roomCaldasEstandar:         "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Hotel-Caldas-2018-0027.jpg",
+  roomCaldasSuperior:         "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Hotel-Caldas-2018-0032-scaled.jpg",
+  roomCaldasIndividual:       "https://www.caldesdeboi.com/wp-content/uploads/2021/09/Hotel-Caldas-2018-0020.jpg",
 };
 
 /* Vídeo de portada (opcional, desactivado). Ver README para reactivarlo. */
@@ -121,6 +132,110 @@ const HOTELS = {
       fr: ["Ambiance familiale et montagnarde", "À quelques minutes des thermes", "Restaurant de cuisine traditionnelle", "Point de départ idéal pour les randonnées"],
     },
   },
+};
+
+/* -------------------------------------------------------------------------
+   3b) MODALIDADES DE HABITACIÓN
+   Categorías y fotos reales de caldesdeboi.com/es/hotel-manatial/ y
+   /es/hotel-caldas/. Los textos NO son una copia literal de la web: se han
+   reformulado para resultar más atractivos comercialmente, mantenimiento
+   los datos reales (nº de habitaciones, vistas, comodidades).
+   ------------------------------------------------------------------------- */
+const ROOM_TYPES = {
+  manantial: [
+    {
+      image: "roomManantialEstandar",
+      name: { ca: "Doble Estàndard", es: "Doble Estándar", en: "Standard Double", fr: "Double Standard" },
+      description: {
+        ca: "El teu punt de partida ideal a Caldes de Boí: habitacions acollidores al cor de l'hotel, amb accés directe al centre termal sense sortir a l'exterior. Tria l'opció amb vistes a la vall i desperta't cada matí davant del verd infinit del Pirineu.",
+        es: "Tu punto de partida ideal en Caldes de Boí: habitaciones acogedoras en el corazón del hotel, con acceso directo al centro termal sin salir al exterior. Elige la opción con vistas al valle y despierta cada mañana frente al verde infinito del Pirineo.",
+        en: "Your ideal home base at Caldes de Boí: cosy rooms right at the heart of the hotel, with direct indoor access to the thermal spa. Choose the valley-view option and wake up every morning to endless Pyrenean green.",
+        fr: "Votre point de départ idéal à Caldes de Boí : des chambres chaleureuses au cœur de l'hôtel, avec accès direct aux thermes sans sortir. Optez pour la vue sur la vallée et réveillez-vous chaque matin face au vert infini des Pyrénées.",
+      },
+    },
+    {
+      image: "roomManantialSuperior",
+      name: { ca: "Doble Superior", es: "Doble Superior", en: "Superior Double", fr: "Double Supérieure" },
+      description: {
+        ca: "Un pas més de confort: el mateix benestar de sempre, amb espais més amplis i les millors vistes a la vall de Boí des de la teva pròpia finestra.",
+        es: "Un escalón más de confort: el mismo bienestar de siempre, con espacios más amplios y las mejores vistas al valle de Boí desde tu propia ventana.",
+        en: "A step up in comfort: the same wellbeing you love, with more space and the finest views over the Vall de Boí right from your window.",
+        fr: "Un cran de confort supplémentaire : le même bien-être, avec plus d'espace et les plus belles vues sur la Vall de Boí depuis votre fenêtre.",
+      },
+    },
+    {
+      image: "roomManantialFamiliar",
+      name: { ca: "Familiar Superior (4 persones)", es: "Familiar Superior (4 personas)", en: "Superior Family Room (4 guests)", fr: "Familiale Supérieure (4 personnes)" },
+      description: {
+        ca: "Pensada per compartir: amplitud i comoditat perquè tota la família desconnecti junta, sense renunciar a res.",
+        es: "Pensada para compartir: amplitud y comodidad para que toda la familia desconecte junta, sin renunciar a nada.",
+        en: "Designed for togetherness: room to breathe and every comfort, so the whole family can disconnect side by side.",
+        fr: "Pensée pour se retrouver : espace et confort pour que toute la famille se ressource ensemble, sans rien sacrifier.",
+      },
+    },
+    {
+      image: "roomManantialJuniorSuite",
+      name: { ca: "Junior Suite", es: "Junior Suite", en: "Junior Suite", fr: "Junior Suite" },
+      description: {
+        ca: "Una zona d'estar pròpia per allargar la sobretaula o simplement gaudir de més espai i llum, amb vistes privilegiades al Pirineu.",
+        es: "Una zona de estar propia para alargar la sobremesa o simplemente disfrutar de más espacio y luz, con vistas privilegiadas al Pirineo.",
+        en: "Your own sitting area to linger over coffee, or simply enjoy extra space and light, with privileged views of the Pyrenees.",
+        fr: "Un coin salon à vous pour prolonger la conversation, ou simplement profiter de plus d'espace et de lumière, avec une vue privilégiée sur les Pyrénées.",
+      },
+    },
+    {
+      image: "roomManantialSuite",
+      name: { ca: "Suite", es: "Suite", en: "Suite", fr: "Suite" },
+      description: {
+        ca: "L'opció més exclusiva de l'hotel: amplitud, elegància i tots els detalls pensats per a una estada inoblidable en plena natura.",
+        es: "La opción más exclusiva del hotel: amplitud, elegancia y todos los detalles pensados para una estancia inolvidable en plena naturaleza.",
+        en: "The hotel's most exclusive option: space, elegance and every detail designed for an unforgettable stay surrounded by nature.",
+        fr: "L'option la plus exclusive de l'hôtel : espace, élégance et une attention portée à chaque détail pour un séjour inoubliable en pleine nature.",
+      },
+    },
+    {
+      image: "roomManantialSuiteAdaptada",
+      name: { ca: "Suite Adaptada", es: "Suite Adaptada", en: "Accessible Suite", fr: "Suite Adaptée" },
+      description: {
+        ca: "El mateix luxe i confort de les nostres suites, amb totes les adaptacions necessàries per a la màxima accessibilitat i tranquil·litat.",
+        es: "El mismo lujo y confort de nuestras suites, con todas las adaptaciones necesarias para la máxima accesibilidad y tranquilidad.",
+        en: "The same luxury and comfort as our suites, fully adapted for maximum accessibility and peace of mind.",
+        fr: "Le même luxe et le même confort que nos suites, entièrement adaptée pour une accessibilité et une tranquillité maximales.",
+      },
+    },
+  ],
+  caldas: [
+    {
+      image: "roomCaldasEstandar",
+      name: { ca: "Doble Estàndard", es: "Doble Estándar", en: "Standard Double", fr: "Double Standard" },
+      description: {
+        ca: "Habitacions amb ànima: parets de pedra, terres de fusta i tot l'encant d'un edifici amb més de tres segles d'història. Amb vistes al riu Noguera de Tor o al pati on batega el cor de l'hotel.",
+        es: "Habitaciones con alma: paredes de piedra, suelos de madera y todo el encanto de un edificio con más de tres siglos de historia. Con vistas al río Noguera de Tor o al patio donde late el corazón del hotel.",
+        en: "Rooms with soul: stone walls, wooden floors and the charm of a building with over three centuries of history. With views over the Noguera de Tor river or the courtyard at the hotel's heart.",
+        fr: "Des chambres pleines d'âme : murs en pierre, sols en bois et tout le charme d'un bâtiment de plus de trois siècles. Avec vue sur la rivière Noguera de Tor ou sur la cour, cœur battant de l'hôtel.",
+      },
+    },
+    {
+      image: "roomCaldasSuperior",
+      name: { ca: "Doble Superior", es: "Doble Superior", en: "Superior Double", fr: "Double Supérieure" },
+      description: {
+        ca: "Un plus d'espai i confort sense perdre ni un bri del caràcter rústic que fa únic l'Hotel Caldas.",
+        es: "Un plus de espacio y confort sin perder ni un ápice del carácter rústico que hace único al Hotel Caldas.",
+        en: "Extra space and comfort without losing a hint of the rustic character that makes Hotel Caldas unique.",
+        fr: "Un supplément d'espace et de confort sans rien perdre du caractère rustique qui fait le charme de l'Hotel Caldas.",
+      },
+    },
+    {
+      image: "roomCaldasIndividual",
+      name: { ca: "Individual", es: "Individual", en: "Single Room", fr: "Chambre Individuelle" },
+      description: {
+        ca: "Perfecta per viatjar en solitari sense renunciar a l'encant de la muntanya: acollidora, tranquil·la i amb tot el necessari per descansar.",
+        es: "Perfecta para viajar en solitario sin renunciar al encanto de la montaña: acogedora, tranquila y con todo lo necesario para descansar.",
+        en: "Perfect for solo travellers who won't compromise on mountain charm: cosy, quiet and with everything you need to rest.",
+        fr: "Parfaite pour voyager seul sans renoncer au charme de la montagne : chaleureuse, calme et tout le confort pour se reposer.",
+      },
+    },
+  ],
 };
 
 /* -------------------------------------------------------------------------

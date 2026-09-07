@@ -90,6 +90,18 @@ Pista real encontrada: el Hotel Manantial ya usa un motor en
 (`back<hotel>.com`) todo apunta a **Roiback** como proveedor real. Merece
 la pena confirmarlo con el hotel.
 
+## 2b. Habitaciones — modalidades por hotel
+Cada página de hotel muestra, bajo la descripción del hotel, una
+cuadrícula con sus modalidades de habitación reales (`ROOM_TYPES` en
+`config.js`, separado por `manantial`/`caldas`): 6 tipos en el Manantial
+(Doble Estándar, Doble Superior, Familiar Superior, Junior Suite, Suite y
+Suite Adaptada) y 3 en el Caldas (Doble Estándar, Doble Superior e
+Individual), tomados de caldesdeboi.com/es/hotel-manatial/ y
+/es/hotel-caldas/. Los textos son propios (reformulados para vender mejor
+la experiencia), no una copia literal de la web; las fotos sí son reales.
+Añadir una modalidad nueva es solo añadir un objeto al array del hotel
+correspondiente (con sus 4 idiomas) — la cuadrícula se regenera sola.
+
 ## 3. Balneario — servicios termales y programas de salud
 `balneario.html` tiene dos bloques de contenido dinámico:
 
