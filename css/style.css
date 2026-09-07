@@ -173,6 +173,10 @@ img { max-width: 100%; display: block; }
 }
 .bw-field select:focus, .bw-field input:focus { outline: 2px solid var(--green-dark); outline-offset: 2px; border-color: var(--amber); }
 .bw-submit { flex: 0 0 auto; }
+.bw-room-note {
+  flex-basis: 100%; margin: 0; padding: 8px 12px; background: var(--cream);
+  border-radius: 4px; font-size: .84rem; color: var(--accent-text); font-weight: 600;
+}
 
 /* Feature strip */
 .feature-strip {
@@ -322,7 +326,8 @@ img { max-width: 100%; display: block; }
 .room-type-card img { height: 200px; width: 100%; object-fit: cover; }
 .room-type-card .body { padding: 20px; }
 .room-type-card h3 { font-size: 1.1rem; margin-bottom: .4em; }
-.room-type-card p { font-size: .88rem; margin: 0; }
+.room-type-card p { font-size: .88rem; margin: 0 0 14px; }
+.room-type-card .btn { align-self: flex-start; }
 
 @media (max-width: 1040px) {
   .main-nav { display: none; }

@@ -149,6 +149,7 @@ function buildBookingUrl(hotelId, params) {
   if (params.checkin) qs.set("checkin", params.checkin);
   if (params.checkout) qs.set("checkout", params.checkout);
   if (params.guests) qs.set("guests", params.guests);
+  if (params.room) qs.set("room", params.room);
 
   switch (engine.provider) {
     // case "avirato": qs.set("hid", engine.hotelCode); break;
@@ -161,12 +162,19 @@ function buildBookingUrl(hotelId, params) {
 
 let modalLastFocusedEl = null;
 
-function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests }) {
+function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests, roomLabel }) {
   const engine = BOOKING_ENGINES[hotelId];
-  const url = buildBookingUrl(hotelId, { checkin, checkout, guests });
+  const url = buildBookingUrl(hotelId, { checkin, checkout, guests, room: roomLabel });
   const overlay = document.getElementById("booking-modal");
   overlay.querySelector("[data-m-hotel]").textContent = hotelLabel;
   overlay.querySelector("[data-m-engine]").textContent = engine.engineName;
+  const roomRow = overlay.querySelector("[data-m-room-row]");
+  if (roomLabel) {
+    overlay.querySelector("[data-m-room]").textContent = roomLabel;
+    roomRow.style.display = "flex";
+  } else {
+    roomRow.style.display = "none";
+  }
   overlay.querySelector("[data-m-checkin]").textContent = checkin || "—";
   overlay.querySelector("[data-m-checkout]").textContent = checkout || "—";
   overlay.querySelector("[data-m-guests]").textContent = guests || "—";
@@ -199,12 +207,14 @@ function initBookingWidget() {
     const checkout = data.get("checkout");
     const guests = data.get("guests");
     const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+    const roomNote = form.querySelector("[data-room-note]");
+    const roomLabel = roomNote ? roomNote.dataset.roomValue : undefined;
 
     if (!hotelSelection || hotelSelection === "any") {
       showBookingModal({
         hotelLabel: t.modal_cualquiera,
         hotelId: "manantial",
-        checkin, checkout, guests,
+        checkin, checkout, guests, roomLabel,
       });
       return;
     }
@@ -212,7 +222,7 @@ function initBookingWidget() {
     showBookingModal({
       hotelLabel: tr(hotel.name),
       hotelId: hotel.bookingEngine,
-      checkin, checkout, guests,
+      checkin, checkout, guests, roomLabel,
     });
   });
 }
@@ -228,6 +238,7 @@ function injectBookingModal() {
       <h3 id="booking-modal-title" data-m-hotel>Hotel</h3>
       <p style="margin-bottom:0;" data-i18n="modal_sim_desc">Este paso, en producción, redirige (o abre en un iframe) el motor de reservas real configurado en js/config.js.</p>
       <div class="row"><span data-i18n="modal_motor">Motor asignado</span><strong data-m-engine></strong></div>
+      <div class="row" data-m-room-row style="display:none;"><span data-i18n="modal_habitacion">Habitación</span><strong data-m-room></strong></div>
       <div class="row"><span data-i18n="modal_entrada">Entrada</span><strong data-m-checkin></strong></div>
       <div class="row"><span data-i18n="modal_salida">Salida</span><strong data-m-checkout></strong></div>
       <div class="row"><span data-i18n="modal_huespedes">Huéspedes</span><strong data-m-guests></strong></div>
