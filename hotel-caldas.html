@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
 </head>
 <body data-page="hoteles" data-hotel-id="caldas">
 
-<a href="#main" class="skip-link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
 
 <header class="site-header" id="site-header"></header>
 
@@ -16,46 +16,46 @@
 
 <section class="hero page-hero" data-hotel-hero>
   <div class="container hero-inner">
-    <div class="breadcrumb"><a href="index.html">Inicio</a> / Hoteles / <span data-hotel-name></span></div>
+    <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_hoteles">Hotels</span> / <span data-hotel-name></span></div>
     <h1 data-hotel-name></h1>
     <p class="desc" data-hotel-tagline></p>
   </div>
 </section>
 
-<form class="booking-widget container" aria-label="Comprobar disponibilidad en este hotel">
+<form class="booking-widget container" data-i18n-aria-label="bw_aria_hotel">
   <div class="bw-field">
-    <label for="caldas-checkin"><span aria-hidden="true">📅</span> Llegada</label>
+    <label for="caldas-checkin"><span aria-hidden="true">📅</span> <span data-i18n="bw_llegada">Arribada</span></label>
     <input type="date" id="caldas-checkin" name="checkin" />
   </div>
   <div class="bw-field">
-    <label for="caldas-checkout"><span aria-hidden="true">📅</span> Salida</label>
+    <label for="caldas-checkout"><span aria-hidden="true">📅</span> <span data-i18n="bw_salida">Sortida</span></label>
     <input type="date" id="caldas-checkout" name="checkout" />
   </div>
   <div class="bw-field">
-    <label for="caldas-guests"><span aria-hidden="true">👤</span> Huéspedes</label>
+    <label for="caldas-guests"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
     <select id="caldas-guests" name="guests">
-      <option>1 adulto</option>
-      <option selected>2 adultos</option>
-      <option>2 adultos, 1 niño</option>
-      <option>4 adultos</option>
+      <option data-i18n="guests_1">1 adult</option>
+      <option selected data-i18n="guests_2">2 adults</option>
+      <option data-i18n="guests_2_1">2 adults, 1 nen</option>
+      <option data-i18n="guests_4">4 adults</option>
     </select>
   </div>
   <div class="bw-submit">
-    <button type="submit" class="btn btn-dark">Comprobar disponibilidad</button>
+    <button type="submit" class="btn btn-dark" data-i18n="bw_submit_hotel">Comprovar disponibilitat</button>
   </div>
 </form>
 
 <section class="section">
   <div class="container grid-2" style="align-items:center;">
     <div>
-      <span class="eyebrow">El hotel</span>
+      <span class="eyebrow" data-i18n="hotel_eyebrow">L'hotel</span>
       <h2 data-hotel-name></h2>
       <p data-hotel-description></p>
       <ul data-hotel-highlights style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--text-light);font-size:.92rem;"></ul>
-      <button type="button" class="btn btn-primary" data-scroll-booking>Reservar en este hotel</button>
+      <button type="button" class="btn btn-primary" data-scroll-booking data-i18n="btn_reservar_este_hotel">Reservar en aquest hotel</button>
     </div>
     <div>
-      <img data-img-key="roomSuite" style="border-radius:6px;" alt="Habitación" />
+      <img data-img-key="roomSuite" style="border-radius:6px;" alt="Habitació" />
     </div>
   </div>
 </section>
@@ -63,19 +63,19 @@
 <section class="split-banner dark">
   <div class="img" data-img-key="spaInterior"></div>
   <div class="copy">
-    <span class="eyebrow">Aguas termales</span>
-    <h2>A un paso del balneario</h2>
-    <p>Todos los huéspedes de Caldes de Boí disfrutan de acceso al circuito termal mineromedicinal y a la lista completa de tratamientos del balneario.</p>
-    <a href="balneario.html" class="btn btn-primary" style="align-self:flex-start;">Ver servicios termales</a>
+    <span class="eyebrow" data-i18n="spa_banner_eyebrow">Aigües termals</span>
+    <h2 data-i18n="hotel_termal_title">A un pas del balneari</h2>
+    <p data-i18n="hotel_termal_desc">Tots els hostes de Caldes de Boí gaudeixen d'accés al circuit termal mineromedicinal i a la llista completa de tractaments del balneari.</p>
+    <a href="balneario.html#servicios" class="btn btn-primary" style="align-self:flex-start;" data-i18n="btn_ver_servicios_termales">Veure serveis termals</a>
   </div>
 </section>
 
 <section class="section">
   <div class="container center">
-    <span class="eyebrow">Gastronomía</span>
-    <h2>Restaurantes del complejo</h2>
-    <p style="max-width:520px;margin:0 auto 30px;">Descubre los diferentes restaurantes de Caldes de Boí y sus cartas.</p>
-    <a href="restauracion.html" class="btn btn-dark">Ver restaurantes</a>
+    <span class="eyebrow" data-i18n="hotel_gastro_eyebrow">Gastronomia</span>
+    <h2 data-i18n="hotel_gastro_title">Restaurants del complex</h2>
+    <p style="max-width:520px;margin:0 auto 30px;" data-i18n="hotel_gastro_desc">Descobreix els diferents restaurants de Caldes de Boí i les seves cartes.</p>
+    <a href="restauracion.html" class="btn btn-dark" data-i18n="btn_ver_restaurantes">Veure restaurants</a>
   </div>
 </section>
 
@@ -84,6 +84,7 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hotel-page.js"></script>
 </body>

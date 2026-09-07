@@ -2,7 +2,8 @@
 
 Prototipo estático (HTML/CSS/JS sin dependencias ni build) que replica la
 estructura de la web mostrada en la maqueta: home, hoteles, balneario,
-restauración y entorno.
+restauración y entorno. **Disponible en 4 idiomas**: català (por defecto),
+español, inglés y francés.
 
 ## Cómo verlo
 Al ser HTML estático, basta con abrir `index.html` en un navegador o
@@ -14,17 +15,41 @@ caldes-de-boi/
   index.html                Home
   hotel-manantial.html      Ficha Hotel Manantial (plantilla común)
   hotel-caldas.html         Ficha Hotel Caldas   (misma plantilla)
-  balneario.html            Wellness & Spa — lista de servicios termales
+  balneario.html            Wellness & Spa — acordeón de servicios + programas
   restauracion.html         Listado de restaurantes del complejo
   restaurantes/
     restaurante.html        Plantilla de carta (?r=<slug>), una sola página
                              sirve para todos los restaurantes
   entorno.html              Puntos de interés del Valle de Boí
+  ofertas.html              Placeholder de ofertas
   css/style.css             Estilos (variables de color/tipografía arriba)
-  js/config.js              *** ÚNICO archivo de contenido/datos ***
-  js/main.js                Header/footer, imágenes, motor de reservas
+  js/config.js              *** ÚNICO archivo de contenido/datos (en 4 idiomas) ***
+  js/i18n.js                Textos de interfaz (4 idiomas) + funciones tr()/setLang()
+  js/main.js                Header/footer, selector de idioma, imágenes, motor de reservas
   js/hotel-page.js          Rellena hotel-manantial.html / hotel-caldas.html
 ```
+
+## 0. Idiomas (català / español / inglés / francés)
+Todo el sitio es multi-idioma **sin recargar la página**: el selector
+CA/ES/EN/FR del header (`js/main.js`) llama a `setLang()` (`js/i18n.js`),
+que guarda el idioma en `localStorage` y vuelve a pintar tanto los textos
+fijos como las listas dinámicas al instante.
+
+- **Textos de interfaz** (menú, botones, títulos de sección...) viven en
+  `UI_STRINGS` (`js/i18n.js`), un objeto por idioma. Cualquier elemento
+  HTML con `data-i18n="clave"` se traduce solo.
+- **Contenido** (hoteles, servicios, restaurantes, entorno, programas —
+  todo en `js/config.js`) usa campos `{ca, es, en, fr}` en vez de texto
+  plano. Para leerlos en el idioma activo se usa `tr(campo)`.
+- Cada página con listas dinámicas expone `window.rerenderDynamicContent`
+  para que, al cambiar de idioma, esas listas se regeneren igual que el
+  resto de la página.
+- **Para añadir contenido nuevo**: rellena siempre los 4 idiomas en el
+  objeto correspondiente de `config.js`. Si falta alguno, `tr()` cae a
+  español como respaldo (para no dejar huecos en pantalla).
+- Las traducciones actuales están hechas por IA a partir del contenido en
+  español; antes de publicar el sitio de verdad conviene que las revise
+  alguien nativo de cada idioma (especialmente catalán y francés).
 
 ## 1. Cambiar imágenes
 Todas las fotos del sitio están centralizadas en el objeto `IMAGES` de
@@ -60,26 +85,54 @@ Cuando se elija el motor definitivo:
 3. Cambiar `showBookingModal(...)` por `window.location.href = url` (o
    abrir el motor en un iframe/modal, según lo que exija el proveedor).
 
-## 3. Balneario — lista de servicios termales
-`balneario.html` pinta la lista completa a partir del array
-`SPA_SERVICES` de `config.js` (categoría, nombre, duración, descripción).
-Añadir/editar un tratamiento es solo tocar ese array.
+Pista real encontrada: el Hotel Manantial ya usa un motor en
+`hotelmanantial.backhotelite.com` — por el patrón de dominio
+(`back<hotel>.com`) todo apunta a **Roiback** como proveedor real. Merece
+la pena confirmarlo con el hotel.
+
+## 3. Balneario — servicios termales y programas de salud
+`balneario.html` tiene dos bloques de contenido dinámico:
+
+- **Carta de servicios termales** (`#servicios`): un acordeón por
+  categorías (`SPA_CATEGORIES` en `config.js`), calcado de las 17
+  categorías reales de caldesdeboi.com/es/carta-de-servicios-termales/.
+  Los 9 precios de "Servicios de agua termal" son reales; el resto de
+  categorías llevan servicios representativos con `priceApprox: true`
+  (precio orientativo) pendientes de confirmar con el balneario — lo
+  ideal es sustituirlos por su lista de precios real completa.
+- **Programas de salud y bienestar** (`#programas`): tarjetas con los 8
+  programas reales de caldesdeboi.com/es/programas-de-salud-y-bienestar/
+  (`HEALTH_PROGRAMS` en `config.js`), cada una con su botón "Descargar
+  programa (PDF)" enlazando al PDF real ya publicado en caldesdeboi.com.
+
+La tarjeta "Bienestar & Spa" de la home y el botón "Descubrir balneario"
+enlazan directamente a `balneario.html#servicios`, así que aterrizan ya
+en esta sección en vez de solo en la cabecera de la página.
+
+Añadir una categoría, un servicio o un programa nuevo es solo añadir un
+objeto a `SPA_CATEGORIES` o `HEALTH_PROGRAMS` (con sus 4 idiomas) — el
+acordeón y la cuadrícula de programas se regeneran solos.
 
 ## 4. Restauración — restaurantes y cartas
 `restauracion.html` lista los restaurantes desde `RESTAURANTS`
-(`config.js`); cada tarjeta enlaza a `restaurantes/restaurante.html?r=<slug>`,
-que renderiza la carta completa (secciones + platos + precio) de ese
-restaurante. Añadir un restaurante nuevo (con su carta) es solo añadir un
-objeto al array — no hace falta crear ningún HTML nuevo.
+(`config.js`), en este orden: Restaurante Manantial, Bar del Manantial,
+Restaurante Caldas, Restaurante Club Piscina. Cada tarjeta enlaza a
+`restaurantes/restaurante.html?r=<slug>`, que renderiza la carta completa
+(secciones + platos + precio) de ese restaurante. Añadir un restaurante
+nuevo (con su carta) es solo añadir un objeto al array, respetando el
+orden deseado — no hace falta crear ningún HTML nuevo.
 
 ## 5. Entorno
 `entorno.html` lista los puntos de interés desde `ENTORNO_ITEMS`. Cada uno
-admite un `externalLink` a la web oficial (turismo, parque nacional,
-etc.); mientras no exista ese enlace, la propia página muestra la
-descripción larga como "web que lo explica".
+tiene un `externalLink` a su web oficial real y un `linkLabel` (texto del
+botón) en los 4 idiomas.
 
 ## Pendiente de decidir con el cliente
-- Motor(es) de reserva reales para Manantial y Caldas.
-- Banco de fotos definitivo (sustituir `IMAGES`).
-- Textos definitivos de cartas/tratamientos/entorno (los actuales son de
-  ejemplo/placeholder).
+- Motor(es) de reserva reales para Manantial y Caldas (ver pista Roiback arriba).
+- Lista de precios real y completa de la carta de servicios termales
+  (hoy solo "Servicios de agua termal" tiene precios 100% reales).
+- Categorización exacta (Salud/Bienestar/Belleza) de los programas de
+  salud — la actual es una asignación razonable, no confirmada.
+- Revisión profesional de las traducciones en català, inglés y francés.
+- Banco de fotos definitivo (sustituir `IMAGES`), especialmente
+  habitaciones y platos reales de cada carta.

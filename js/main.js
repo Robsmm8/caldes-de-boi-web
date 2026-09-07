@@ -1,59 +1,65 @@
 /* =========================================================================
    MAIN.JS — comportamiento común a todas las páginas
-   Header/footer, aplicación de imágenes desde config.js, y el conector
-   parametrizado hacia los dos motores de reserva.
+   Header/footer (con selector de idioma), aplicación de imágenes desde
+   config.js, y el conector parametrizado hacia los dos motores de reserva.
+   Requiere que js/i18n.js y js/config.js se carguen ANTES que este archivo.
    ========================================================================= */
 
-/* ---- Header / Footer, inyectados una sola vez para no duplicar el marcado ----
-   BASE se antepone a todos los enlaces internos para que el header/footer
+/* BASE se antepone a todos los enlaces internos para que el header/footer
    funcionen igual desde la raíz que desde subcarpetas (p. ej. restaurantes/).
    Cada página define window.SITE_BASE antes de cargar main.js si vive en
    una subcarpeta (ver restaurantes/restaurante.html); por defecto es "". */
 const BASE = window.SITE_BASE || "";
 
 function renderHeader(activePage) {
+  const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
   const links = [
-    { href: `${BASE}index.html`, label: "El Resort", key: "home" },
-    { href: `${BASE}index.html#hoteles`, label: "Hoteles", key: "hoteles" },
-    { href: `${BASE}balneario.html`, label: "Aguas Termales", key: "balneario" },
-    { href: `${BASE}index.html#experiencias`, label: "Experiencias", key: "experiencias" },
-    { href: `${BASE}entorno.html`, label: "Entorno", key: "entorno" },
-    { href: `${BASE}restauracion.html`, label: "Restauración", key: "restauracion" },
-    { href: `${BASE}ofertas.html`, label: "Ofertas", key: "ofertas" },
+    { href: `${BASE}index.html`, label: t.nav_resort, key: "home" },
+    { href: `${BASE}index.html#hoteles`, label: t.nav_hoteles, key: "hoteles" },
+    { href: `${BASE}balneario.html`, label: t.nav_termal, key: "balneario" },
+    { href: `${BASE}index.html#experiencias`, label: t.nav_experiencias, key: "experiencias" },
+    { href: `${BASE}entorno.html`, label: t.nav_entorno, key: "entorno" },
+    { href: `${BASE}restauracion.html`, label: t.nav_restauracion, key: "restauracion" },
+    { href: `${BASE}ofertas.html`, label: t.nav_ofertas, key: "ofertas" },
   ];
   const navHtml = links
     .map((l) => `<a href="${l.href}" style="${l.key === activePage ? "color:#c8935a;" : ""}">${l.label}</a>`)
     .join("");
 
+  const langHtml = LANGS
+    .map((l) => `<button type="button" class="lang-btn${l === getLang() ? " active" : ""}" data-lang="${l}" aria-current="${l === getLang() ? "true" : "false"}">${l.toUpperCase()}</button>`)
+    .join("");
+
   return `
     <div class="container">
       <a href="${BASE}index.html" class="brand">
-        <img class="brand-logo" src="${BASE}assets/img/logo-resort.png" alt="Caldes de Boí — Balneari Thermal Resort" />
+        <img class="brand-logo" src="${BASE}assets/img/logo-resort.png" alt="${t.brand_alt}" />
       </a>
       <nav class="main-nav" id="main-nav">${navHtml}</nav>
       <div class="header-actions">
-        <span class="nav-lang">ES ▾</span>
-        <button type="button" class="btn btn-primary btn-sm" data-scroll-booking>Reservar</button>
-        <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">☰</button>
+        <div class="lang-switch" role="group" aria-label="Idioma / Language">${langHtml}</div>
+        <button type="button" class="btn btn-primary btn-sm" data-scroll-booking>${t.nav_reservar}</button>
+        <button type="button" class="nav-toggle" aria-label="${t.nav_menu_open}" aria-expanded="false" aria-controls="main-nav">☰</button>
       </div>
     </div>`;
 }
 
 function renderFooter() {
+  const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
   return `
     <div class="container">
       <div class="footer-top">
         <div class="footer-newsletter">
-          <h5 id="newsletter-heading">Suscríbete a nuestra newsletter</h5>
-          <p style="color:#9aa79a;max-width:340px;">Recibe ofertas exclusivas y novedades de Caldes de Boí.</p>
+          <h5 id="newsletter-heading">${t.footer_newsletter_title}</h5>
+          <p style="color:#9aa79a;max-width:340px;">${t.footer_newsletter_desc}</p>
           <form onsubmit="event.preventDefault(); alert('Gracias por suscribirte (demo).');">
-            <label for="newsletter-email" class="sr-only">Correo electrónico</label>
-            <input type="email" id="newsletter-email" placeholder="Tu email" aria-describedby="newsletter-heading" required />
-            <button class="btn btn-primary btn-sm" type="submit">Suscribirme</button>
+            <label for="newsletter-email" class="sr-only">${t.footer_email_label}</label>
+            <input type="email" id="newsletter-email" placeholder="${t.footer_email_placeholder}" aria-describedby="newsletter-heading" required />
+            <button class="btn btn-primary btn-sm" type="submit">${t.footer_suscribirme}</button>
           </form>
         </div>
         <div>
-          <h5 style="color:#fff;">Síguenos</h5>
+          <h5 style="color:#fff;">${t.footer_seguinos}</h5>
           <div class="social">
             <a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a>
           </div>
@@ -61,40 +67,40 @@ function renderFooter() {
       </div>
       <div class="footer-cols">
         <div>
-          <h5>El Resort</h5>
+          <h5>${t.footer_col_resort}</h5>
           <ul>
-            <li><a href="${BASE}index.html">Quiénes somos</a></li>
-            <li><a href="${BASE}index.html">Sostenibilidad</a></li>
-            <li><a href="${BASE}index.html">Galería</a></li>
-            <li><a href="${BASE}index.html">Contacto</a></li>
+            <li><a href="${BASE}index.html">${t.footer_quienes}</a></li>
+            <li><a href="${BASE}index.html">${t.footer_sostenibilidad}</a></li>
+            <li><a href="${BASE}index.html">${t.footer_galeria}</a></li>
+            <li><a href="${BASE}index.html">${t.footer_contacto}</a></li>
           </ul>
         </div>
         <div>
-          <h5>Hoteles</h5>
+          <h5>${t.footer_col_hoteles}</h5>
           <ul>
             <li><a href="${BASE}hotel-manantial.html">Hotel Manantial</a></li>
             <li><a href="${BASE}hotel-caldas.html">Hotel Caldas</a></li>
           </ul>
         </div>
         <div>
-          <h5>Aguas Termales</h5>
+          <h5>${t.footer_col_termal}</h5>
           <ul>
-            <li><a href="${BASE}balneario.html">Balneario</a></li>
-            <li><a href="${BASE}balneario.html">Tratamientos</a></li>
+            <li><a href="${BASE}balneario.html">${t.footer_balneario}</a></li>
+            <li><a href="${BASE}balneario.html#programas">${t.footer_tratamientos}</a></li>
           </ul>
         </div>
         <div>
-          <h5>Experiencias</h5>
+          <h5>${t.footer_col_exp}</h5>
           <ul>
-            <li><a href="${BASE}balneario.html">Wellness &amp; Spa</a></li>
-            <li><a href="${BASE}entorno.html">Naturaleza</a></li>
-            <li><a href="${BASE}restauracion.html">Gastronomía</a></li>
+            <li><a href="${BASE}balneario.html">${t.exp_wellness}</a></li>
+            <li><a href="${BASE}entorno.html">${t.footer_naturaleza}</a></li>
+            <li><a href="${BASE}restauracion.html">${t.footer_gastronomia}</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Caldes de Boí Balneari Thermal Resort</span>
-        <span><a href="#">Política de privacidad</a> · <a href="#">Política de cookies</a></span>
+        <span>${t.footer_copyright}</span>
+        <span><a href="#">${t.footer_privacidad}</a> · <a href="#">${t.footer_cookies}</a></span>
       </div>
     </div>`;
 }
@@ -126,17 +132,13 @@ function applyHeroVideo() {
   if (!video || !HERO_VIDEO) return;
   video.poster = IMAGES.heroHome;
   video.src = HERO_VIDEO;
-  // Si el vídeo no puede reproducirse (red, formato, etc.) se queda la
-  // imagen de fondo del propio .hero (heroHome) como respaldo.
   video.addEventListener("error", () => video.remove());
 }
 
 /* =========================================================================
    MOTOR DE RESERVAS — capa de integración parametrizada
    buildBookingUrl() es el ÚNICO sitio que hay que adaptar cuando se
-   contrate el motor real de cada hotel. Hoy soporta un formato "generic"
-   de query-string; añadid un `case` por proveedor si el motor definitivo
-   necesita otro formato de URL.
+   contrate el motor real de cada hotel.
    ========================================================================= */
 function buildBookingUrl(hotelId, params) {
   const engine = BOOKING_ENGINES[hotelId];
@@ -149,12 +151,7 @@ function buildBookingUrl(hotelId, params) {
   if (params.guests) qs.set("guests", params.guests);
 
   switch (engine.provider) {
-    // Ejemplo de cómo se adaptaría un proveedor concreto el día de mañana:
-    // case "avirato":
-    //   qs.set("hid", engine.hotelCode);
-    //   qs.set("arrival", params.checkin);
-    //   qs.set("departure", params.checkout);
-    //   break;
+    // case "avirato": qs.set("hid", engine.hotelCode); break;
     case "generic":
     default:
       break;
@@ -176,8 +173,6 @@ function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests }) {
   overlay.querySelector("[data-m-url]").textContent = url;
   overlay.classList.add("open");
 
-  // Accesibilidad del diálogo: recordar el foco anterior y moverlo dentro
-  // del modal (WCAG 2.4.3 / 4.1.2), para restaurarlo al cerrar.
   modalLastFocusedEl = document.activeElement;
   overlay.querySelector(".modal-box .btn").focus();
 }
@@ -203,12 +198,11 @@ function initBookingWidget() {
     const checkin = data.get("checkin");
     const checkout = data.get("checkout");
     const guests = data.get("guests");
+    const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
 
     if (!hotelSelection || hotelSelection === "any") {
-      // "Cualquiera": de momento mostramos ambos motores; con datos reales
-      // se podría lanzar un buscador combinado.
       showBookingModal({
-        hotelLabel: "Cualquiera de los dos hoteles",
+        hotelLabel: t.modal_cualquiera,
         hotelId: "manantial",
         checkin, checkout, guests,
       });
@@ -216,7 +210,7 @@ function initBookingWidget() {
     }
     const hotel = HOTELS[hotelSelection];
     showBookingModal({
-      hotelLabel: hotel.name,
+      hotelLabel: tr(hotel.name),
       hotelId: hotel.bookingEngine,
       checkin, checkout, guests,
     });
@@ -230,19 +224,49 @@ function injectBookingModal() {
   div.className = "modal-overlay";
   div.innerHTML = `
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
-      <span class="eyebrow">Simulación · conexión con motor de reservas</span>
+      <span class="eyebrow" data-i18n="modal_sim_label">Simulación · conexión con motor de reservas</span>
       <h3 id="booking-modal-title" data-m-hotel>Hotel</h3>
-      <p style="margin-bottom:0;">Este paso, en producción, redirige (o abre en un iframe) el motor de reservas real configurado en <code>js/config.js</code>.</p>
-      <div class="row"><span>Motor asignado</span><strong data-m-engine></strong></div>
-      <div class="row"><span>Entrada</span><strong data-m-checkin></strong></div>
-      <div class="row"><span>Salida</span><strong data-m-checkout></strong></div>
-      <div class="row"><span>Huéspedes</span><strong data-m-guests></strong></div>
+      <p style="margin-bottom:0;" data-i18n="modal_sim_desc">Este paso, en producción, redirige (o abre en un iframe) el motor de reservas real configurado en js/config.js.</p>
+      <div class="row"><span data-i18n="modal_motor">Motor asignado</span><strong data-m-engine></strong></div>
+      <div class="row"><span data-i18n="modal_entrada">Entrada</span><strong data-m-checkin></strong></div>
+      <div class="row"><span data-i18n="modal_salida">Salida</span><strong data-m-checkout></strong></div>
+      <div class="row"><span data-i18n="modal_huespedes">Huéspedes</span><strong data-m-guests></strong></div>
       <div class="url-box" data-m-url></div>
       <div class="modal-actions">
-        <button class="btn btn-light btn-sm" onclick="closeBookingModal()">Cerrar</button>
+        <button class="btn btn-light btn-sm" data-i18n="modal_cerrar" onclick="closeBookingModal()">Cerrar</button>
       </div>
     </div>`;
   document.body.appendChild(div);
+}
+
+/* Vuelve a enganchar los eventos de los botones que viven DENTRO del header
+   (se regeneran cada vez que cambia el idioma, así que hay que rehacer los
+   listeners solo de esa parte — el resto de la página no se re-renderiza). */
+function wireHeaderInteractions() {
+  const headerEl = document.getElementById("site-header");
+  if (!headerEl) return;
+
+  headerEl.querySelectorAll("[data-scroll-booking]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const widget = document.querySelector(".booking-widget");
+      if (widget) widget.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
+
+  headerEl.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+
+  const toggle = headerEl.querySelector(".nav-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const nav = document.getElementById("main-nav");
+      const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+      const isOpen = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? t.nav_menu_close : t.nav_menu_open);
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -251,42 +275,41 @@ document.addEventListener("DOMContentLoaded", () => {
   if (headerEl) headerEl.innerHTML = renderHeader(document.body.dataset.page || "");
   if (footerEl) footerEl.innerHTML = renderFooter();
 
+  applyI18n();
   applyImages();
   applyHeroVideo();
   injectBookingModal();
+  applyI18n(); // vuelve a pasar tras inyectar el modal, para traducir su contenido
   initBookingWidget();
+  wireHeaderInteractions();
 
-  document.querySelectorAll("[data-scroll-booking]").forEach((btn) => {
+  // Botones "Reservar" fuera del header (hero, páginas de hotel...): no se
+  // regeneran nunca, así que basta con engancharlos una vez aquí.
+  document.querySelectorAll("[data-scroll-booking]:not(#site-header [data-scroll-booking])").forEach((btn) => {
     btn.addEventListener("click", () => {
       const widget = document.querySelector(".booking-widget");
       if (widget) widget.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
 
-  // Cerrar el modal de reservas con Escape (WCAG 2.1.1 / 2.1.2)
+  // Cerrar modal de reservas y menú móvil con Escape (busca los elementos
+  // en el momento del evento, para que siga funcionando tras un cambio de
+  // idioma que haya regenerado el header).
   document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
     const overlay = document.getElementById("booking-modal");
-    if (e.key === "Escape" && overlay && overlay.classList.contains("open")) {
+    if (overlay && overlay.classList.contains("open")) {
       closeBookingModal();
+      return;
+    }
+    const nav = document.getElementById("main-nav");
+    const toggle = document.querySelector(".nav-toggle");
+    if (nav && nav.classList.contains("open")) {
+      const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", t.nav_menu_open);
+      toggle.focus();
     }
   });
-
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.getElementById("main-nav");
-  if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
-    });
-    // Cerrar el menú móvil con Escape y devolver el foco al botón
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && nav.classList.contains("open")) {
-        nav.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Abrir menú");
-        toggle.focus();
-      }
-    });
-  }
 });

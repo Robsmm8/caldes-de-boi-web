@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Entorno · Caldes de Boí</title>
+<title>Entorn · Caldes de Boí</title>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body data-page="entorno">
 
-<a href="#main" class="skip-link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
 
 <header class="site-header" id="site-header"></header>
 
@@ -16,10 +16,10 @@
 
 <section class="hero page-hero" data-img-key="entornoParque">
   <div class="container hero-inner">
-    <div class="breadcrumb"><a href="index.html">Inicio</a> / Entorno</div>
-    <span class="lede">Valle de Boí</span>
-    <h1>El entorno que nos rodea</h1>
-    <p class="desc">Naturaleza, patrimonio y montaña al alcance de un paseo desde el resort.</p>
+    <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_entorno">Entorn</span></div>
+    <span class="lede" data-i18n="entorno_hero_lede">Vall de Boí</span>
+    <h1 data-i18n="entorno_hero_title">L'entorn que ens envolta</h1>
+    <p class="desc" data-i18n="entorno_hero_desc">Natura, patrimoni i muntanya a l'abast d'un passeig des del resort.</p>
   </div>
 </section>
 
@@ -32,24 +32,28 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  function renderEntornoList() {
+    const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
     document.getElementById("entorno-list").innerHTML = ENTORNO_ITEMS.map(
       (item) => `
       <div class="entorno-detail" id="${item.slug}">
-        <img data-img-key="${item.image}" alt="${item.name}" />
+        <img data-img-key="${item.image}" alt="${tr(item.name)}" />
         <div class="body">
-          <h3>${item.name}</h3>
-          <p>${item.longDescription}</p>
+          <h3>${tr(item.name)}</h3>
+          <p>${tr(item.longDescription)}</p>
           ${item.externalLink && item.externalLink !== "#"
-            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">${item.linkLabel || "Web oficial"} &rarr;</a>`
-            : `<span style="font-size:.78rem;color:var(--text-light);">Enlace a web oficial pendiente de asignar (ver <code>ENTORNO_ITEMS</code> en config.js)</span>`}
+            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">${tr(item.linkLabel)} &rarr;</a>`
+            : `<span style="font-size:.78rem;color:var(--text-light);">${t.entorno_link_pendiente}</span>`}
         </div>
       </div>`
     ).join("");
     applyImages();
-  });
+  }
+  window.rerenderDynamicContent = renderEntornoList;
+  document.addEventListener("DOMContentLoaded", renderEntornoList);
 </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
 </head>
 <body data-page="home">
 
-<a href="#main" class="skip-link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
 
 <header class="site-header" id="site-header"></header>
 
@@ -16,45 +16,45 @@
 
 <section class="hero" data-img-key="heroHome">
   <div class="container hero-inner">
-    <span class="lede">Aguas termales. Montaña. Bienestar.</span>
-    <h1>El poder natural de Caldes de Boí</h1>
-    <p class="desc">37 manantiales mineromedicinales, dos hoteles y un entorno único en el corazón de los Pirineos.</p>
+    <span class="lede" data-i18n="hero_home_lede">Aigües termals. Muntanya. Benestar.</span>
+    <h1 data-i18n="hero_home_title">El poder natural de Caldes de Boí</h1>
+    <p class="desc" data-i18n="hero_home_desc">37 mantials mineromedicinals, dos hotels i un entorn únic al cor del Pirineu.</p>
     <div class="hero-cta">
-      <button type="button" class="btn btn-primary" data-scroll-booking>Reservar estancia</button>
-      <a href="index.html#hoteles" class="btn btn-outline">Descubrir Caldes de Boí</a>
+      <button type="button" class="btn btn-primary" data-scroll-booking data-i18n="btn_reservar_estancia">Reservar estada</button>
+      <a href="index.html#hoteles" class="btn btn-outline" data-i18n="btn_descubrir_caldes">Descobrir Caldes de Boí</a>
     </div>
   </div>
 </section>
 
-<form class="booking-widget container" aria-label="Buscador de disponibilidad">
+<form class="booking-widget container" data-i18n-aria-label="bw_aria_home">
   <div class="bw-field">
-    <label for="home-checkin"><span aria-hidden="true">📅</span> Llegada</label>
+    <label for="home-checkin"><span aria-hidden="true">📅</span> <span data-i18n="bw_llegada">Arribada</span></label>
     <input type="date" id="home-checkin" name="checkin" />
   </div>
   <div class="bw-field">
-    <label for="home-checkout"><span aria-hidden="true">📅</span> Salida</label>
+    <label for="home-checkout"><span aria-hidden="true">📅</span> <span data-i18n="bw_salida">Sortida</span></label>
     <input type="date" id="home-checkout" name="checkout" />
   </div>
   <div class="bw-field">
-    <label for="home-guests"><span aria-hidden="true">👤</span> Huéspedes</label>
+    <label for="home-guests"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
     <select id="home-guests" name="guests">
-      <option>1 adulto</option>
-      <option selected>2 adultos</option>
-      <option>2 adultos, 1 niño</option>
-      <option>2 adultos, 2 niños</option>
-      <option>4 adultos</option>
+      <option data-i18n="guests_1">1 adult</option>
+      <option selected data-i18n="guests_2">2 adults</option>
+      <option data-i18n="guests_2_1">2 adults, 1 nen</option>
+      <option data-i18n="guests_2_2">2 adults, 2 nens</option>
+      <option data-i18n="guests_4">4 adults</option>
     </select>
   </div>
   <div class="bw-field">
-    <label for="home-hotel"><span aria-hidden="true">🏨</span> Hotel</label>
+    <label for="home-hotel"><span aria-hidden="true">🏨</span> <span data-i18n="bw_hotel">Hotel</span></label>
     <select id="home-hotel" name="hotel">
-      <option value="any">Cualquiera</option>
+      <option value="any" data-i18n="bw_hotel_any">Qualsevol</option>
       <option value="manantial">Hotel Manantial</option>
       <option value="caldas">Hotel Caldas</option>
     </select>
   </div>
   <div class="bw-submit">
-    <button type="submit" class="btn btn-dark">Buscar disponibilidad</button>
+    <button type="submit" class="btn btn-dark" data-i18n="bw_submit">Cercar disponibilitat</button>
   </div>
 </form>
 
@@ -62,19 +62,19 @@
   <div class="feature-strip">
     <div class="feature-item">
       <span class="icon" aria-hidden="true">💧</span>
-      <div><h3>37 manantiales</h3><p>Aguas mineromedicinales de origen natural</p></div>
+      <div><h3 data-i18n="feature_manantiales_title">37 mantials</h3><p data-i18n="feature_manantiales_desc">Aigües mineromedicinals d'origen natural</p></div>
     </div>
     <div class="feature-item">
       <span class="icon" aria-hidden="true">🏛</span>
-      <div><h3>Balneario histórico</h3><p>Más de 2.000 años de tradición</p></div>
+      <div><h3 data-i18n="feature_balneario_title">Balneari històric</h3><p data-i18n="feature_balneario_desc">Més de 2.000 anys de tradició</p></div>
     </div>
     <div class="feature-item">
       <span class="icon" aria-hidden="true">🌲</span>
-      <div><h3>Parque Nacional</h3><p>Aigüestortes i Estany de Sant Maurici</p></div>
+      <div><h3 data-i18n="feature_parque_title">Parc Nacional</h3><p data-i18n="feature_parque_desc">Aigüestortes i Estany de Sant Maurici</p></div>
     </div>
     <div class="feature-item">
       <span class="icon" aria-hidden="true">♡</span>
-      <div><h3>Experiencias todo el año</h3><p>Cada estación, una emoción</p></div>
+      <div><h3 data-i18n="feature_experiencias_title">Experiències tot l'any</h3><p data-i18n="feature_experiencias_desc">Cada estació, una emoció</p></div>
     </div>
   </div>
 </section>
@@ -82,21 +82,21 @@
 <section class="section" id="hoteles">
   <div class="container">
     <div class="section-head">
-      <h2>Dos hoteles, dos maneras de vivir Caldes de Boí</h2>
+      <h2 data-i18n="hoteles_title">Dos hotels, dues maneres de viure Caldes de Boí</h2>
     </div>
     <div class="grid-2">
       <a href="hotel-manantial.html" class="hotel-card" data-img-key="hotelManantialThumb">
         <div class="body">
           <h3>Hotel Manantial</h3>
-          <p>Bienestar, tranquilidad y elegancia</p>
-          <span class="btn btn-light btn-sm">Descubrir hotel</span>
+          <p data-i18n="tagline_manantial">Benestar, tranquil·litat i elegància</p>
+          <span class="btn btn-light btn-sm" data-i18n="btn_descubrir_hotel">Descobrir hotel</span>
         </div>
       </a>
       <a href="hotel-caldas.html" class="hotel-card" data-img-key="hotelCaldasThumb">
         <div class="body">
           <h3>Hotel Caldas</h3>
-          <p>Confort, naturaleza y espíritu familiar</p>
-          <span class="btn btn-light btn-sm">Descubrir hotel</span>
+          <p data-i18n="tagline_caldas">Confort, natura i esperit familiar</p>
+          <span class="btn btn-light btn-sm" data-i18n="btn_descubrir_hotel">Descobrir hotel</span>
         </div>
       </a>
     </div>
@@ -106,36 +106,36 @@
 <section class="split-banner dark">
   <div class="img" data-img-key="spaBanner"></div>
   <div class="copy">
-    <span class="eyebrow">Aguas termales</span>
-    <h2>El poder natural de nuestras aguas</h2>
-    <p>Bienestar y salud a través del agua termal mineromedicinal. Circuitos, tratamientos y masajes en un entorno único.</p>
-    <a href="balneario.html" class="btn btn-primary" style="align-self:flex-start;">Descubrir balneario</a>
+    <span class="eyebrow" data-i18n="spa_banner_eyebrow">Aigües termals</span>
+    <h2 data-i18n="spa_banner_title">El poder natural de les nostres aigües</h2>
+    <p data-i18n="spa_banner_desc">Benestar i salut a través de l'aigua termal mineromedicinal. Circuits, tractaments i massatges en un entorn únic.</p>
+    <a href="balneario.html#servicios" class="btn btn-primary" style="align-self:flex-start;" data-i18n="btn_descubrir_balneario">Descobrir balneari</a>
   </div>
 </section>
 
 <section class="section" id="experiencias">
   <div class="container">
-    <div class="section-head"><h2>Vive experiencias únicas</h2></div>
+    <div class="section-head"><h2 data-i18n="experiencias_title">Viu experiències úniques</h2></div>
     <div class="exp-icons">
-      <div class="exp-item"><div class="ic" aria-hidden="true">💧</div>Wellness &amp; Spa</div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🚶</div>Naturaleza</div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🌲</div>Aventura</div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🍴</div>Gastronomía</div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">👨‍👩‍👧</div>Familias</div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🏛</div>Cultura</div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">💧</div><span data-i18n="exp_wellness">Wellness &amp; Spa</span></div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🚶</div><span data-i18n="exp_naturaleza">Natura</span></div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🌲</div><span data-i18n="exp_aventura">Aventura</span></div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🍴</div><span data-i18n="exp_gastronomia">Gastronomia</span></div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">👨‍👩‍👧</div><span data-i18n="exp_familias">Famílies</span></div>
+      <div class="exp-item"><div class="ic" aria-hidden="true">🏛</div><span data-i18n="exp_cultura">Cultura</span></div>
     </div>
     <div class="exp-photos">
-      <a class="exp-photo" href="balneario.html">
-        <img data-img-key="experienceWellness" alt="Wellness & Spa" />
-        <div class="cap"><h3>Bienestar &amp; Spa</h3><p>Relájate y déjate cuidar</p></div>
+      <a class="exp-photo" href="balneario.html#servicios">
+        <img data-img-key="experienceWellness" alt="Wellness &amp; Spa" />
+        <div class="cap"><h3 data-i18n="exp_wellness_title">Benestar &amp; Spa</h3><p data-i18n="exp_wellness_desc">Relaxa't i deixa't cuidar</p></div>
       </a>
       <a class="exp-photo" href="entorno.html">
-        <img data-img-key="experienceNature" alt="Rutas y naturaleza" />
-        <div class="cap"><h3>Rutas y naturaleza</h3><p>Descubre paisajes increíbles</p></div>
+        <img data-img-key="experienceNature" alt="" />
+        <div class="cap"><h3 data-i18n="exp_natura_title">Rutes i natura</h3><p data-i18n="exp_natura_desc">Descobreix paisatges increïbles</p></div>
       </a>
       <a class="exp-photo" href="restauracion.html">
-        <img data-img-key="experienceGastronomy" alt="Gastronomía local" />
-        <div class="cap"><h3>Gastronomía local</h3><p>Sabores del Pirineo</p></div>
+        <img data-img-key="experienceGastronomy" alt="" />
+        <div class="cap"><h3 data-i18n="exp_gastro_title">Gastronomia local</h3><p data-i18n="exp_gastro_desc">Sabors del Pirineu</p></div>
       </a>
     </div>
   </div>
@@ -144,24 +144,24 @@
 <section class="split-banner light" style="direction:rtl;">
   <div class="img" data-img-key="roomSuite"></div>
   <div class="copy" style="direction:ltr;">
-    <span class="eyebrow">Habitaciones</span>
-    <h2>Tu refugio en la montaña</h2>
-    <p>Habitaciones y suites diseñadas para tu descanso, con todas las comodidades y vistas únicas del Valle de Boí.</p>
+    <span class="eyebrow" data-i18n="rooms_eyebrow">Habitacions</span>
+    <h2 data-i18n="rooms_title">El teu refugi a la muntanya</h2>
+    <p data-i18n="rooms_desc">Habitacions i suites dissenyades per al teu descans, amb totes les comoditats i vistes úniques de la Vall de Boí.</p>
     <div class="room-amenities">
-      <span><span aria-hidden="true">📶</span> WiFi gratuito</span>
-      <span><span aria-hidden="true">🔥</span> Calefacción</span>
-      <span><span aria-hidden="true">⛰</span> Vistas a la montaña</span>
-      <span><span aria-hidden="true">📺</span> TV pantalla plana</span>
+      <span><span aria-hidden="true">📶</span> <span data-i18n="room_wifi">WiFi gratuït</span></span>
+      <span><span aria-hidden="true">🔥</span> <span data-i18n="room_heating">Calefacció</span></span>
+      <span><span aria-hidden="true">⛰</span> <span data-i18n="room_views">Vistes a la muntanya</span></span>
+      <span><span aria-hidden="true">📺</span> <span data-i18n="room_tv">TV de pantalla plana</span></span>
     </div>
-    <a href="hotel-manantial.html" class="btn btn-dark" style="align-self:flex-start;">Ver habitaciones</a>
+    <a href="hotel-manantial.html" class="btn btn-dark" style="align-self:flex-start;" data-i18n="btn_ver_habitaciones">Veure habitacions</a>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="section-head left" style="display:flex;justify-content:space-between;align-items:flex-end;">
-      <h2 style="margin:0;">El entorno que nos rodea</h2>
-      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--accent-text);">Ver todas &rarr;</a>
+      <h2 style="margin:0;" data-i18n="entorno_title">L'entorn que ens envolta</h2>
+      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--accent-text);" data-i18n="ver_todas">Veure-les totes &rarr;</a>
     </div>
     <div class="entorno-grid" id="entorno-grid-home"></div>
   </div>
@@ -172,18 +172,21 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  function renderEntornoGridHome() {
     document.getElementById("entorno-grid-home").innerHTML = ENTORNO_ITEMS.map(
       (item) => `
       <a class="entorno-item" href="entorno.html#${item.slug}">
-        <img data-img-key="${item.image}" alt="${item.name}" />
-        <h3>${item.name}</h3>
+        <img data-img-key="${item.image}" alt="${tr(item.name)}" />
+        <h3>${tr(item.name)}</h3>
       </a>`
     ).join("");
     applyImages();
-  });
+  }
+  window.rerenderDynamicContent = renderEntornoGridHome;
+  document.addEventListener("DOMContentLoaded", renderEntornoGridHome);
 </script>
 </body>
 </html>

@@ -47,6 +47,13 @@ se publican tal cual:
 | `experienceGastronomy` | [Escudella Catalana - Barcelona (2011).JPG](https://commons.wikimedia.org/wiki/File:Escudella_Catalana_-_Barcelona_(2011).JPG) | Tamorlan | CC BY 3.0 |
 | `restauranteCaldas` | [Trinxat de La Cerdanya.jpg](https://commons.wikimedia.org/wiki/File:Trinxat_de_La_Cerdanya.jpg) | Kronologiko | CC BY-SA 4.0 |
 
+## PDFs de los programas de salud y bienestar
+
+Los 8 PDFs enlazados desde `HEALTH_PROGRAMS` (`js/config.js`) son
+documentos propios del hotel, ya publicados públicamente en
+caldesdeboi.com/wp-content/uploads/ — no requieren crédito externo, igual
+que las fotos de la sección 2.
+
 ## Vídeo de portada (opcional, desactivado)
 
 `js/config.js` incluye `HERO_VIDEO`, hoy vacío. caldesdeboi.com tiene un

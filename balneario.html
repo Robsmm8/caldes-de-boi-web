@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Balneario · Caldes de Boí</title>
+<title>Balneari · Caldes de Boí</title>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body data-page="balneario">
 
-<a href="#main" class="skip-link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
 
 <header class="site-header" id="site-header"></header>
 
@@ -16,31 +16,42 @@
 
 <section class="hero page-hero" data-img-key="spaBanner">
   <div class="container hero-inner">
-    <div class="breadcrumb"><a href="index.html">Inicio</a> / Aguas Termales</div>
-    <span class="lede">Wellness &amp; Spa</span>
-    <h1>El balneario de Caldes de Boí</h1>
-    <p class="desc">37 manantiales mineromedicinales y un circuito termal centenario a disposición de los huéspedes de ambos hoteles.</p>
+    <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_termal">Aigües Termals</span></div>
+    <span class="lede" data-i18n="balneario_hero_lede">Wellness &amp; Spa</span>
+    <h1 data-i18n="balneario_hero_title">El balneari de Caldes de Boí</h1>
+    <p class="desc" data-i18n="balneario_hero_desc">37 mantials mineromedicinals i un circuit termal centenari a disposició dels hostes d'ambdós hotels.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="servicios">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Servicios termales</span>
-      <h2>Lista completa de servicios y tratamientos</h2>
-      <p>Este listado se gestiona íntegramente desde <code>js/config.js</code> (array <code>SPA_SERVICES</code>): añadir, quitar o editar un tratamiento no requiere tocar el HTML.</p>
+      <span class="eyebrow" data-i18n="balneario_servicios_eyebrow">Serveis termals</span>
+      <h2 data-i18n="balneario_servicios_title">Carta completa de serveis termals</h2>
+      <p data-i18n="balneario_servicios_desc">Consulta totes les categories de tractaments; desplega cada apartat per veure els serveis i preus.</p>
     </div>
-    <div id="spa-services-list"></div>
+    <div class="spa-accordion" id="spa-accordion"></div>
+  </div>
+</section>
+
+<section class="section" id="programas" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="balneario_programas_eyebrow">Programes de salut i benestar</span>
+      <h2 data-i18n="balneario_programas_title">Descobreix tot el que podem fer per tu</h2>
+      <p data-i18n="balneario_programas_desc">Tractaments amb aigües mineromedicinals, supervisió mèdica continuada i teràpies complementàries. Descarrega el programa en PDF o consulta'n els detalls.</p>
+    </div>
+    <div class="programs-grid" id="programs-grid"></div>
   </div>
 </section>
 
 <section class="split-banner light">
   <div class="img" data-img-key="spaInterior"></div>
   <div class="copy">
-    <span class="eyebrow">Reservas de spa</span>
-    <h2>¿Quieres reservar un tratamiento?</h2>
-    <p>Consulta disponibilidad y reserva tu estancia; el acceso al balneario y los tratamientos se gestionan junto con la reserva de hotel.</p>
-    <a href="index.html#hoteles" class="btn btn-dark" style="align-self:flex-start;">Reservar estancia</a>
+    <span class="eyebrow" data-i18n="balneario_reserva_eyebrow">Reserves de spa</span>
+    <h2 data-i18n="balneario_reserva_title">Vols reservar un tractament?</h2>
+    <p data-i18n="balneario_reserva_desc">Consulta disponibilitat i reserva la teva estada; l'accés al balneari i els tractaments es gestionen juntament amb la reserva d'hotel.</p>
+    <a href="index.html#hoteles" class="btn btn-dark" style="align-self:flex-start;" data-i18n="btn_reservar_estancia">Reservar estada</a>
   </div>
 </section>
 
@@ -49,36 +60,74 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const byCategory = {};
-    SPA_SERVICES.forEach((s) => {
-      byCategory[s.category] = byCategory[s.category] || [];
-      byCategory[s.category].push(s);
-    });
-    const container = document.getElementById("spa-services-list");
-    container.innerHTML = Object.entries(byCategory)
-      .map(
-        ([category, services]) => `
-        <div class="category-block">
-          <h3>${category}</h3>
-          ${services
-            .map(
-              (s) => `
+  function renderSpaAccordion() {
+    const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+    const accordion = document.getElementById("spa-accordion");
+    // Conserva qué paneles estaban abiertos al volver a pintar (p. ej. tras
+    // cambiar de idioma), para no cerrarlos de golpe.
+    const openSlugs = new Set(
+      [...accordion.querySelectorAll(".spa-accordion-item.open")].map((el) => el.dataset.slug)
+    );
+    accordion.innerHTML = SPA_CATEGORIES.map((cat) => `
+      <div class="spa-accordion-item${openSlugs.has(cat.slug) ? " open" : ""}" data-slug="${cat.slug}">
+        <button type="button" class="spa-accordion-header" aria-expanded="${openSlugs.has(cat.slug)}" aria-controls="panel-${cat.slug}">
+          <span>${tr(cat.name)}</span>
+          <span class="count">${cat.items.length}</span>
+          <span class="chevron" aria-hidden="true">&#9662;</span>
+        </button>
+        <div class="spa-accordion-panel" id="panel-${cat.slug}">
+          ${cat.items.map((item) => `
             <div class="service-row">
-              <div>
-                <div class="name">${s.name}</div>
-                <p class="desc">${s.description}</p>
+              <div class="name">${tr(item.name)}</div>
+              <div class="meta">
+                <span class="price">${item.price}${item.priceApprox ? ` <span class="price-approx">(${t.approx_label})</span>` : ""}</span>
+                <span class="duration">${item.duration}</span>
               </div>
-              <div class="duration">${s.duration}</div>
-            </div>`
-            )
-            .join("")}
-        </div>`
-      )
-      .join("");
-  });
+            </div>`).join("")}
+        </div>
+      </div>`).join("");
+
+    accordion.querySelectorAll(".spa-accordion-header").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".spa-accordion-item");
+        const isOpen = item.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+
+    // Si venimos de un enlace tipo balneario.html#servicios o de un slug
+    // concreto de categoría, abrimos y hacemos scroll a esa sección.
+    if (location.hash && location.hash.length > 1) {
+      const target = document.getElementById(location.hash.slice(1)) ||
+        accordion.querySelector(`[data-slug="${location.hash.slice(1)}"]`);
+      if (target && target.classList.contains("spa-accordion-item")) {
+        target.classList.add("open");
+        target.querySelector(".spa-accordion-header").setAttribute("aria-expanded", "true");
+      }
+    }
+  }
+
+  function renderPrograms() {
+    const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+    const catLabels = { salud: t.cat_salud, bienestar: t.cat_bienestar, belleza: t.cat_belleza };
+    document.getElementById("programs-grid").innerHTML = HEALTH_PROGRAMS.map((p) => `
+      <div class="program-card">
+        <span class="cat-tag">${catLabels[p.category] || p.category}</span>
+        <h3>${tr(p.name)}</h3>
+        <p>${tr(p.description)}</p>
+        <a class="btn btn-primary btn-sm" href="${p.pdf}" target="_blank" rel="noopener">${t.btn_descargar_programa}</a>
+      </div>`).join("");
+  }
+
+  function renderBalneario() {
+    renderSpaAccordion();
+    renderPrograms();
+  }
+  window.rerenderDynamicContent = renderBalneario;
+  document.addEventListener("DOMContentLoaded", renderBalneario);
 </script>
 </body>
 </html>

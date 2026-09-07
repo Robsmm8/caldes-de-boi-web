@@ -109,8 +109,15 @@ img { max-width: 100%; display: block; }
 .main-nav { display: flex; gap: 18px; align-items: center; }
 .main-nav a { font-size: .78rem; font-weight: 500; opacity: .92; white-space: nowrap; }
 .main-nav a:hover { opacity: 1; }
-.nav-lang { display: flex; align-items: center; gap: 4px; font-size: .8rem; opacity: .85; white-space: nowrap; }
 .header-actions { display: flex; align-items: center; gap: 14px; }
+.lang-switch { display: flex; align-items: center; gap: 2px; border: 1px solid rgba(255,255,255,.3); border-radius: 20px; padding: 3px; }
+.lang-btn {
+  background: none; border: none; cursor: pointer; color: #cfd8ce;
+  font-size: .68rem; font-weight: 600; letter-spacing: .03em;
+  padding: 4px 8px; border-radius: 16px; min-height: 26px;
+}
+.lang-btn:hover { color: var(--white); }
+.lang-btn.active { background: var(--amber); color: var(--green-dark); }
 .nav-toggle {
   display: none; background: none; border: none; color: var(--white); font-size: 1.4rem; cursor: pointer;
   min-width: 44px; min-height: 44px; align-items: center; justify-content: center;
@@ -247,11 +254,37 @@ img { max-width: 100%; display: block; }
 /* Lists: spa services, restaurants, entorno detail */
 .category-block { margin-bottom: 40px; }
 .category-block h3 { font-size: 1.05rem; color: var(--accent-text); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 18px; }
-.service-row { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px dashed var(--border); }
+.service-row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px dashed var(--border); }
 .service-row:last-child { border-bottom: none; }
 .service-row .name { font-weight: 600; color: var(--text); }
 .service-row .desc { font-size: .86rem; margin: 4px 0 0; max-width: 520px; }
-.service-row .duration { flex: none; color: var(--accent-text); font-weight: 600; font-size: .85rem; white-space: nowrap; }
+.service-row .meta { flex: none; text-align: right; }
+.service-row .duration { display: block; color: var(--text-light); font-size: .78rem; }
+.service-row .price { display: block; color: var(--accent-text); font-weight: 600; font-size: .92rem; white-space: nowrap; }
+.service-row .price-approx { font-size: .68rem; color: var(--text-light); font-weight: 400; }
+
+/* Acordeón — carta de servicios termales */
+.spa-accordion { border-top: 1px solid var(--border); }
+.spa-accordion-item { border-bottom: 1px solid var(--border); }
+.spa-accordion-header {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  background: none; border: none; cursor: pointer; text-align: left;
+  padding: 20px 4px; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--green-dark);
+}
+.spa-accordion-header:hover { color: var(--amber-dark); }
+.spa-accordion-header .count { font-family: 'Inter', sans-serif; font-size: .78rem; font-weight: 500; color: var(--text-light); margin-right: auto; margin-left: 14px; }
+.spa-accordion-header .chevron { flex: none; font-size: 1rem; color: var(--accent-text); transition: transform .2s ease; }
+.spa-accordion-item.open .chevron { transform: rotate(180deg); }
+.spa-accordion-panel { display: none; padding: 0 4px 20px; }
+.spa-accordion-item.open .spa-accordion-panel { display: block; }
+
+/* Programas de salud y bienestar */
+.programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+.program-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; }
+.program-card .cat-tag { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-text); margin-bottom: 8px; }
+.program-card h3 { font-size: 1.1rem; margin-bottom: .4em; }
+.program-card p { font-size: .88rem; flex: 1; }
+.program-card .btn { margin-top: 12px; align-self: flex-start; }
 
 .restaurant-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--white); display: flex; flex-direction: column; }
 .restaurant-card img { height: 200px; width: 100%; object-fit: cover; }
