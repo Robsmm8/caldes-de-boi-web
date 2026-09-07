@@ -35,15 +35,48 @@
     <label for="home-checkout"><span aria-hidden="true">📅</span> <span data-i18n="bw_salida">Sortida</span></label>
     <input type="date" id="home-checkout" name="checkout" />
   </div>
-  <div class="bw-field">
-    <label for="home-guests"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
-    <select id="home-guests" name="guests">
-      <option data-i18n="guests_1">1 adult</option>
-      <option selected data-i18n="guests_2">2 adults</option>
-      <option data-i18n="guests_2_1">2 adults, 1 nen</option>
-      <option data-i18n="guests_2_2">2 adults, 2 nens</option>
-      <option data-i18n="guests_4">4 adults</option>
-    </select>
+  <div class="bw-field guest-picker" data-guest-picker>
+    <label id="home-guests-label"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
+    <button type="button" class="guest-picker-trigger" aria-haspopup="true" aria-expanded="false" aria-describedby="home-guests-label" data-gp-summary>2 adults, 1 habitació</button>
+    <div class="guest-picker-panel" hidden>
+      <div class="gp-row">
+        <span class="gp-label" data-i18n="gp_adults">Adults<span class="gp-note" data-i18n="gp_adults_note">13 anys o més</span></span>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" data-gp-dec="adults" aria-label="−">−</button>
+          <span class="stepper-count" data-gp-count="adults">2</span>
+          <button type="button" class="stepper-btn" data-gp-inc="adults" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="gp-row">
+        <span class="gp-label" data-i18n="gp_children">Nens<span class="gp-note" data-i18n="gp_children_note">0–17 anys</span></span>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" data-gp-dec="children" aria-label="−">−</button>
+          <span class="stepper-count" data-gp-count="children">0</span>
+          <button type="button" class="stepper-btn" data-gp-inc="children" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="gp-row">
+        <span class="gp-label" data-i18n="gp_rooms">Habitacions</span>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" data-gp-dec="rooms" aria-label="−">−</button>
+          <span class="stepper-count" data-gp-count="rooms">1</span>
+          <button type="button" class="stepper-btn" data-gp-inc="rooms" aria-label="+">+</button>
+        </div>
+      </div>
+      <div class="gp-row">
+        <span class="gp-label" data-i18n="gp_pets">Mascotes<span class="gp-note" data-i18n="gp_pets_note">Consulta condicions</span></span>
+        <div class="stepper">
+          <button type="button" class="stepper-btn" data-gp-dec="pets" aria-label="−">−</button>
+          <span class="stepper-count" data-gp-count="pets">0</span>
+          <button type="button" class="stepper-btn" data-gp-inc="pets" aria-label="+">+</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-dark btn-sm gp-apply" data-i18n="gp_apply" style="width:100%;">Aplicar</button>
+    </div>
+    <input type="hidden" name="adults" value="2" data-gp-input="adults" />
+    <input type="hidden" name="children" value="0" data-gp-input="children" />
+    <input type="hidden" name="rooms" value="1" data-gp-input="rooms" />
+    <input type="hidden" name="pets" value="0" data-gp-input="pets" />
   </div>
   <div class="bw-field">
     <label for="home-hotel"><span aria-hidden="true">🏨</span> <span data-i18n="bw_hotel">Hotel</span></label>
@@ -173,6 +206,7 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/guest-picker.js"></script>
 <script src="js/main.js"></script>
 <script>
   function renderEntornoGridHome() {

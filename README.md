@@ -26,8 +26,20 @@ caldes-de-boi/
   js/config.js              *** ÚNICO archivo de contenido/datos (en 4 idiomas) ***
   js/i18n.js                Textos de interfaz (4 idiomas) + funciones tr()/setLang()
   js/main.js                Header/footer, selector de idioma, imágenes, motor de reservas
+  js/guest-picker.js        Desplegable de huéspedes (adultos/niños/habitaciones/mascotas)
   js/hotel-page.js          Rellena hotel-manantial.html / hotel-caldas.html
 ```
+
+## 0b. Selector de huéspedes (adultos / niños / habitaciones / mascotas)
+El campo "Huéspedes" del buscador (home y páginas de hotel) es un
+desplegable con contadores +/-, no un `<select>` de opciones fijas.
+Límites por búsqueda (ajustables en `GUEST_LIMITS`, `js/guest-picker.js`):
+
+- Adultos: 1–6 · Niños (0–17 años): 0–4 · Habitaciones: 1–4 · Mascotas: 0–2
+
+Al enviar el formulario, cada valor viaja como parámetro independiente
+(`adults`, `children`, `rooms`, `pets`) a `buildBookingUrl()`
+(`js/main.js`), listo para pasarlo tal cual al motor de reservas real.
 
 ## 0. Idiomas (català / español / inglés / francés)
 Todo el sitio es multi-idioma **sin recargar la página**: el selector

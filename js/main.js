@@ -148,7 +148,10 @@ function buildBookingUrl(hotelId, params) {
   qs.set("hotel", engine.hotelCode);
   if (params.checkin) qs.set("checkin", params.checkin);
   if (params.checkout) qs.set("checkout", params.checkout);
-  if (params.guests) qs.set("guests", params.guests);
+  if (params.adults) qs.set("adults", params.adults);
+  if (params.children) qs.set("children", params.children);
+  if (params.rooms) qs.set("rooms", params.rooms);
+  if (params.pets) qs.set("pets", params.pets);
   if (params.room) qs.set("room", params.room);
 
   switch (engine.provider) {
@@ -162,9 +165,9 @@ function buildBookingUrl(hotelId, params) {
 
 let modalLastFocusedEl = null;
 
-function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests, roomLabel }) {
+function showBookingModal({ hotelLabel, hotelId, checkin, checkout, guests, roomLabel, adults, children, rooms, pets }) {
   const engine = BOOKING_ENGINES[hotelId];
-  const url = buildBookingUrl(hotelId, { checkin, checkout, guests, room: roomLabel });
+  const url = buildBookingUrl(hotelId, { checkin, checkout, adults, children, rooms, pets, room: roomLabel });
   const overlay = document.getElementById("booking-modal");
   overlay.querySelector("[data-m-hotel]").textContent = hotelLabel;
   overlay.querySelector("[data-m-engine]").textContent = engine.engineName;
@@ -205,7 +208,14 @@ function initBookingWidget() {
     const hotelSelection = data.get("hotel") || form.dataset.fixedHotel;
     const checkin = data.get("checkin");
     const checkout = data.get("checkout");
-    const guests = data.get("guests");
+    const adults = data.get("adults");
+    const children = data.get("children");
+    const rooms = data.get("rooms");
+    const pets = data.get("pets");
+    // El texto ya formateado ("2 adultos, 1 habitación...") lo mantiene
+    // guest-picker.js en el propio botón desplegable — se reutiliza tal
+    // cual para mostrarlo en el modal, en vez de recomponerlo aquí.
+    const guestsSummary = form.querySelector("[data-gp-summary]")?.textContent;
     const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
     const roomNote = form.querySelector("[data-room-note]");
     const roomLabel = roomNote ? roomNote.dataset.roomValue : undefined;
@@ -214,7 +224,8 @@ function initBookingWidget() {
       showBookingModal({
         hotelLabel: t.modal_cualquiera,
         hotelId: "manantial",
-        checkin, checkout, guests, roomLabel,
+        checkin, checkout, guests: guestsSummary, roomLabel,
+        adults, children, rooms, pets,
       });
       return;
     }
@@ -222,7 +233,8 @@ function initBookingWidget() {
     showBookingModal({
       hotelLabel: tr(hotel.name),
       hotelId: hotel.bookingEngine,
-      checkin, checkout, guests, roomLabel,
+      checkin, checkout, guests: guestsSummary, roomLabel,
+      adults, children, rooms, pets,
     });
   });
 }
