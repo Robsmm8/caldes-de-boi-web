@@ -32,6 +32,19 @@ function phoneHtml(className) {
   return `<span class="${className} is-pending">${icon("phone")}<span class="phone-text">${pendingText("teléfono de reservas")}</span></span>`;
 }
 
+/* Banderas del selector de idioma (SVG propio, decorativas: el botón ya lleva
+   el nombre del idioma en su aria-label). ca = senyera, en = Reino Unido. */
+const FLAG_SVG = {
+  ca: '<rect width="24" height="16" fill="#FCDD09"/><g fill="#DA121A"><rect y="1.78" width="24" height="1.78"/><rect y="5.33" width="24" height="1.78"/><rect y="8.89" width="24" height="1.78"/><rect y="12.44" width="24" height="1.78"/></g>',
+  es: '<rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/>',
+  en: '<rect width="24" height="16" fill="#012169"/><path d="M0 0 24 16M24 0 0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0 24 16M24 0 0 16" stroke="#C8102E" stroke-width="1.2"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="2.8"/>',
+  fr: '<rect width="8" height="16" fill="#0055A4"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#EF4135"/>',
+};
+
+function flagHtml(lang) {
+  return `<svg class="lang-flag" viewBox="0 0 24 16" preserveAspectRatio="none" aria-hidden="true" focusable="false">${FLAG_SVG[lang] || ""}</svg>`;
+}
+
 function renderHeader(activePage) {
   const t = uiDict();
   const links = [
@@ -48,7 +61,7 @@ function renderHeader(activePage) {
     .join("");
 
   const langHtml = LANGS
-    .map((l) => `<button type="button" class="lang-btn${l === getLang() ? " active" : ""}" data-lang="${l}" lang="${l}" aria-label="${LANG_LABELS[l]}" aria-current="${l === getLang() ? "true" : "false"}">${l.toUpperCase()}</button>`)
+    .map((l) => `<button type="button" class="lang-btn${l === getLang() ? " active" : ""}" data-lang="${l}" lang="${l}" aria-label="${LANG_LABELS[l]}" aria-current="${l === getLang() ? "true" : "false"}"><span class="lang-code">${l.toUpperCase()}</span>${flagHtml(l)}</button>`)
     .join("");
 
   return `
@@ -70,8 +83,23 @@ function renderHeader(activePage) {
     </div>`;
 }
 
+const SOCIAL_NETWORKS = [
+  { key: "facebook", name: "Facebook", icon: "facebook" },
+  { key: "instagram", name: "Instagram", icon: "instagram" },
+  { key: "youtube", name: "YouTube", icon: "youtube" },
+  { key: "twitter", name: "X (Twitter)", icon: "x" },
+  { key: "linkedin", name: "LinkedIn", icon: "linkedin" },
+];
+
+function socialHtml(t) {
+  return SOCIAL_NETWORKS.filter((n) => SITE_INFO.social[n.key])
+    .map((n) => `<a href="${SITE_INFO.social[n.key]}" target="_blank" rel="noopener" aria-label="${n.name} (${t.opens_new_tab})">${icon(n.icon)}</a>`)
+    .join("");
+}
+
 function renderFooter() {
   const t = uiDict();
+  const legal = SITE_INFO.legalLinks[getLang()] || SITE_INFO.legalLinks.ca;
   return `
     <div class="container">
       <div class="footer-top">
@@ -85,13 +113,15 @@ function renderFooter() {
           </form>
           <p class="newsletter-msg" role="status"></p>
         </div>
-        <div>
+        <div class="footer-contact">
+          <h5>${t.footer_contacto}</h5>
+          <address>
+            <p>${icon("pin")} <span>${SITE_INFO.address.street} · ${SITE_INFO.address.postalCode} ${SITE_INFO.address.locality} (${SITE_INFO.address.province})</span></p>
+            ${SITE_INFO.phone ? `<p>${icon("phone")} <a href="tel:${SITE_INFO.phone}">${SITE_INFO.phoneDisplay || SITE_INFO.phone}</a></p>` : ""}
+            <p>${icon("mail")} <a href="mailto:${SITE_INFO.email}">${SITE_INFO.email}</a></p>
+          </address>
           <h5 class="footer-follow">${t.footer_seguinos}</h5>
-          <div class="social">
-            <a href="#" aria-label="Instagram">${icon("instagram")}</a>
-            <a href="#" aria-label="Facebook">${icon("facebook")}</a>
-            <a href="#" aria-label="YouTube">${icon("youtube")}</a>
-          </div>
+          <div class="social">${socialHtml(t)}</div>
         </div>
       </div>
       <div class="footer-cols">
@@ -128,8 +158,11 @@ function renderFooter() {
         </div>
       </div>
       <div class="footer-bottom">
-        <span>${t.footer_copyright}</span>
-        <span><a href="#">${t.footer_privacidad}</a> · <a href="#">${t.footer_cookies}</a></span>
+        <span>${t.footer_copyright}<br />${SITE_INFO.legalName} · CIF ${SITE_INFO.cif}</span>
+        <span>
+          <a href="${legal.legal}" target="_blank" rel="noopener">${t.footer_privacidad}<span class="sr-only"> (${t.opens_new_tab})</span></a> ·
+          <a href="${legal.cookies}" target="_blank" rel="noopener">${t.footer_cookies}<span class="sr-only"> (${t.opens_new_tab})</span></a>
+        </span>
       </div>
     </div>`;
 }

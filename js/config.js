@@ -120,12 +120,39 @@ const SEASONS = {
   caldas: [],
 };
 
-/* Datos de contacto. `phone` (formato internacional, sin espacios, p. ej.
-   "+34XXXXXXXXX") activa el teléfono clicable de la cabecera; `phoneDisplay`
-   es el texto visible. Mientras phone sea null se muestra el marcador. */
+/* Datos de la empresa y de contacto. Fuente: caldesdeboi.com (Avís legal,
+   Contacto y pie de página). `phone` (formato internacional, sin espacios)
+   activa el teléfono clicable de la cabecera; `phoneDisplay` es el texto
+   visible. Si se vacía `phone`, la cabecera vuelve a mostrar el marcador. */
 const SITE_INFO = {
-  phone: null,
-  phoneDisplay: null,
+  legalName: "Estació Termal de Caldas de Boi, S.A.",
+  cif: "A25011610",
+  phone: "+34973696210",
+  phoneDisplay: "(+34) 973 69 62 10",
+  email: "reservas@caldesdeboi.com",
+  address: {
+    street: "Afueras, s/n",
+    postalCode: "25528",
+    locality: "Caldes de Boí",
+    province: "Lleida",
+  },
+  /* Pendiente: coordenadas (no figuran en la web actual). */
+  geo: null, // { lat: 0.0, lng: 0.0 }
+  social: {
+    facebook: "https://www.facebook.com/CaldesdeBoiBalneari",
+    instagram: "https://www.instagram.com/balneario_caldes_de_boi/",
+    youtube: "https://www.youtube.com/channel/UCAiTDQuVFq_qlnC5kTs8Vqg",
+    twitter: "https://twitter.com/caldesdeboi",
+    linkedin: "https://www.linkedin.com/company/estaci-n-termal-caldes-de-bo-s.a./",
+  },
+  /* Textos legales: se enlazan los oficiales de caldesdeboi.com, que solo
+     existen en ca/es/en (francés remite a la versión inglesa). */
+  legalLinks: {
+    ca: { legal: "https://www.caldesdeboi.com/avis-legal/", cookies: "https://www.caldesdeboi.com/avis-de-cookies/" },
+    es: { legal: "https://www.caldesdeboi.com/es/aviso-legal/", cookies: "https://www.caldesdeboi.com/es/aviso-de-cookies/" },
+    en: { legal: "https://www.caldesdeboi.com/en/legal-notice/", cookies: "https://www.caldesdeboi.com/en/cookies-policy/" },
+    fr: { legal: "https://www.caldesdeboi.com/en/legal-notice/", cookies: "https://www.caldesdeboi.com/en/cookies-policy/" },
+  },
 };
 
 /* -------------------------------------------------------------------------

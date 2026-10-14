@@ -41,7 +41,8 @@ completa. Dónde se rellenan, todo en `js/config.js`:
 
 | Dato | Variable |
 |---|---|
-| Teléfono de reservas | `SITE_INFO.phone` / `phoneDisplay` |
+| Teléfono, dirección, email, CIF, redes, avisos legales (ya rellenados desde caldesdeboi.com) | `SITE_INFO` |
+| Coordenadas (aún pendientes) | `SITE_INFO.geo` y bloque `geo` del JSON-LD de `index.html` |
 | Tarifa "des de" por hotel | `HOTELS.<hotel>.priceFrom` |
 | Fechas de apertura de cada hotel | `SEASONS.<hotel>` (activa también el aviso de "fuera de temporada") |
 | Franjas horarias del circuito termal | `THERMAL_SLOTS` |
@@ -190,7 +191,7 @@ tiene un `externalLink` a su web oficial real y un `linkLabel` (texto del
 botón) en los 4 idiomas.
 
 ## Pendiente de decidir con el cliente
-- Todos los `[[PENDIENTE]]` de la tabla 0a (teléfono, tarifas, temporada, franjas, paquetes, dirección, dominio).
+- Los `[[PENDIENTE]]` que quedan en la tabla 0a (tarifas, temporada, franjas, motor de reservas, paquetes, coordenadas, dominio).
 - Verificar la fuente de «Més de 2.000 anys de tradició» y confirmar los dos diferenciadores
   preparados (récord Guinness de mantials, fangs propis), comentados en `index.html`.
 - Foto real de familias para la tarjeta «Escapades en família» (hoy: patio del Hotel Caldas).

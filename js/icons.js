@@ -42,6 +42,10 @@ const ICON_PATHS = {
   instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>',
   facebook: '<path d="M14 21v-8h3l.5-3.5H14V7.5c0-1 .4-1.7 1.8-1.7H17.5V2.7A22 22 0 0 0 15 2.5c-2.6 0-4.3 1.6-4.3 4.4v2.6H8V13h2.7v8z"/>',
   youtube: '<rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.3v.1M12 17v-6.5M12 13.2c0-1.8 1-2.8 2.6-2.8s2.4 1.1 2.4 2.9V17"/>',
+  x: '<path d="M4 4h4l12 16h-4z"/><path d="m4 20 6.8-7.4M20 4l-6.6 7.2"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/>',
+  pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/>',
 };
 
 function icon(name, extraClass) {
