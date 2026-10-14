@@ -167,6 +167,8 @@ a.header-phone:hover .phone-text { text-decoration: underline; }
 }
 .lang-btn:hover { color: var(--white); background: rgba(255,255,255,.08); }
 .lang-btn.active { background: var(--amber); color: var(--green-dark); }
+.lang-menu { display: flex; gap: 2px; }
+.lang-toggle, .lang-name { display: none; }
 .lang-flag { width: 20px; height: 13px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
 .lang-btn:not(.active) .lang-flag { box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
 .nav-toggle {
@@ -520,7 +522,32 @@ a.header-phone:hover .phone-text { text-decoration: underline; }
   .main-nav.open .nav-phone { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
   .main-nav.open .nav-phone .icon { color: var(--amber); }
   .main-nav.open .nav-phone .phone-text { position: static; width: auto; height: auto; clip: auto; }
-  .lang-btn { padding: 5px 4px 6px; min-width: 32px; }
+  /* Selector de idioma: desplegable compacto (bandera + código + flecha) */
+  .lang-switch { position: relative; padding: 0; border: 0; }
+  .lang-toggle {
+    display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 10px;
+    background: none; color: var(--white); cursor: pointer; font-family: inherit;
+    font-size: .74rem; font-weight: 600; letter-spacing: .03em;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 22px;
+  }
+  .lang-toggle .icon { width: 1rem; height: 1rem; transition: transform .15s ease; }
+  .lang-switch.open .lang-toggle .icon { transform: rotate(180deg); }
+  .lang-toggle .lang-flag { box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
+  .lang-menu {
+    display: none; position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+    flex-direction: column; gap: 2px; min-width: 170px; padding: 6px;
+    background: var(--green-dark); border: 1px solid rgba(255,255,255,.2); border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  }
+  .lang-switch.open .lang-menu { display: flex; }
+  .lang-menu .lang-btn {
+    flex-direction: row; justify-content: flex-start; gap: 10px; min-height: 44px; padding: 0 12px;
+    font-size: .8rem; border-radius: 8px; width: 100%;
+  }
+  .lang-menu .lang-btn .lang-code { order: 2; opacity: .7; margin-left: auto; font-size: .7rem; }
+  .lang-menu .lang-btn .lang-flag { order: 0; }
+  .lang-menu .lang-btn .lang-name { display: inline; order: 1; font-size: .88rem; font-weight: 500; }
+  .lang-menu .lang-btn.active .lang-code { opacity: 1; }
   .hero h1 { font-size: 2.1rem; }
   .grid-2, .grid-3, .exp-photos, .footer-cols { grid-template-columns: 1fr; }
   .booking-widget { padding: 18px 16px; gap: 16px; }

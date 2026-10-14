@@ -61,8 +61,15 @@ function renderHeader(activePage) {
     .join("");
 
   const langHtml = LANGS
-    .map((l) => `<button type="button" class="lang-btn${l === getLang() ? " active" : ""}" data-lang="${l}" lang="${l}" aria-label="${LANG_LABELS[l]}" aria-current="${l === getLang() ? "true" : "false"}"><span class="lang-code">${l.toUpperCase()}</span>${flagHtml(l)}</button>`)
+    .map((l) => `<button type="button" class="lang-btn${l === getLang() ? " active" : ""}" data-lang="${l}" lang="${l}" aria-label="${LANG_LABELS[l]}" aria-current="${l === getLang() ? "true" : "false"}"><span class="lang-code">${l.toUpperCase()}</span>${flagHtml(l)}<span class="lang-name">${LANG_LABELS[l]}</span></button>`)
     .join("");
+  // En móvil el selector se pliega en un desplegable (bandera + código actual); en escritorio se ven los 4 botones.
+  const current = getLang();
+  const langSwitchHtml = `
+        <div class="lang-switch" role="group" aria-label="Idioma / Language">
+          <button type="button" class="lang-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" aria-label="Idioma / Language: ${LANG_LABELS[current]}">${flagHtml(current)}<span class="lang-code">${current.toUpperCase()}</span>${icon("chevron")}</button>
+          <div class="lang-menu" id="lang-menu">${langHtml}</div>
+        </div>`;
 
   return `
     <div class="container">
@@ -76,7 +83,7 @@ function renderHeader(activePage) {
       </nav>
       <div class="header-actions">
         ${phoneHtml("header-phone")}
-        <div class="lang-switch" role="group" aria-label="Idioma / Language">${langHtml}</div>
+        ${langSwitchHtml}
         <button type="button" class="btn btn-primary btn-sm header-reserve" data-scroll-booking>${t.nav_reservar}</button>
         <button type="button" class="nav-toggle" aria-label="${t.nav_menu_open}" aria-expanded="false" aria-controls="main-nav">${icon("menu")}</button>
       </div>
@@ -369,11 +376,17 @@ function wireGlobalInteractions() {
       goToBooking();
       return;
     }
-    const langBtn = e.target.closest(".lang-btn");
-    if (langBtn) {
-      setLang(langBtn.dataset.lang);
+    const langToggle = e.target.closest(".lang-toggle");
+    if (langToggle) {
+      setLangMenuOpen(!langToggle.closest(".lang-switch").classList.contains("open"));
       return;
     }
+    const langBtn = e.target.closest(".lang-btn");
+    if (langBtn) {
+      setLang(langBtn.dataset.lang); // re-pinta la cabecera, lo que también cierra el menú
+      return;
+    }
+    if (!e.target.closest(".lang-switch")) setLangMenuOpen(false);
     if (e.target.closest(".nav-toggle")) {
       setNavOpen(!document.getElementById("main-nav").classList.contains("open"));
       return;
@@ -397,12 +410,26 @@ function wireGlobalInteractions() {
       closeBookingModal();
       return;
     }
+    const langSwitch = document.querySelector(".lang-switch.open");
+    if (langSwitch) {
+      setLangMenuOpen(false);
+      langSwitch.querySelector(".lang-toggle").focus();
+      return;
+    }
     const nav = document.getElementById("main-nav");
     if (nav && nav.classList.contains("open")) {
       setNavOpen(false);
       document.querySelector(".nav-toggle").focus();
     }
   });
+}
+
+/* Desplegable de idioma (solo visible en móvil, ver css/style.css) */
+function setLangMenuOpen(open) {
+  const sw = document.querySelector(".lang-switch");
+  if (!sw) return;
+  sw.classList.toggle("open", open);
+  sw.querySelector(".lang-toggle").setAttribute("aria-expanded", String(open));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
