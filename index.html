@@ -3,21 +3,129 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Caldes de Boí · Balneari Thermal Resort</title>
+<title>Caldes de Boí · Balneari i hotels al Pirineu</title>
+<meta name="description" content="Balneari termal i dos hotels al cor del Pirineu: 37 mantials mineromedicinals, circuit termal, muntanya i gastronomia a Caldes de Boí (Vall de Boí)." data-i18n-content="meta_desc_home" />
+<!-- [[PENDIENTE: dominio definitivo]] — canonical, og:url y og:image apuntan hoy a GitHub Pages; sustituir al publicar en el dominio real -->
+<link rel="canonical" href="https://robsmm8.github.io/caldes-de-boi-web/index.html" />
+<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Caldes de Boí Balneari Thermal Resort" />
+<meta property="og:locale" content="ca_ES" />
+<meta property="og:title" content="Caldes de Boí · Balneari i hotels al Pirineu" data-i18n-content="title_home" />
+<meta property="og:description" content="Balneari termal i dos hotels al cor del Pirineu: 37 mantials mineromedicinals, circuit termal, muntanya i gastronomia a Caldes de Boí (Vall de Boí)." data-i18n-content="meta_desc_home" />
+<meta property="og:url" content="https://robsmm8.github.io/caldes-de-boi-web/index.html" />
+<meta property="og:image" content="https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preload" as="image" href="assets/img/hero-manantial-aerea.jpg" fetchpriority="high" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
+<!-- Datos estructurados. Los [[PENDIENTE]] (dirección, teléfono, coordenadas) deben sustituirse por datos reales antes de validar en Google Rich Results. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Resort",
+      "@id": "https://robsmm8.github.io/caldes-de-boi-web/#resort",
+      "name": "Caldes de Boí Balneari Thermal Resort",
+      "url": "https://robsmm8.github.io/caldes-de-boi-web/index.html",
+      "image": "https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg",
+      "description": "Balneario termal y dos hoteles en el corazón del Pirineo, en Caldes de Boí (Vall de Boí).",
+      "telephone": "[[PENDIENTE: teléfono de reservas]]",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[[PENDIENTE: dirección exacta]]",
+        "postalCode": "[[PENDIENTE: código postal]]",
+        "addressLocality": "Caldes de Boí (Vall de Boí)",
+        "addressRegion": "Lleida",
+        "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "[[PENDIENTE: latitud]]",
+        "longitude": "[[PENDIENTE: longitud]]"
+      },
+      "containsPlace": [
+        { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#hotel-manantial" },
+        { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#hotel-caldas" },
+        { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#balneario" }
+      ]
+    },
+    {
+      "@type": "Hotel",
+      "@id": "https://robsmm8.github.io/caldes-de-boi-web/#hotel-manantial",
+      "name": "Hotel Manantial",
+      "url": "https://robsmm8.github.io/caldes-de-boi-web/hotel-manantial.html",
+      "image": "https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg",
+      "telephone": "[[PENDIENTE: teléfono de reservas]]",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[[PENDIENTE: dirección exacta]]",
+        "postalCode": "[[PENDIENTE: código postal]]",
+        "addressLocality": "Caldes de Boí (Vall de Boí)",
+        "addressRegion": "Lleida",
+        "addressCountry": "ES"
+      },
+      "containedInPlace": { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#resort" }
+    },
+    {
+      "@type": "Hotel",
+      "@id": "https://robsmm8.github.io/caldes-de-boi-web/#hotel-caldas",
+      "name": "Hotel Caldas",
+      "url": "https://robsmm8.github.io/caldes-de-boi-web/hotel-caldas.html",
+      "image": "https://robsmm8.github.io/caldes-de-boi-web/assets/img/hotel-caldas-patio.jpg",
+      "telephone": "[[PENDIENTE: teléfono de reservas]]",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[[PENDIENTE: dirección exacta]]",
+        "postalCode": "[[PENDIENTE: código postal]]",
+        "addressLocality": "Caldes de Boí (Vall de Boí)",
+        "addressRegion": "Lleida",
+        "addressCountry": "ES"
+      },
+      "containedInPlace": { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#resort" }
+    },
+    {
+      "@type": "DaySpa",
+      "@id": "https://robsmm8.github.io/caldes-de-boi-web/#balneario",
+      "name": "Balneario de Caldes de Boí",
+      "url": "https://robsmm8.github.io/caldes-de-boi-web/balneario.html",
+      "image": "https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg",
+      "telephone": "[[PENDIENTE: teléfono de reservas]]",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[[PENDIENTE: dirección exacta]]",
+        "postalCode": "[[PENDIENTE: código postal]]",
+        "addressLocality": "Caldes de Boí (Vall de Boí)",
+        "addressRegion": "Lleida",
+        "addressCountry": "ES"
+      },
+      "containedInPlace": { "@id": "https://robsmm8.github.io/caldes-de-boi-web/#resort" }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="home">
 
-<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contingut</a>
+
+<noscript><p class="noscript-msg">Aquesta web necessita JavaScript per mostrar el contingut (cercador, idiomes, cartes). Activa'l al teu navegador per continuar.</p></noscript>
 
 <header class="site-header" id="site-header"></header>
 
 <main id="main">
 
-<section class="hero" data-img-key="heroHome">
+<!-- Portada. Textos: js/i18n.js (hero_mountain_* i hero_water_*). La versió activa es tria a js/config.js -> HERO_VARIANT.
+     Versió A "mountain" (activa): «Muntanya. Activitat. Aigües termals.» / «Camina el Pirineu. Recupera't a l'aigua.»
+     Versió B "water" (anterior):  «Aigües termals. Muntanya. Benestar.» / «El poder natural de Caldes de Boí» -->
+<section class="hero hero-home" data-img-key="heroHome">
   <div class="container hero-inner">
-    <span class="lede" data-i18n="hero_home_lede">Aigües termals. Muntanya. Benestar.</span>
-    <h1 data-i18n="hero_home_title">El poder natural de Caldes de Boí</h1>
+    <span class="lede" data-i18n="hero_home_lede">Muntanya. Activitat. Aigües termals.</span>
+    <h1 data-i18n="hero_home_title">Camina el Pirineu. Recupera't a l'aigua.</h1>
     <p class="desc" data-i18n="hero_home_desc">37 mantials mineromedicinals, dos hotels i un entorn únic al cor del Pirineu.</p>
     <div class="hero-cta">
       <button type="button" class="btn btn-primary" data-scroll-booking data-i18n="btn_reservar_estancia">Reservar estada</button>
@@ -26,89 +134,38 @@
   </div>
 </section>
 
-<form class="booking-widget container" data-i18n-aria-label="bw_aria_home">
-  <div class="bw-field">
-    <label for="home-checkin"><span aria-hidden="true">📅</span> <span data-i18n="bw_llegada">Arribada</span></label>
-    <input type="date" id="home-checkin" name="checkin" />
-  </div>
-  <div class="bw-field">
-    <label for="home-checkout"><span aria-hidden="true">📅</span> <span data-i18n="bw_salida">Sortida</span></label>
-    <input type="date" id="home-checkout" name="checkout" />
-  </div>
-  <div class="bw-field guest-picker" data-guest-picker>
-    <label id="home-guests-label"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
-    <button type="button" class="guest-picker-trigger" aria-haspopup="true" aria-expanded="false" aria-describedby="home-guests-label" data-gp-summary>2 adults, 1 habitació</button>
-    <div class="guest-picker-panel" hidden>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_adults">Adults<span class="gp-note" data-i18n="gp_adults_note">13 anys o més</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="adults" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="adults">2</span>
-          <button type="button" class="stepper-btn" data-gp-inc="adults" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_children">Nens<span class="gp-note" data-i18n="gp_children_note">0–17 anys</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="children" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="children">0</span>
-          <button type="button" class="stepper-btn" data-gp-inc="children" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_rooms">Habitacions</span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="rooms" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="rooms">1</span>
-          <button type="button" class="stepper-btn" data-gp-inc="rooms" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_pets">Mascotes<span class="gp-note" data-i18n="gp_pets_note">Consulta condicions</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="pets" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="pets">0</span>
-          <button type="button" class="stepper-btn" data-gp-inc="pets" aria-label="+">+</button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-dark btn-sm gp-apply" data-i18n="gp_apply" style="width:100%;">Aplicar</button>
-    </div>
-    <input type="hidden" name="adults" value="2" data-gp-input="adults" />
-    <input type="hidden" name="children" value="0" data-gp-input="children" />
-    <input type="hidden" name="rooms" value="1" data-gp-input="rooms" />
-    <input type="hidden" name="pets" value="0" data-gp-input="pets" />
-  </div>
-  <div class="bw-field">
-    <label for="home-hotel"><span aria-hidden="true">🏨</span> <span data-i18n="bw_hotel">Hotel</span></label>
-    <select id="home-hotel" name="hotel">
-      <option value="any" data-i18n="bw_hotel_any">Qualsevol</option>
-      <option value="manantial">Hotel Manantial</option>
-      <option value="caldas">Hotel Caldas</option>
-    </select>
-  </div>
-  <div class="bw-submit">
-    <button type="submit" class="btn btn-dark" data-i18n="bw_submit">Cercar disponibilitat</button>
-  </div>
-</form>
+<div class="booking-panel container" id="reservar" data-booking-widget data-mode="home"></div>
 
 <section class="container">
   <div class="feature-strip">
     <div class="feature-item">
-      <span class="icon" aria-hidden="true">💧</span>
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-drop"></use></svg>
       <div><h3 data-i18n="feature_manantiales_title">37 mantials</h3><p data-i18n="feature_manantiales_desc">Aigües mineromedicinals d'origen natural</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon" aria-hidden="true">🏛</span>
-      <div><h3 data-i18n="feature_balneario_title">Balneari històric</h3><p data-i18n="feature_balneario_desc">Més de 2.000 anys de tradició</p></div>
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-landmark"></use></svg>
+      <!-- "Més de 2.000 anys de tradició": [[PENDIENTE: verificar fuente]]. No repetir en otras páginas hasta confirmarlo. -->
+      <div><h3 data-i18n="feature_balneario_title">Balneari històric</h3><p data-i18n="feature_balneario_desc">Més de 2.000 anys de tradició [[PENDIENTE: verificar fuente]]</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon" aria-hidden="true">🌲</span>
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-tree"></use></svg>
       <div><h3 data-i18n="feature_parque_title">Parc Nacional</h3><p data-i18n="feature_parque_desc">Aigüestortes i Estany de Sant Maurici</p></div>
     </div>
     <div class="feature-item">
-      <span class="icon" aria-hidden="true">♡</span>
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-heart"></use></svg>
       <div><h3 data-i18n="feature_experiencias_title">Experiències tot l'any</h3><p data-i18n="feature_experiencias_desc">Cada estació, una emoció</p></div>
     </div>
+    <!-- DIFERENCIADORS PENDENTS DE CONFIRMAR — NO ACTIVAR fins validar-los amb la propietat.
+         Per activar-los: descomentar, i passar .feature-strip a 3-4 columnes si cal (css/style.css).
+    <div class="feature-item">
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-shield"></use></svg>
+      <div><h3 data-i18n="feature_guinness_title">Rècord Guinness</h3><p data-i18n="feature_guinness_desc">Mantials mineromedicinals</p></div>
+    </div>
+    <div class="feature-item">
+      <svg class="icon icon-lg" aria-hidden="true" focusable="false"><use href="#i-leaf"></use></svg>
+      <div><h3 data-i18n="feature_fangos_title">Fangs propis</h3><p data-i18n="feature_fangos_desc">Del nostre propi balneari</p></div>
+    </div>
+    -->
   </div>
 </section>
 
@@ -122,6 +179,7 @@
         <div class="body">
           <h3>Hotel Manantial</h3>
           <p data-i18n="tagline_manantial">Benestar, tranquil·litat i elegància</p>
+          <span class="price-from" data-price-from="manantial"></span>
           <span class="btn btn-light btn-sm" data-i18n="btn_descubrir_hotel">Descobrir hotel</span>
         </div>
       </a>
@@ -129,10 +187,22 @@
         <div class="body">
           <h3>Hotel Caldas</h3>
           <p data-i18n="tagline_caldas">Confort, natura i esperit familiar</p>
+          <span class="price-from" data-price-from="caldas"></span>
           <span class="btn btn-light btn-sm" data-i18n="btn_descubrir_hotel">Descobrir hotel</span>
         </div>
       </a>
     </div>
+  </div>
+</section>
+
+<section class="section section-packages" id="paquetes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="pk_eyebrow">Paquets</span>
+      <h2 data-i18n="pk_title">Escapades pensades per a tu</h2>
+      <p data-i18n="pk_desc">Combina estada, aigües termals i muntanya en un sol paquet.</p>
+    </div>
+    <div class="package-grid" id="package-grid"></div>
   </div>
 </section>
 
@@ -142,7 +212,7 @@
     <span class="eyebrow" data-i18n="spa_banner_eyebrow">Aigües termals</span>
     <h2 data-i18n="spa_banner_title">El poder natural de les nostres aigües</h2>
     <p data-i18n="spa_banner_desc">Benestar i salut a través de l'aigua termal mineromedicinal. Circuits, tractaments i massatges en un entorn únic.</p>
-    <a href="balneario.html#servicios" class="btn btn-primary" style="align-self:flex-start;" data-i18n="btn_descubrir_balneario">Descobrir balneari</a>
+    <a href="balneario.html#servicios" class="btn btn-primary btn-start" data-i18n="btn_descubrir_balneario">Descobrir balneari</a>
   </div>
 </section>
 
@@ -150,51 +220,53 @@
   <div class="container">
     <div class="section-head"><h2 data-i18n="experiencias_title">Viu experiències úniques</h2></div>
     <div class="exp-icons">
-      <div class="exp-item"><div class="ic" aria-hidden="true">💧</div><span data-i18n="exp_wellness">Wellness &amp; Spa</span></div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🚶</div><span data-i18n="exp_naturaleza">Natura</span></div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🌲</div><span data-i18n="exp_aventura">Aventura</span></div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🍴</div><span data-i18n="exp_gastronomia">Gastronomia</span></div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">👨‍👩‍👧</div><span data-i18n="exp_familias">Famílies</span></div>
-      <div class="exp-item"><div class="ic" aria-hidden="true">🏛</div><span data-i18n="exp_cultura">Cultura</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-drop"></use></svg></div><span data-i18n="exp_wellness">Wellness &amp; Spa</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-leaf"></use></svg></div><span data-i18n="exp_naturaleza">Natura</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-mountain"></use></svg></div><span data-i18n="exp_aventura">Aventura</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-utensils"></use></svg></div><span data-i18n="exp_gastronomia">Gastronomia</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-users"></use></svg></div><span data-i18n="exp_familias">Famílies</span></div>
+      <div class="exp-item"><div class="ic"><svg class="icon icon-xl" aria-hidden="true" focusable="false"><use href="#i-landmark"></use></svg></div><span data-i18n="exp_cultura">Cultura</span></div>
     </div>
+    <!-- La gastronomia queda com a icona i com a pàgina pròpia (restauracion.html), sense protagonisme a la portada. -->
     <div class="exp-photos">
       <a class="exp-photo" href="balneario.html#servicios">
-        <img data-img-key="experienceWellness" alt="Wellness &amp; Spa" />
+        <img data-img-key="experienceWellness" width="600" height="380" alt="Wellness &amp; Spa" />
         <div class="cap"><h3 data-i18n="exp_wellness_title">Benestar &amp; Spa</h3><p data-i18n="exp_wellness_desc">Relaxa't i deixa't cuidar</p></div>
       </a>
       <a class="exp-photo" href="entorno.html">
-        <img data-img-key="experienceNature" alt="" />
+        <img data-img-key="experienceNature" width="600" height="380" alt="" />
         <div class="cap"><h3 data-i18n="exp_natura_title">Rutes i natura</h3><p data-i18n="exp_natura_desc">Descobreix paisatges increïbles</p></div>
       </a>
-      <a class="exp-photo" href="restauracion.html">
-        <img data-img-key="experienceGastronomy" alt="" />
-        <div class="cap"><h3 data-i18n="exp_gastro_title">Gastronomia local</h3><p data-i18n="exp_gastro_desc">Sabors del Pirineu</p></div>
+      <!-- [[PENDIENTE: foto real de familias]] — de moment s'usa la foto del patí de l'Hotel Caldas -->
+      <a class="exp-photo" href="hotel-caldas.html">
+        <img data-img-key="hotelCaldasThumb" width="600" height="380" alt="" />
+        <div class="cap"><h3 data-i18n="exp_familias_title">Escapades en família</h3><p data-i18n="exp_familias_desc">Muntanya i aigua per gaudir-ne junts</p></div>
       </a>
     </div>
   </div>
 </section>
 
-<section class="split-banner light" style="direction:rtl;">
+<section class="split-banner light reverse">
   <div class="img" data-img-key="roomSuite"></div>
-  <div class="copy" style="direction:ltr;">
+  <div class="copy">
     <span class="eyebrow" data-i18n="rooms_eyebrow">Habitacions</span>
     <h2 data-i18n="rooms_title">El teu refugi a la muntanya</h2>
     <p data-i18n="rooms_desc">Habitacions i suites dissenyades per al teu descans, amb totes les comoditats i vistes úniques de la Vall de Boí.</p>
     <div class="room-amenities">
-      <span><span aria-hidden="true">📶</span> <span data-i18n="room_wifi">WiFi gratuït</span></span>
-      <span><span aria-hidden="true">🔥</span> <span data-i18n="room_heating">Calefacció</span></span>
-      <span><span aria-hidden="true">⛰</span> <span data-i18n="room_views">Vistes a la muntanya</span></span>
-      <span><span aria-hidden="true">📺</span> <span data-i18n="room_tv">TV de pantalla plana</span></span>
+      <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wifi"></use></svg> <span data-i18n="room_wifi">WiFi gratuït</span></span>
+      <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-flame"></use></svg> <span data-i18n="room_heating">Calefacció</span></span>
+      <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mountain"></use></svg> <span data-i18n="room_views">Vistes a la muntanya</span></span>
+      <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-tv"></use></svg> <span data-i18n="room_tv">TV de pantalla plana</span></span>
     </div>
-    <a href="hotel-manantial.html" class="btn btn-dark" style="align-self:flex-start;" data-i18n="btn_ver_habitaciones">Veure habitacions</a>
+    <a href="hotel-manantial.html" class="btn btn-dark btn-start" data-i18n="btn_ver_habitaciones">Veure habitacions</a>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-head left" style="display:flex;justify-content:space-between;align-items:flex-end;">
-      <h2 style="margin:0;" data-i18n="entorno_title">L'entorn que ens envolta</h2>
-      <a href="entorno.html" style="font-size:.82rem;font-weight:600;color:var(--accent-text);" data-i18n="ver_todas">Veure-les totes &rarr;</a>
+    <div class="section-head left section-head-row">
+      <h2 data-i18n="entorno_title">L'entorn que ens envolta</h2>
+      <a href="entorno.html" class="link-all"><span data-i18n="ver_todas">Veure-les totes</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
     </div>
     <div class="entorno-grid" id="entorno-grid-home"></div>
   </div>
@@ -206,21 +278,42 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/booking-widget.js"></script>
 <script src="js/guest-picker.js"></script>
 <script src="js/main.js"></script>
 <script>
-  function renderEntornoGridHome() {
+  function renderHome() {
+    const t = UI_STRINGS[getLang()] || UI_STRINGS.ca;
+
+    document.querySelectorAll("[data-price-from]").forEach((el) => {
+      el.textContent = formatPriceFrom(HOTELS[el.dataset.priceFrom].priceFrom);
+    });
+
+    document.getElementById("package-grid").innerHTML = PACKAGES.map(
+      (p) => `
+      <article class="package-card">
+        <img data-img-key="${p.image}" width="600" height="400" alt="" />
+        <div class="body">
+          <h3>${tr(p.name)}</h3>
+          <p>${tr(p.description)}</p>
+          <p class="price-from">${formatPriceFrom(p.priceFrom, "pk_price_from")}</p>
+          <a class="btn btn-dark btn-sm" href="${p.link}">${t.pk_cta}<span class="sr-only"> — ${tr(p.name)}</span></a>
+        </div>
+      </article>`
+    ).join("");
+
     document.getElementById("entorno-grid-home").innerHTML = ENTORNO_ITEMS.map(
       (item) => `
       <a class="entorno-item" href="entorno.html#${item.slug}">
-        <img data-img-key="${item.image}" alt="${tr(item.name)}" />
+        <img data-img-key="${item.image}" width="400" height="260" alt="${tr(item.name)}" />
         <h3>${tr(item.name)}</h3>
       </a>`
     ).join("");
     applyImages();
   }
-  window.rerenderDynamicContent = renderEntornoGridHome;
-  document.addEventListener("DOMContentLoaded", renderEntornoGridHome);
+  window.rerenderDynamicContent = renderHome;
+  document.addEventListener("DOMContentLoaded", renderHome);
 </script>
 </body>
 </html>

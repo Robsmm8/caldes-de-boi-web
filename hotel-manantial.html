@@ -4,17 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hotel Manantial · Caldes de Boí</title>
+<meta name="description" content="Hotel Manantial a Caldes de Boí: habitacions i suites amb accés directe al balneari, entre boscos i muntanyes del Pirineu." data-i18n-content="meta_desc_manantial" />
+<!-- [[PENDIENTE: dominio definitivo]] — canonical, og:url y og:image apuntan hoy a GitHub Pages -->
+<link rel="canonical" href="https://robsmm8.github.io/caldes-de-boi-web/hotel-manantial.html" />
+<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Caldes de Boí Balneari Thermal Resort" />
+<meta property="og:locale" content="ca_ES" />
+<meta property="og:title" content="Hotel Manantial · Caldes de Boí" />
+<meta property="og:description" content="Hotel Manantial a Caldes de Boí: habitacions i suites amb accés directe al balneari, entre boscos i muntanyes del Pirineu." data-i18n-content="meta_desc_manantial" />
+<meta property="og:url" content="https://robsmm8.github.io/caldes-de-boi-web/hotel-manantial.html" />
+<meta property="og:image" content="https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body data-page="hoteles" data-hotel-id="manantial">
 
-<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contingut</a>
+
+<noscript><p class="noscript-msg">Aquesta web necessita JavaScript per mostrar el contingut (cercador, idiomes, cartes). Activa'l al teu navegador per continuar.</p></noscript>
 
 <header class="site-header" id="site-header"></header>
 
 <main id="main">
 
-<section class="hero page-hero" data-hotel-hero>
+<section class="hero page-hero hero-fallback" data-hotel-hero>
   <div class="container hero-inner">
     <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_hoteles">Hotels</span> / <span data-hotel-name></span></div>
     <h1 data-hotel-name></h1>
@@ -22,80 +40,25 @@
   </div>
 </section>
 
-<form class="booking-widget container" data-i18n-aria-label="bw_aria_hotel">
-  <div class="bw-field">
-    <label for="manantial-checkin"><span aria-hidden="true">📅</span> <span data-i18n="bw_llegada">Arribada</span></label>
-    <input type="date" id="manantial-checkin" name="checkin" />
-  </div>
-  <div class="bw-field">
-    <label for="manantial-checkout"><span aria-hidden="true">📅</span> <span data-i18n="bw_salida">Sortida</span></label>
-    <input type="date" id="manantial-checkout" name="checkout" />
-  </div>
-  <div class="bw-field guest-picker" data-guest-picker>
-    <label id="manantial-guests-label"><span aria-hidden="true">👤</span> <span data-i18n="bw_huespedes">Hostes</span></label>
-    <button type="button" class="guest-picker-trigger" aria-haspopup="true" aria-expanded="false" aria-describedby="manantial-guests-label" data-gp-summary>2 adults, 1 habitació</button>
-    <div class="guest-picker-panel" hidden>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_adults">Adults<span class="gp-note" data-i18n="gp_adults_note">13 anys o més</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="adults" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="adults">2</span>
-          <button type="button" class="stepper-btn" data-gp-inc="adults" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_children">Nens<span class="gp-note" data-i18n="gp_children_note">0–17 anys</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="children" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="children">0</span>
-          <button type="button" class="stepper-btn" data-gp-inc="children" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_rooms">Habitacions</span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="rooms" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="rooms">1</span>
-          <button type="button" class="stepper-btn" data-gp-inc="rooms" aria-label="+">+</button>
-        </div>
-      </div>
-      <div class="gp-row">
-        <span class="gp-label" data-i18n="gp_pets">Mascotes<span class="gp-note" data-i18n="gp_pets_note">Consulta condicions</span></span>
-        <div class="stepper">
-          <button type="button" class="stepper-btn" data-gp-dec="pets" aria-label="−">−</button>
-          <span class="stepper-count" data-gp-count="pets">0</span>
-          <button type="button" class="stepper-btn" data-gp-inc="pets" aria-label="+">+</button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-dark btn-sm gp-apply" data-i18n="gp_apply" style="width:100%;">Aplicar</button>
-    </div>
-    <input type="hidden" name="adults" value="2" data-gp-input="adults" />
-    <input type="hidden" name="children" value="0" data-gp-input="children" />
-    <input type="hidden" name="rooms" value="1" data-gp-input="rooms" />
-    <input type="hidden" name="pets" value="0" data-gp-input="pets" />
-  </div>
-  <p class="bw-room-note" data-room-note style="display:none;"></p>
-  <div class="bw-submit">
-    <button type="submit" class="btn btn-dark" data-i18n="bw_submit_hotel">Comprovar disponibilitat</button>
-  </div>
-</form>
+<div class="booking-panel container" id="reservar" data-booking-widget data-mode="hotel"></div>
 
 <section class="section">
-  <div class="container grid-2" style="align-items:center;">
+  <div class="container grid-2 align-center">
     <div>
       <span class="eyebrow" data-i18n="hotel_eyebrow">L'hotel</span>
       <h2 data-hotel-name></h2>
       <p data-hotel-description></p>
-      <ul data-hotel-highlights style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--text-light);font-size:.92rem;"></ul>
+      <ul class="hotel-highlights" data-hotel-highlights></ul>
+      <p class="price-from price-from-dark" data-hotel-price></p>
       <button type="button" class="btn btn-primary" data-scroll-booking data-i18n="btn_reservar_este_hotel">Reservar en aquest hotel</button>
     </div>
     <div>
-      <img data-img-key="roomSuite" style="border-radius:6px;" alt="Habitació" />
+      <img class="img-rounded" data-img-key="roomSuite" width="800" height="600" data-i18n-alt="alt_room" alt="Habitació de l'hotel" />
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0;">
+<section class="section section-flush-top">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow" data-i18n="hotel_rooms_eyebrow">Allotjament</span>
@@ -112,7 +75,7 @@
     <span class="eyebrow" data-i18n="spa_banner_eyebrow">Aigües termals</span>
     <h2 data-i18n="hotel_termal_title">A un pas del balneari</h2>
     <p data-i18n="hotel_termal_desc">Tots els hostes de Caldes de Boí gaudeixen d'accés al circuit termal mineromedicinal i a la llista completa de tractaments del balneari.</p>
-    <a href="balneario.html#servicios" class="btn btn-primary" style="align-self:flex-start;" data-i18n="btn_ver_servicios_termales">Veure serveis termals</a>
+    <a href="balneario.html#servicios" class="btn btn-primary btn-start" data-i18n="btn_ver_servicios_termales">Veure serveis termals</a>
   </div>
 </section>
 
@@ -120,7 +83,7 @@
   <div class="container center">
     <span class="eyebrow" data-i18n="hotel_gastro_eyebrow">Gastronomia</span>
     <h2 data-i18n="hotel_gastro_title">Restaurants del complex</h2>
-    <p style="max-width:520px;margin:0 auto 30px;" data-i18n="hotel_gastro_desc">Descobreix els diferents restaurants de Caldes de Boí i les seves cartes.</p>
+    <p class="lead-narrow" data-i18n="hotel_gastro_desc">Descobreix els diferents restaurants de Caldes de Boí i les seves cartes.</p>
     <a href="restauracion.html" class="btn btn-dark" data-i18n="btn_ver_restaurantes">Veure restaurants</a>
   </div>
 </section>
@@ -131,6 +94,8 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/booking-widget.js"></script>
 <script src="js/guest-picker.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hotel-page.js"></script>

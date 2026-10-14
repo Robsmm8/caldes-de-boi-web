@@ -32,13 +32,27 @@ function tr(field) {
   return field[lang] || field.es || field.ca || "";
 }
 
+/* Las claves hero_home_lede / hero_home_title apuntan a la variante de portada
+   elegida en config.js (HERO_VARIANT: "mountain" | "water"). */
+function resolveI18nKey(key) {
+  if (key === "hero_home_lede" || key === "hero_home_title") {
+    const variant = typeof HERO_VARIANT !== "undefined" ? HERO_VARIANT : "mountain";
+    return key.replace("hero_home_", `hero_${variant}_`);
+  }
+  return key;
+}
+
+const OG_LOCALES = { ca: "ca_ES", es: "es_ES", en: "en_GB", fr: "fr_FR" };
+
 function applyI18n() {
   const lang = getLang();
   const dict = UI_STRINGS[lang] || UI_STRINGS.ca;
   document.documentElement.lang = lang;
 
+  // Regla: un elemento con data-i18n NO debe contener otros elementos
+  // (textContent los borraría). Para etiqueta + nota, usar spans hermanos.
   document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const key = el.getAttribute("data-i18n");
+    const key = resolveI18nKey(el.getAttribute("data-i18n"));
     if (dict[key] != null) el.textContent = dict[key];
   });
   document.querySelectorAll("[data-i18n-html]").forEach((el) => {
@@ -53,7 +67,24 @@ function applyI18n() {
     const key = el.getAttribute("data-i18n-aria-label");
     if (dict[key] != null) el.setAttribute("aria-label", dict[key]);
   });
-  document.title = dict[`title_${document.body.dataset.page}`] || document.title;
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-alt");
+    if (dict[key] != null) el.setAttribute("alt", dict[key]);
+  });
+  // <meta content="..."> (description, og:*, twitter:*)
+  document.querySelectorAll("[data-i18n-content]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-content");
+    if (dict[key] != null) el.setAttribute("content", dict[key]);
+  });
+  const ogLocale = document.querySelector('meta[property="og:locale"]');
+  if (ogLocale) ogLocale.setAttribute("content", OG_LOCALES[lang]);
+
+  const pageTitle = dict[`title_${document.body.dataset.page}`];
+  if (pageTitle) {
+    document.title = pageTitle;
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle && !ogTitle.hasAttribute("data-i18n-content")) ogTitle.setAttribute("content", pageTitle);
+  }
 }
 
 function setLang(lang) {
@@ -63,7 +94,6 @@ function setLang(lang) {
   if (typeof renderHeader === "function") {
     const headerEl = document.getElementById("site-header");
     if (headerEl) headerEl.innerHTML = renderHeader(document.body.dataset.page || "");
-    wireHeaderInteractions();
   }
   if (typeof renderFooter === "function") {
     const footerEl = document.getElementById("site-footer");
@@ -73,6 +103,7 @@ function setLang(lang) {
   if (typeof applyImages === "function") applyImages();
   if (typeof window.rerenderGuestPickers === "function") window.rerenderGuestPickers();
   if (typeof window.rerenderDynamicContent === "function") window.rerenderDynamicContent();
+  document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
 }
 
 /* -------------------------------------------------------------------------
@@ -82,13 +113,11 @@ const UI_STRINGS = {
   ca: {
     nav_resort: "El Resort", nav_hoteles: "Hotels", nav_termal: "Aigües Termals",
     nav_experiencias: "Experiències", nav_entorno: "Entorn", nav_restauracion: "Restauració",
-    nav_ofertas: "Ofertes", nav_reservar: "Reservar", nav_menu_open: "Obrir menú", nav_menu_close: "Tancar menú",
+    nav_ofertas: "Ofertes", nav_reservar: "Reservar", nav_menu_open: "Obrir menú", nav_menu_close: "Tancar menú", nav_aria: "Navegació principal", opens_new_tab: "s'obre en una pestanya nova",
     brand_alt: "Caldes de Boí — Balneari Thermal Resort",
-    skip_link: "Vés al contingut",
+    skip_link: "Saltar al contingut",
     breadcrumb_inicio: "Inici",
 
-    hero_home_lede: "Aigües termals. Muntanya. Benestar.",
-    hero_home_title: "El poder natural de Caldes de Boí",
     hero_home_desc: "37 mantials mineromedicinals, dos hotels i un entorn únic al cor del Pirineu.",
     btn_reservar_estancia: "Reservar estada",
     btn_descubrir_caldes: "Descobrir Caldes de Boí",
@@ -99,7 +128,7 @@ const UI_STRINGS = {
     guests_1: "1 adult", guests_2: "2 adults", guests_2_1: "2 adults, 1 nen", guests_2_2: "2 adults, 2 nens", guests_4: "4 adults",
 
     feature_manantiales_title: "37 mantials", feature_manantiales_desc: "Aigües mineromedicinals d'origen natural",
-    feature_balneario_title: "Balneari històric", feature_balneario_desc: "Més de 2.000 anys de tradició",
+    feature_balneario_title: "Balneari històric", feature_balneario_desc: "Més de 2.000 anys de tradició [[PENDIENTE: verificar fuente]]",
     feature_parque_title: "Parc Nacional", feature_parque_desc: "Aigüestortes i Estany de Sant Maurici",
     feature_experiencias_title: "Experiències tot l'any", feature_experiencias_desc: "Cada estació, una emoció",
 
@@ -141,7 +170,7 @@ const UI_STRINGS = {
     modal_motor: "Motor assignat", modal_entrada: "Entrada", modal_salida: "Sortida", modal_huespedes: "Hostes",
     modal_cerrar: "Tancar", modal_cualquiera: "Qualsevol dels dos hotels",
 
-    title_home: "Caldes de Boí · Balneari Thermal Resort",
+    title_home: "Caldes de Boí · Balneari i hotels al Pirineu",
     title_balneario: "Balneari · Caldes de Boí",
     title_restauracion: "Restauració · Caldes de Boí",
     title_entorno: "Entorn · Caldes de Boí",
@@ -188,7 +217,7 @@ const UI_STRINGS = {
     room_selected_prefix: "Habitació seleccionada",
     modal_habitacion: "Habitació",
     gp_adults: "Adults", gp_adults_note: "13 anys o més",
-    gp_children: "Nens", gp_children_note: "0–17 anys",
+    gp_children: "Nens", gp_children_note: "0–12 anys",
     gp_rooms: "Habitacions",
     gp_pets: "Mascotes", gp_pets_note: "Consulta condicions",
     gp_apply: "Aplicar",
@@ -202,18 +231,57 @@ const UI_STRINGS = {
     hotel_gastro_eyebrow: "Gastronomia", hotel_gastro_title: "Restaurants del complex",
     hotel_gastro_desc: "Descobreix els diferents restaurants de Caldes de Boí i les seves cartes.",
     btn_ver_restaurantes: "Veure restaurants",
+
+    /* --- Revisió: cercador, selector d'hostes, SEO, portada --- */
+    hero_water_lede: "Aigües termals. Muntanya. Benestar.",
+    hero_water_title: "El poder natural de Caldes de Boí",
+    hero_mountain_lede: "Muntanya. Activitat. Aigües termals.",
+    hero_mountain_title: "Camina el Pirineu. Recupera't a l'aigua.",
+    bw_tablist_aria: "Tipus de reserva",
+    bw_tab_stay: "Allotjament", bw_tab_thermal: "Circuit termal",
+    bw_date_thermal: "Data", bw_slot: "Franja horària", bw_people: "Persones",
+    bw_submit_thermal: "Comprovar disponibilitat", bw_aria_thermal: "Reserva del circuit termal",
+    bw_err_dates_required: "Indica la data d'arribada i la de sortida.",
+    bw_err_past: "La data d'arribada no pot ser anterior a avui.",
+    bw_err_checkout: "La data de sortida ha de ser posterior a la d'arribada.",
+    bw_err_thermal_date: "Indica la data del circuit termal.",
+    bw_err_thermal_past: "La data no pot ser anterior a avui.",
+    bw_out_of_season: "Aquestes dates queden fora de temporada: l'hotel està tancat. Dates d'obertura:",
+    bw_season_label: "Temporada",
+    bw_best_price: "Millor preu garantit a la web",
+    gp_panel_aria: "Selecciona hostes",
+    gp_add_adult: "Afegir adult", gp_remove_adult: "Treure adult",
+    gp_add_child: "Afegir nen", gp_remove_child: "Treure nen",
+    gp_add_room: "Afegir habitació", gp_remove_room: "Treure habitació",
+    gp_add_pet: "Afegir mascota", gp_remove_pet: "Treure mascota",
+    price_from: "des de {price} €/nit", pk_price_from: "des de {price} €",
+    phone_aria: "Trucar al telèfon de reserves",
+    pk_eyebrow: "Paquets", pk_title: "Escapades pensades per a tu",
+    pk_desc: "Combina estada, aigües termals i muntanya en un sol paquet.",
+    pk_cta: "Més informació",
+    exp_familias_title: "Escapades en família", exp_familias_desc: "Muntanya i aigua per gaudir-ne junts",
+    alt_room: "Habitació de l'hotel",
+    footer_newsletter_ok: "Gràcies per subscriure't! (demostració)",
+    /* Diferenciadors PENDENTS DE CONFIRMAR: no s'usen fins que es descomenti el bloc a index.html */
+    feature_guinness_title: "Rècord Guinness", feature_guinness_desc: "Mantials mineromedicinals [[PENDIENTE: confirmar redacción del récord]]",
+    feature_fangos_title: "Fangs propis", feature_fangos_desc: "Del nostre propi balneari [[PENDIENTE: confirmar]]",
+    meta_desc_home: "Balneari termal i dos hotels al cor del Pirineu: 37 mantials mineromedicinals, circuit termal, muntanya i gastronomia a Caldes de Boí (Vall de Boí).",
+    meta_desc_manantial: "Hotel Manantial a Caldes de Boí: habitacions i suites amb accés directe al balneari, entre boscos i muntanyes del Pirineu.",
+    meta_desc_caldas: "Hotel Caldas a Caldes de Boí: confort, natura i esperit familiar a pocs minuts del balneari termal.",
+    meta_desc_balneario: "Carta de serveis termals i programes de salut i benestar del balneari de Caldes de Boí. Descarrega els programes en PDF.",
+    meta_desc_restauracion: "Restaurants i bars de Caldes de Boí: Restaurant Manantial, Bar del Manantial, Restaurant Caldas i Club Piscina. Consulta les cartes.",
+    meta_desc_entorno: "Descobreix l'entorn de Caldes de Boí: Parc Nacional d'Aigüestortes, romànic de la Vall de Boí, Boí Taüll Resort, pobles amb encant i rutes de senderisme.",
+    meta_desc_ofertas: "Ofertes i paquets especials de Caldes de Boí: escapades termals, paquets de temporada i descomptes per estada (properament).",
   },
 
   es: {
     nav_resort: "El Resort", nav_hoteles: "Hoteles", nav_termal: "Aguas Termales",
     nav_experiencias: "Experiencias", nav_entorno: "Entorno", nav_restauracion: "Restauración",
-    nav_ofertas: "Ofertas", nav_reservar: "Reservar", nav_menu_open: "Abrir menú", nav_menu_close: "Cerrar menú",
+    nav_ofertas: "Ofertas", nav_reservar: "Reservar", nav_menu_open: "Abrir menú", nav_menu_close: "Cerrar menú", nav_aria: "Navegación principal", opens_new_tab: "se abre en una pestaña nueva",
     brand_alt: "Caldes de Boí — Balneari Thermal Resort",
     skip_link: "Saltar al contenido",
     breadcrumb_inicio: "Inicio",
 
-    hero_home_lede: "Aguas termales. Montaña. Bienestar.",
-    hero_home_title: "El poder natural de Caldes de Boí",
     hero_home_desc: "37 manantiales mineromedicinales, dos hoteles y un entorno único en el corazón de los Pirineos.",
     btn_reservar_estancia: "Reservar estancia",
     btn_descubrir_caldes: "Descubrir Caldes de Boí",
@@ -224,7 +292,7 @@ const UI_STRINGS = {
     guests_1: "1 adulto", guests_2: "2 adultos", guests_2_1: "2 adultos, 1 niño", guests_2_2: "2 adultos, 2 niños", guests_4: "4 adultos",
 
     feature_manantiales_title: "37 manantiales", feature_manantiales_desc: "Aguas mineromedicinales de origen natural",
-    feature_balneario_title: "Balneario histórico", feature_balneario_desc: "Más de 2.000 años de tradición",
+    feature_balneario_title: "Balneario histórico", feature_balneario_desc: "Más de 2.000 años de tradición [[PENDIENTE: verificar fuente]]",
     feature_parque_title: "Parque Nacional", feature_parque_desc: "Aigüestortes i Estany de Sant Maurici",
     feature_experiencias_title: "Experiencias todo el año", feature_experiencias_desc: "Cada estación, una emoción",
 
@@ -266,7 +334,7 @@ const UI_STRINGS = {
     modal_motor: "Motor asignado", modal_entrada: "Entrada", modal_salida: "Salida", modal_huespedes: "Huéspedes",
     modal_cerrar: "Cerrar", modal_cualquiera: "Cualquiera de los dos hoteles",
 
-    title_home: "Caldes de Boí · Balneari Thermal Resort",
+    title_home: "Caldes de Boí · Balneario y hoteles en el Pirineo",
     title_balneario: "Balneario · Caldes de Boí",
     title_restauracion: "Restauración · Caldes de Boí",
     title_entorno: "Entorno · Caldes de Boí",
@@ -313,7 +381,7 @@ const UI_STRINGS = {
     room_selected_prefix: "Habitación seleccionada",
     modal_habitacion: "Habitación",
     gp_adults: "Adultos", gp_adults_note: "13 años o más",
-    gp_children: "Niños", gp_children_note: "0–17 años",
+    gp_children: "Niños", gp_children_note: "0–12 años",
     gp_rooms: "Habitaciones",
     gp_pets: "Mascotas", gp_pets_note: "Consultar condiciones",
     gp_apply: "Aplicar",
@@ -327,18 +395,57 @@ const UI_STRINGS = {
     hotel_gastro_eyebrow: "Gastronomía", hotel_gastro_title: "Restaurantes del complejo",
     hotel_gastro_desc: "Descubre los diferentes restaurantes de Caldes de Boí y sus cartas.",
     btn_ver_restaurantes: "Ver restaurantes",
+
+    /* --- Revisión: buscador, selector de huéspedes, SEO, portada --- */
+    hero_water_lede: "Aguas termales. Montaña. Bienestar.",
+    hero_water_title: "El poder natural de Caldes de Boí",
+    hero_mountain_lede: "Montaña. Actividad. Aguas termales.",
+    hero_mountain_title: "Camina el Pirineo. Recupérate en el agua.",
+    bw_tablist_aria: "Tipo de reserva",
+    bw_tab_stay: "Alojamiento", bw_tab_thermal: "Circuito termal",
+    bw_date_thermal: "Fecha", bw_slot: "Franja horaria", bw_people: "Personas",
+    bw_submit_thermal: "Comprobar disponibilidad", bw_aria_thermal: "Reserva del circuito termal",
+    bw_err_dates_required: "Indica la fecha de llegada y la de salida.",
+    bw_err_past: "La fecha de llegada no puede ser anterior a hoy.",
+    bw_err_checkout: "La fecha de salida debe ser posterior a la de llegada.",
+    bw_err_thermal_date: "Indica la fecha del circuito termal.",
+    bw_err_thermal_past: "La fecha no puede ser anterior a hoy.",
+    bw_out_of_season: "Estas fechas quedan fuera de temporada: el hotel está cerrado. Fechas de apertura:",
+    bw_season_label: "Temporada",
+    bw_best_price: "Mejor precio garantizado en la web",
+    gp_panel_aria: "Seleccionar huéspedes",
+    gp_add_adult: "Añadir adulto", gp_remove_adult: "Quitar adulto",
+    gp_add_child: "Añadir niño", gp_remove_child: "Quitar niño",
+    gp_add_room: "Añadir habitación", gp_remove_room: "Quitar habitación",
+    gp_add_pet: "Añadir mascota", gp_remove_pet: "Quitar mascota",
+    price_from: "desde {price} €/noche", pk_price_from: "desde {price} €",
+    phone_aria: "Llamar al teléfono de reservas",
+    pk_eyebrow: "Paquetes", pk_title: "Escapadas pensadas para ti",
+    pk_desc: "Combina estancia, aguas termales y montaña en un solo paquete.",
+    pk_cta: "Más información",
+    exp_familias_title: "Escapadas en familia", exp_familias_desc: "Montaña y agua para disfrutar juntos",
+    alt_room: "Habitación del hotel",
+    footer_newsletter_ok: "¡Gracias por suscribirte! (demostración)",
+    /* Diferenciadores PENDIENTES DE CONFIRMAR: no se usan hasta descomentar el bloque en index.html */
+    feature_guinness_title: "Récord Guinness", feature_guinness_desc: "Manantiales mineromedicinales [[PENDIENTE: confirmar redacción del récord]]",
+    feature_fangos_title: "Fangos propios", feature_fangos_desc: "De nuestro propio balneario [[PENDIENTE: confirmar]]",
+    meta_desc_home: "Balneario termal y dos hoteles en el corazón del Pirineo: 37 manantiales mineromedicinales, circuito termal, montaña y gastronomía en Caldes de Boí (Valle de Boí).",
+    meta_desc_manantial: "Hotel Manantial en Caldes de Boí: habitaciones y suites con acceso directo al balneario, entre bosques y montañas del Pirineo.",
+    meta_desc_caldas: "Hotel Caldas en Caldes de Boí: confort, naturaleza y espíritu familiar a pocos minutos del balneario termal.",
+    meta_desc_balneario: "Carta de servicios termales y programas de salud y bienestar del balneario de Caldes de Boí. Descarga los programas en PDF.",
+    meta_desc_restauracion: "Restaurantes y bares de Caldes de Boí: Restaurante Manantial, Bar del Manantial, Restaurante Caldas y Club Piscina. Consulta las cartas.",
+    meta_desc_entorno: "Descubre el entorno de Caldes de Boí: Parque Nacional de Aigüestortes, románico del Valle de Boí, Boí Taüll Resort, pueblos con encanto y rutas de senderismo.",
+    meta_desc_ofertas: "Ofertas y paquetes especiales de Caldes de Boí: escapadas termales, paquetes de temporada y descuentos por estancia (próximamente).",
   },
 
   en: {
     nav_resort: "The Resort", nav_hoteles: "Hotels", nav_termal: "Thermal Waters",
     nav_experiencias: "Experiences", nav_entorno: "Surroundings", nav_restauracion: "Dining",
-    nav_ofertas: "Offers", nav_reservar: "Book now", nav_menu_open: "Open menu", nav_menu_close: "Close menu",
+    nav_ofertas: "Offers", nav_reservar: "Book now", nav_menu_open: "Open menu", nav_menu_close: "Close menu", nav_aria: "Main navigation", opens_new_tab: "opens in a new tab",
     brand_alt: "Caldes de Boí — Balneari Thermal Resort",
     skip_link: "Skip to content",
     breadcrumb_inicio: "Home",
 
-    hero_home_lede: "Thermal waters. Mountains. Wellness.",
-    hero_home_title: "The natural power of Caldes de Boí",
     hero_home_desc: "37 mineral-medicinal springs, two hotels and a unique setting in the heart of the Pyrenees.",
     btn_reservar_estancia: "Book your stay",
     btn_descubrir_caldes: "Discover Caldes de Boí",
@@ -349,7 +456,7 @@ const UI_STRINGS = {
     guests_1: "1 adult", guests_2: "2 adults", guests_2_1: "2 adults, 1 child", guests_2_2: "2 adults, 2 children", guests_4: "4 adults",
 
     feature_manantiales_title: "37 springs", feature_manantiales_desc: "Naturally occurring mineral-medicinal waters",
-    feature_balneario_title: "Historic spa", feature_balneario_desc: "Over 2,000 years of tradition",
+    feature_balneario_title: "Historic spa", feature_balneario_desc: "Over 2,000 years of tradition [[PENDIENTE: verificar fuente]]",
     feature_parque_title: "National Park", feature_parque_desc: "Aigüestortes i Estany de Sant Maurici",
     feature_experiencias_title: "Year-round experiences", feature_experiencias_desc: "A new feeling every season",
 
@@ -391,7 +498,7 @@ const UI_STRINGS = {
     modal_motor: "Engine assigned", modal_entrada: "Check-in", modal_salida: "Check-out", modal_huespedes: "Guests",
     modal_cerrar: "Close", modal_cualquiera: "Either of the two hotels",
 
-    title_home: "Caldes de Boí · Balneari Thermal Resort",
+    title_home: "Caldes de Boí · Thermal spa and hotels in the Pyrenees",
     title_balneario: "Spa · Caldes de Boí",
     title_restauracion: "Dining · Caldes de Boí",
     title_entorno: "Surroundings · Caldes de Boí",
@@ -438,7 +545,7 @@ const UI_STRINGS = {
     room_selected_prefix: "Selected room",
     modal_habitacion: "Room",
     gp_adults: "Adults", gp_adults_note: "Ages 13 or above",
-    gp_children: "Children", gp_children_note: "Ages 0–17",
+    gp_children: "Children", gp_children_note: "Ages 0–12",
     gp_rooms: "Rooms",
     gp_pets: "Pets", gp_pets_note: "Check conditions",
     gp_apply: "Apply",
@@ -452,18 +559,57 @@ const UI_STRINGS = {
     hotel_gastro_eyebrow: "Gastronomy", hotel_gastro_title: "Restaurants at the resort",
     hotel_gastro_desc: "Discover the different restaurants at Caldes de Boí and their menus.",
     btn_ver_restaurantes: "View restaurants",
+
+    /* --- Review: search widget, guest picker, SEO, home page --- */
+    hero_water_lede: "Thermal waters. Mountains. Wellness.",
+    hero_water_title: "The natural power of Caldes de Boí",
+    hero_mountain_lede: "Mountains. Activity. Thermal waters.",
+    hero_mountain_title: "Walk the Pyrenees. Recover in the water.",
+    bw_tablist_aria: "Booking type",
+    bw_tab_stay: "Stay", bw_tab_thermal: "Thermal circuit",
+    bw_date_thermal: "Date", bw_slot: "Time slot", bw_people: "People",
+    bw_submit_thermal: "Check availability", bw_aria_thermal: "Thermal circuit booking",
+    bw_err_dates_required: "Enter your check-in and check-out dates.",
+    bw_err_past: "Check-in cannot be before today.",
+    bw_err_checkout: "Check-out must be after check-in.",
+    bw_err_thermal_date: "Enter the date of your thermal circuit.",
+    bw_err_thermal_past: "The date cannot be before today.",
+    bw_out_of_season: "These dates fall outside the season: the hotel is closed. Opening dates:",
+    bw_season_label: "Season",
+    bw_best_price: "Best price guaranteed on our website",
+    gp_panel_aria: "Select guests",
+    gp_add_adult: "Add adult", gp_remove_adult: "Remove adult",
+    gp_add_child: "Add child", gp_remove_child: "Remove child",
+    gp_add_room: "Add room", gp_remove_room: "Remove room",
+    gp_add_pet: "Add pet", gp_remove_pet: "Remove pet",
+    price_from: "from {price} €/night", pk_price_from: "from {price} €",
+    phone_aria: "Call our reservations line",
+    pk_eyebrow: "Packages", pk_title: "Getaways designed for you",
+    pk_desc: "Combine your stay, thermal waters and the mountains in a single package.",
+    pk_cta: "More information",
+    exp_familias_title: "Family getaways", exp_familias_desc: "Mountains and water to enjoy together",
+    alt_room: "Hotel room",
+    footer_newsletter_ok: "Thanks for subscribing! (demo)",
+    /* Differentiators PENDING CONFIRMATION: unused until the block in index.html is uncommented */
+    feature_guinness_title: "Guinness record", feature_guinness_desc: "Mineral-medicinal springs [[PENDIENTE: confirmar redacción del récord]]",
+    feature_fangos_title: "Our own mud", feature_fangos_desc: "From our own spa [[PENDIENTE: confirmar]]",
+    meta_desc_home: "Thermal spa and two hotels in the heart of the Pyrenees: 37 mineral-medicinal springs, thermal circuit, mountains and gastronomy at Caldes de Boí (Vall de Boí).",
+    meta_desc_manantial: "Hotel Manantial at Caldes de Boí: rooms and suites with direct access to the spa, among Pyrenean forests and mountains.",
+    meta_desc_caldas: "Hotel Caldas at Caldes de Boí: comfort, nature and a family spirit, minutes from the thermal spa.",
+    meta_desc_balneario: "Thermal services menu and health and wellness programmes at the Caldes de Boí spa. Download the programmes as PDF.",
+    meta_desc_restauracion: "Restaurants and bars at Caldes de Boí: Restaurante Manantial, Bar del Manantial, Restaurante Caldas and Club Piscina. Browse the menus.",
+    meta_desc_entorno: "Discover the surroundings of Caldes de Boí: Aigüestortes National Park, Romanesque churches of the Vall de Boí, Boí Taüll Resort, charming villages and hiking routes.",
+    meta_desc_ofertas: "Special offers and packages at Caldes de Boí: thermal getaways, seasonal packages and stay discounts (coming soon).",
   },
 
   fr: {
     nav_resort: "Le Resort", nav_hoteles: "Hôtels", nav_termal: "Eaux Thermales",
     nav_experiencias: "Expériences", nav_entorno: "Environs", nav_restauracion: "Restauration",
-    nav_ofertas: "Offres", nav_reservar: "Réserver", nav_menu_open: "Ouvrir le menu", nav_menu_close: "Fermer le menu",
+    nav_ofertas: "Offres", nav_reservar: "Réserver", nav_menu_open: "Ouvrir le menu", nav_menu_close: "Fermer le menu", nav_aria: "Navigation principale", opens_new_tab: "s'ouvre dans un nouvel onglet",
     brand_alt: "Caldes de Boí — Balneari Thermal Resort",
     skip_link: "Aller au contenu",
     breadcrumb_inicio: "Accueil",
 
-    hero_home_lede: "Eaux thermales. Montagne. Bien-être.",
-    hero_home_title: "Le pouvoir naturel de Caldes de Boí",
     hero_home_desc: "37 sources minéro-médicinales, deux hôtels et un cadre unique au cœur des Pyrénées.",
     btn_reservar_estancia: "Réserver un séjour",
     btn_descubrir_caldes: "Découvrir Caldes de Boí",
@@ -474,7 +620,7 @@ const UI_STRINGS = {
     guests_1: "1 adulte", guests_2: "2 adultes", guests_2_1: "2 adultes, 1 enfant", guests_2_2: "2 adultes, 2 enfants", guests_4: "4 adultes",
 
     feature_manantiales_title: "37 sources", feature_manantiales_desc: "Eaux minéro-médicinales d'origine naturelle",
-    feature_balneario_title: "Thermes historiques", feature_balneario_desc: "Plus de 2 000 ans de tradition",
+    feature_balneario_title: "Thermes historiques", feature_balneario_desc: "Plus de 2 000 ans de tradition [[PENDIENTE: verificar fuente]]",
     feature_parque_title: "Parc National", feature_parque_desc: "Aigüestortes i Estany de Sant Maurici",
     feature_experiencias_title: "Des expériences toute l'année", feature_experiencias_desc: "Chaque saison, une émotion",
 
@@ -516,7 +662,7 @@ const UI_STRINGS = {
     modal_motor: "Moteur assigné", modal_entrada: "Arrivée", modal_salida: "Départ", modal_huespedes: "Voyageurs",
     modal_cerrar: "Fermer", modal_cualquiera: "L'un des deux hôtels",
 
-    title_home: "Caldes de Boí · Balneari Thermal Resort",
+    title_home: "Caldes de Boí · Thermes et hôtels dans les Pyrénées",
     title_balneario: "Thermes · Caldes de Boí",
     title_restauracion: "Restauration · Caldes de Boí",
     title_entorno: "Environs · Caldes de Boí",
@@ -563,7 +709,7 @@ const UI_STRINGS = {
     room_selected_prefix: "Chambre sélectionnée",
     modal_habitacion: "Chambre",
     gp_adults: "Adultes", gp_adults_note: "13 ans ou plus",
-    gp_children: "Enfants", gp_children_note: "0–17 ans",
+    gp_children: "Enfants", gp_children_note: "0–12 ans",
     gp_rooms: "Chambres",
     gp_pets: "Animaux", gp_pets_note: "Voir conditions",
     gp_apply: "Appliquer",
@@ -577,5 +723,46 @@ const UI_STRINGS = {
     hotel_gastro_eyebrow: "Gastronomie", hotel_gastro_title: "Restaurants du complexe",
     hotel_gastro_desc: "Découvrez les différents restaurants de Caldes de Boí et leurs cartes.",
     btn_ver_restaurantes: "Voir les restaurants",
+
+    /* --- Révision : moteur de recherche, sélecteur de voyageurs, SEO, accueil --- */
+    hero_water_lede: "Eaux thermales. Montagne. Bien-être.",
+    hero_water_title: "Le pouvoir naturel de Caldes de Boí",
+    hero_mountain_lede: "Montagne. Activité. Eaux thermales.",
+    hero_mountain_title: "Marchez dans les Pyrénées. Ressourcez-vous dans l'eau.",
+    bw_tablist_aria: "Type de réservation",
+    bw_tab_stay: "Séjour", bw_tab_thermal: "Circuit thermal",
+    bw_date_thermal: "Date", bw_slot: "Créneau horaire", bw_people: "Personnes",
+    bw_submit_thermal: "Vérifier la disponibilité", bw_aria_thermal: "Réservation du circuit thermal",
+    bw_err_dates_required: "Indiquez vos dates d'arrivée et de départ.",
+    bw_err_past: "La date d'arrivée ne peut pas être antérieure à aujourd'hui.",
+    bw_err_checkout: "La date de départ doit être postérieure à la date d'arrivée.",
+    bw_err_thermal_date: "Indiquez la date du circuit thermal.",
+    bw_err_thermal_past: "La date ne peut pas être antérieure à aujourd'hui.",
+    bw_out_of_season: "Ces dates sont hors saison : l'hôtel est fermé. Dates d'ouverture :",
+    bw_season_label: "Saison",
+    bw_best_price: "Meilleur prix garanti sur le site",
+    gp_panel_aria: "Sélectionner les voyageurs",
+    gp_add_adult: "Ajouter un adulte", gp_remove_adult: "Retirer un adulte",
+    gp_add_child: "Ajouter un enfant", gp_remove_child: "Retirer un enfant",
+    gp_add_room: "Ajouter une chambre", gp_remove_room: "Retirer une chambre",
+    gp_add_pet: "Ajouter un animal", gp_remove_pet: "Retirer un animal",
+    price_from: "à partir de {price} €/nuit", pk_price_from: "à partir de {price} €",
+    phone_aria: "Appeler le service réservations",
+    pk_eyebrow: "Forfaits", pk_title: "Des escapades pensées pour vous",
+    pk_desc: "Combinez séjour, eaux thermales et montagne en un seul forfait.",
+    pk_cta: "Plus d'infos",
+    exp_familias_title: "Escapades en famille", exp_familias_desc: "La montagne et l'eau à partager",
+    alt_room: "Chambre d'hôtel",
+    footer_newsletter_ok: "Merci de votre inscription ! (démo)",
+    /* Atouts À CONFIRMER : inutilisés tant que le bloc d'index.html reste commenté */
+    feature_guinness_title: "Record Guinness", feature_guinness_desc: "Sources minéro-médicinales [[PENDIENTE: confirmar redacción del récord]]",
+    feature_fangos_title: "Boues propres", feature_fangos_desc: "De nos propres thermes [[PENDIENTE: confirmar]]",
+    meta_desc_home: "Établissement thermal et deux hôtels au cœur des Pyrénées : 37 sources minéro-médicinales, circuit thermal, montagne et gastronomie à Caldes de Boí (Vall de Boí).",
+    meta_desc_manantial: "Hotel Manantial à Caldes de Boí : chambres et suites avec accès direct aux thermes, entre forêts et montagnes des Pyrénées.",
+    meta_desc_caldas: "Hotel Caldas à Caldes de Boí : confort, nature et esprit familial à quelques minutes des thermes.",
+    meta_desc_balneario: "Carte des soins thermaux et programmes santé et bien-être des thermes de Caldes de Boí. Téléchargez les programmes en PDF.",
+    meta_desc_restauracion: "Restaurants et bars de Caldes de Boí : Restaurante Manantial, Bar del Manantial, Restaurante Caldas et Club Piscina. Consultez les cartes.",
+    meta_desc_entorno: "Découvrez les environs de Caldes de Boí : parc national d'Aigüestortes, art roman de la Vall de Boí, Boí Taüll Resort, villages de charme et sentiers de randonnée.",
+    meta_desc_ofertas: "Offres et forfaits spéciaux à Caldes de Boí : escapades thermales, forfaits de saison et remises sur le séjour (bientôt disponible).",
   },
 };

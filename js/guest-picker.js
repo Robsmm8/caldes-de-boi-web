@@ -3,9 +3,9 @@
    (adultos, niños, habitaciones y mascotas, con contadores +/-).
 
    Cualquier elemento con [data-guest-picker] se convierte automáticamente
-   en uno de estos selectores: solo hace falta que dentro tenga los mismos
-   data-attributes que en index.html / hotel-manantial.html / hotel-caldas.html
-   (ver esos archivos para la plantilla completa).
+   en uno de estos selectores. El HTML lo genera js/booking-widget.js
+   (bwGuestPicker); este script solo le da el comportamiento, así que debe
+   cargarse DESPUÉS de booking-widget.js.
 
    Límites recomendados para un buscador de hotel de este tipo (ajustables
    aquí mismo si el hotel prefiere otros máximos):
@@ -109,7 +109,10 @@ document.addEventListener("click", (e) => {
   if (!e.target.closest("[data-guest-picker]")) closeAllGuestPickers();
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeAllGuestPickers();
+  if (e.key !== "Escape") return;
+  const openTrigger = document.querySelector('.guest-picker-trigger[aria-expanded="true"]');
+  closeAllGuestPickers();
+  if (openTrigger) openTrigger.focus();
 });
 
 /* Al cambiar de idioma (ver js/i18n.js), solo hay que refrescar las

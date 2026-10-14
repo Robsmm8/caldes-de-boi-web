@@ -25,17 +25,55 @@ caldes-de-boi/
   css/style.css             Estilos (variables de color/tipografía arriba)
   js/config.js              *** ÚNICO archivo de contenido/datos (en 4 idiomas) ***
   js/i18n.js                Textos de interfaz (4 idiomas) + funciones tr()/setLang()
-  js/main.js                Header/footer, selector de idioma, imágenes, motor de reservas
+  js/icons.js               Sprite SVG único (sustituye a los emojis)
+  js/booking-widget.js      Buscador: pestañas Alojamiento / Circuito termal, fechas, temporada
+  js/main.js                Header/footer, selector de idioma, imágenes, marcadores PENDIENTE, modal
   js/guest-picker.js        Desplegable de huéspedes (adultos/niños/habitaciones/mascotas)
   js/hotel-page.js          Rellena hotel-manantial.html / hotel-caldas.html
 ```
 
-## 0b. Selector de huéspedes (adultos / niños / habitaciones / mascotas)
-El campo "Huéspedes" del buscador (home y páginas de hotel) es un
-desplegable con contadores +/-, no un `<select>` de opciones fijas.
-Límites por búsqueda (ajustables en `GUEST_LIMITS`, `js/guest-picker.js`):
+## 0a. Datos pendientes: marcadores `[[PENDIENTE: ...]]`
+Todo dato que falta por aportar (teléfono, tarifas, fechas de temporada,
+dirección, contenido de paquetes...) se escribe con la forma
+`[[PENDIENTE: descripción]]` y la web lo pinta **resaltado en amarillo**
+(`markPending` en `js/main.js`). Buscar `PENDIENTE` en el proyecto da la lista
+completa. Dónde se rellenan, todo en `js/config.js`:
 
-- Adultos: 1–6 · Niños (0–17 años): 0–4 · Habitaciones: 1–4 · Mascotas: 0–2
+| Dato | Variable |
+|---|---|
+| Teléfono de reservas | `SITE_INFO.phone` / `phoneDisplay` |
+| Tarifa "des de" por hotel | `HOTELS.<hotel>.priceFrom` |
+| Fechas de apertura de cada hotel | `SEASONS.<hotel>` (activa también el aviso de "fuera de temporada") |
+| Franjas horarias del circuito termal | `THERMAL_SLOTS` |
+| Motor de reservas de cada hotel / del circuito | `BOOKING_ENGINES.<hotel>`, `THERMAL_BOOKING` (poner `live: true` para redirigir de verdad) |
+| Paquetes (contenido y precio) | `PACKAGES` |
+| Titular de la portada | `HERO_VARIANT` = `"mountain"` (activo) o `"water"` (anterior) |
+
+## 0b. Buscador de disponibilidad (`js/booking-widget.js`)
+Cada página solo lleva un contenedor `<div data-booking-widget data-mode="...">`
+y el script genera el buscador: `home` e `spa` muestran dos pestañas
+(**Allotjament** y **Circuit termal**; en `balneario.html` abre la termal) y
+`hotel` solo el alojamiento con el hotel fijado. Las fechas tienen `min`
+dinámico (llegada ≥ hoy, salida ≥ llegada + 1) y se validan al enviar con
+mensajes traducidos. Cuando `SEASONS` tenga datos, las fechas fuera de
+temporada muestran un aviso claro en vez de abrir un resultado vacío.
+
+## 0c. Selector de huéspedes (adultos / niños / habitaciones / mascotas)
+El campo "Huéspedes" del buscador es un desplegable con contadores +/-, no un
+`<select>` de opciones fijas. Límites por búsqueda (ajustables en
+`GUEST_LIMITS`, `js/guest-picker.js`):
+
+- Adultos (13 años o más): 1–6 · Niños (0–12 años): 0–4 · Habitaciones: 1–4 · Mascotas: 0–2
+
+## 0d. Iconos y SEO
+- **Iconos**: sprite SVG propio (`js/icons.js`), mismo trazo en toda la web.
+  Para añadir uno, nueva entrada en `ICON_PATHS` y `icon("nombre")` en JS o
+  `<svg class="icon"><use href="#i-nombre"/></svg>` en HTML.
+- **SEO**: cada página tiene `meta description`, Open Graph, canonical y
+  favicon; la portada incluye JSON-LD (`Resort` + 2 `Hotel` + `DaySpa`). Las
+  descripciones están en catalán en el HTML y se traducen en cliente
+  (`meta_desc_*` en `js/i18n.js`). Canonical/og:url apuntan hoy a GitHub Pages
+  (`[[PENDIENTE: dominio definitivo]]`).
 
 Al enviar el formulario, cada valor viaja como parámetro independiente
 (`adults`, `children`, `rooms`, `pets`) a `buildBookingUrl()`
@@ -152,6 +190,10 @@ tiene un `externalLink` a su web oficial real y un `linkLabel` (texto del
 botón) en los 4 idiomas.
 
 ## Pendiente de decidir con el cliente
+- Todos los `[[PENDIENTE]]` de la tabla 0a (teléfono, tarifas, temporada, franjas, paquetes, dirección, dominio).
+- Verificar la fuente de «Més de 2.000 anys de tradició» y confirmar los dos diferenciadores
+  preparados (récord Guinness de mantials, fangs propis), comentados en `index.html`.
+- Foto real de familias para la tarjeta «Escapades en família» (hoy: patio del Hotel Caldas).
 - Motor(es) de reserva reales para Manantial y Caldas (ver pista Roiback arriba).
 - Lista de precios real y completa de la carta de servicios termales
   (hoy solo "Servicios de agua termal" tiene precios 100% reales).

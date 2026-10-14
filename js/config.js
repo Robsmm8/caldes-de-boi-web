@@ -60,22 +60,72 @@ const IMAGES = {
 /* Vídeo de portada (opcional, desactivado). Ver README para reactivarlo. */
 const HERO_VIDEO = "";
 
+/* Mensaje de la portada. La propiedad elige cuál de las dos versiones usar
+   (los textos de ambas están en js/i18n.js, claves hero_mountain_* y hero_water_*):
+     "mountain" -> «Camina el Pirineu. Recupera't a l'aigua.»   (montaña -> actividad -> recuperación termal)
+     "water"    -> «El poder natural de Caldes de Boí»          (versión anterior: agua -> montaña)  */
+const HERO_VARIANT = "mountain";
+
+/* -------------------------------------------------------------------------
+   Marcadores de datos pendientes
+   Todo texto con la forma [[PENDIENTE: descripción]] se pinta resaltado en
+   amarillo en la web (ver markPending en js/main.js) para que nadie lo
+   confunda con contenido definitivo. Buscar "PENDIENTE" en el proyecto
+   da la lista completa de datos por aportar.
+   ------------------------------------------------------------------------- */
+const pendingText = (desc) => `[[PENDIENTE: ${desc}]]`;
+const pendingField = (desc) => ({ ca: pendingText(desc), es: pendingText(desc), en: pendingText(desc), fr: pendingText(desc) });
+
 /* -------------------------------------------------------------------------
    2) MOTORES DE RESERVA (parametrizado, ver js/main.js -> buildBookingUrl)
+   `live: false` mantiene el modal de simulación. Cuando se contrate el motor:
+   rellenar provider/baseUrl/hotelCode y poner `live: true` — el buscador
+   redirigirá entonces a la URL real (js/booking-widget.js).
    ------------------------------------------------------------------------- */
 const BOOKING_ENGINES = {
   manantial: {
     provider: "generic",
-    engineName: "Motor de reservas Hotel Manantial (pendiente de asignar)",
+    engineName: "Motor de reservas Hotel Manantial " + pendingText("URL y parámetros del motor de reservas"),
     baseUrl: "https://booking-engine-pendiente.example.com/manantial",
     hotelCode: "MANANTIAL",
+    live: false,
   },
   caldas: {
     provider: "generic",
-    engineName: "Motor de reservas Hotel Caldas (pendiente de asignar)",
+    engineName: "Motor de reservas Hotel Caldas " + pendingText("URL y parámetros del motor de reservas"),
     baseUrl: "https://booking-engine-pendiente.example.com/caldas",
     hotelCode: "CALDAS",
+    live: false,
   },
+};
+
+/* Reserva del circuito termal (pestaña "Circuit termal" del buscador). */
+const THERMAL_BOOKING = {
+  engineName: pendingText("sistema de reserva del circuito"),
+  baseUrl: "https://booking-engine-pendiente.example.com/circuito-termal",
+  live: false,
+};
+
+/* Franjas horarias del circuito termal. Formato: { value: "10:00-12:00", label: "10:00 – 12:00" }
+   Vacío = pendiente (el desplegable muestra el marcador). */
+const THERMAL_SLOTS = [];
+
+/* Temporada de apertura de cada hotel. Formato: { from: "AAAA-MM-DD", to: "AAAA-MM-DD" }
+   (`to` = último día de apertura, válido como fecha de salida). Puede haber
+   varios tramos por hotel. Mientras esté vacío NO se valida ni se avisa de
+   fechas fuera de temporada; en cuanto se rellene, el buscador muestra un
+   aviso claro si las fechas elegidas caen fuera. */
+const SEASONS = {
+  manantial: [],
+  caldas: [],
+};
+
+/* Datos de contacto. `phone` (formato internacional, sin espacios, p. ej.
+   "+34XXXXXXXXX") activa el teléfono clicable de la cabecera; `phoneDisplay`
+   es el texto visible. Mientras phone sea null se muestra el marcador. */
+const SITE_INFO = {
+  phone: null,
+  phoneDisplay: null,
 };
 
 /* -------------------------------------------------------------------------
@@ -100,6 +150,7 @@ const HOTELS = {
     heroImage: "hotelManantialHero",
     thumbImage: "hotelManantialThumb",
     bookingEngine: "manantial",
+    priceFrom: null, // [[PENDIENTE: tarifa "des de" por noche]] -> número (p. ej. 120) cuando se confirme
     highlights: {
       ca: ["Accés directe al circuit termal", "Piscina exterior amb vistes a la muntanya", "Restaurant d'autor", "Habitacions i suites amb balcó"],
       es: ["Acceso directo al circuito termal", "Piscina exterior con vistas a la montaña", "Restaurante de autor", "Habitaciones y suites con balcón"],
@@ -125,6 +176,7 @@ const HOTELS = {
     heroImage: "hotelCaldasHero",
     thumbImage: "hotelCaldasThumb",
     bookingEngine: "caldas",
+    priceFrom: null, // [[PENDIENTE: tarifa "des de" por noche]] -> número (p. ej. 90) cuando se confirme
     highlights: {
       ca: ["Ambient familiar i de muntanya", "A pocs minuts del balneari", "Restaurant de cuina tradicional", "Punt de partida ideal per a rutes de senderisme"],
       es: ["Ambiente familiar y de montaña", "A pocos minutos del balneario", "Restaurante de cocina tradicional", "Punto de partida ideal para rutas de senderismo"],
@@ -708,5 +760,46 @@ const ENTORNO_ITEMS = [
     },
     linkLabel: { ca: "Veure rutes", es: "Ver rutas", en: "View trails", fr: "Voir les sentiers" },
     externalLink: "https://www.vallboi.cat/es/senderismo",
+  },
+];
+
+/* -------------------------------------------------------------------------
+   8) PAQUETES (sección de la portada, tras los hoteles)
+   Precio y contenido pendientes: priceFrom null / textos con marcador.
+   Al confirmarlos, sustituir la descripción y poner priceFrom: <número>.
+   ------------------------------------------------------------------------- */
+const PACKAGES = [
+  {
+    slug: "ruta-circuito-termal",
+    image: "entornoRutas",
+    name: {
+      ca: "Ruta + circuit termal", es: "Ruta + circuito termal",
+      en: "Hike + thermal circuit", fr: "Randonnée + circuit thermal",
+    },
+    description: pendingField("contenido del paquete"),
+    priceFrom: null,
+    link: "ofertas.html",
+  },
+  {
+    slug: "forfait-boi-taull-termal",
+    image: "entornoEsqui",
+    name: {
+      ca: "Forfait Boí Taüll + termal", es: "Forfait Boí Taüll + termal",
+      en: "Boí Taüll lift pass + thermal", fr: "Forfait Boí Taüll + thermal",
+    },
+    description: pendingField("contenido del paquete"),
+    priceFrom: null,
+    link: "ofertas.html",
+  },
+  {
+    slug: "familia-2-nits",
+    image: "roomManantialFamiliar",
+    name: {
+      ca: "Família 2 nits", es: "Familia 2 noches",
+      en: "Family 2 nights", fr: "Famille 2 nuits",
+    },
+    description: pendingField("contenido del paquete"),
+    priceFrom: null,
+    link: "ofertas.html",
   },
 ];

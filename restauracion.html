@@ -4,17 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Restauració · Caldes de Boí</title>
+<meta name="description" content="Restaurants i bars de Caldes de Boí: Restaurant Manantial, Bar del Manantial, Restaurant Caldas i Club Piscina. Consulta les cartes." data-i18n-content="meta_desc_restauracion" />
+<!-- [[PENDIENTE: dominio definitivo]] — canonical, og:url y og:image apuntan hoy a GitHub Pages -->
+<link rel="canonical" href="https://robsmm8.github.io/caldes-de-boi-web/restauracion.html" />
+<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Caldes de Boí Balneari Thermal Resort" />
+<meta property="og:locale" content="ca_ES" />
+<meta property="og:title" content="Restauració · Caldes de Boí" />
+<meta property="og:description" content="Restaurants i bars de Caldes de Boí: Restaurant Manantial, Bar del Manantial, Restaurant Caldas i Club Piscina. Consulta les cartes." data-i18n-content="meta_desc_restauracion" />
+<meta property="og:url" content="https://robsmm8.github.io/caldes-de-boi-web/restauracion.html" />
+<meta property="og:image" content="https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body data-page="restauracion">
 
-<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contingut</a>
+
+<noscript><p class="noscript-msg">Aquesta web necessita JavaScript per mostrar el contingut (cercador, idiomes, cartes). Activa'l al teu navegador per continuar.</p></noscript>
 
 <header class="site-header" id="site-header"></header>
 
 <main id="main">
 
-<section class="hero page-hero" data-img-key="experienceGastronomy">
+<section class="hero page-hero hero-fallback" data-img-key="experienceGastronomy">
   <div class="container hero-inner">
     <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_restauracion">Restauració</span></div>
     <span class="lede" data-i18n="restauracion_hero_lede">Gastronomia</span>
@@ -39,6 +57,7 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
 <script src="js/main.js"></script>
 <script>
   function renderRestaurantList() {
@@ -47,12 +66,12 @@
     container.innerHTML = RESTAURANTS.map(
       (r) => `
       <div class="restaurant-card">
-        <img data-img-key="${r.image}" alt="${tr(r.name)}" />
+        <img data-img-key="${r.image}" width="600" height="400" alt="${tr(r.name)}" />
         <div class="body">
           <span class="tag">${tr(r.hotel)}</span>
           <h3>${tr(r.name)}</h3>
           <p>${tr(r.description)}</p>
-          <a class="btn btn-primary btn-sm" href="restaurantes/restaurante.html?r=${r.slug}">${t.btn_ver_carta}</a>
+          <a class="btn btn-primary btn-sm" href="restaurantes/restaurante.html?r=${r.slug}">${t.btn_ver_carta}<span class="sr-only"> — ${tr(r.name)}</span></a>
         </div>
       </div>`
     ).join("");

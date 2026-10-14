@@ -7,6 +7,8 @@ function renderHotelPage() {
   if (!hotel) return;
 
   document.title = `${tr(hotel.name)} · Caldes de Boí`;
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute("content", document.title);
 
   document.querySelector("[data-hotel-hero]").setAttribute("data-img-key", hotel.heroImage);
   document.querySelectorAll("[data-hotel-name]").forEach((el) => (el.textContent = tr(hotel.name)));
@@ -14,7 +16,10 @@ function renderHotelPage() {
   document.querySelector("[data-hotel-description]").textContent = tr(hotel.description);
 
   const list = document.querySelector("[data-hotel-highlights]");
-  list.innerHTML = tr(hotel.highlights).map((h) => `<li>✓ ${h}</li>`).join("");
+  list.innerHTML = tr(hotel.highlights).map((h) => `<li>${icon("check")} <span>${h}</span></li>`).join("");
+
+  const priceEl = document.querySelector("[data-hotel-price]");
+  if (priceEl) priceEl.textContent = formatPriceFrom(hotel.priceFrom);
 
   const roomsGrid = document.getElementById("room-types-grid");
   if (roomsGrid) {
@@ -24,7 +29,7 @@ function renderHotelPage() {
       .map(
         (room) => `
         <div class="room-type-card">
-          <img data-img-key="${room.image}" alt="${tr(room.name)}" />
+          <img data-img-key="${room.image}" width="600" height="400" alt="${tr(room.name)}" />
           <div class="body">
             <h3>${tr(room.name)}</h3>
             <p>${tr(room.description)}</p>
@@ -43,22 +48,19 @@ function renderHotelPage() {
       roomsGrid.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-book-room]");
         if (!btn) return;
-        const form = document.querySelector(".booking-widget");
-        const note = form && form.querySelector("[data-room-note]");
+        const widget = document.querySelector("[data-booking-widget]");
+        const note = widget && widget.querySelector("[data-room-note]");
         if (note) {
           const tt = UI_STRINGS[getLang()] || UI_STRINGS.ca;
           note.textContent = `${tt.room_selected_prefix}: ${btn.dataset.bookRoom}`;
-          note.style.display = "block";
+          note.hidden = false;
           note.dataset.roomValue = btn.dataset.bookRoom;
         }
-        if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (widget) widget.scrollIntoView({ behavior: scrollBehavior(), block: "center" });
       });
       roomsGrid.dataset.wired = "true";
     }
   }
-
-  const form = document.querySelector(".booking-widget");
-  if (form) form.dataset.fixedHotel = hotelId;
 
   applyImages(); // vuelve a aplicar tras rellenar data-img-key dinámicamente
 }

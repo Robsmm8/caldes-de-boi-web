@@ -4,17 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Entorn · Caldes de Boí</title>
+<meta name="description" content="Descobreix l'entorn de Caldes de Boí: Parc Nacional d'Aigüestortes, romànic de la Vall de Boí, Boí Taüll Resort, pobles amb encant i rutes de senderisme." data-i18n-content="meta_desc_entorno" />
+<!-- [[PENDIENTE: dominio definitivo]] — canonical, og:url y og:image apuntan hoy a GitHub Pages -->
+<link rel="canonical" href="https://robsmm8.github.io/caldes-de-boi-web/entorno.html" />
+<link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Caldes de Boí Balneari Thermal Resort" />
+<meta property="og:locale" content="ca_ES" />
+<meta property="og:title" content="Entorn · Caldes de Boí" />
+<meta property="og:description" content="Descobreix l'entorn de Caldes de Boí: Parc Nacional d'Aigüestortes, romànic de la Vall de Boí, Boí Taüll Resort, pobles amb encant i rutes de senderisme." data-i18n-content="meta_desc_entorno" />
+<meta property="og:url" content="https://robsmm8.github.io/caldes-de-boi-web/entorno.html" />
+<meta property="og:image" content="https://robsmm8.github.io/caldes-de-boi-web/assets/img/hero-manantial-aerea.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body data-page="entorno">
 
-<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
+<a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contingut</a>
+
+<noscript><p class="noscript-msg">Aquesta web necessita JavaScript per mostrar el contingut (cercador, idiomes, cartes). Activa'l al teu navegador per continuar.</p></noscript>
 
 <header class="site-header" id="site-header"></header>
 
 <main id="main">
 
-<section class="hero page-hero" data-img-key="entornoParque">
+<section class="hero page-hero hero-fallback" data-img-key="entornoParque">
   <div class="container hero-inner">
     <div class="breadcrumb"><a href="index.html" data-i18n="breadcrumb_inicio">Inici</a> / <span data-i18n="nav_entorno">Entorn</span></div>
     <span class="lede" data-i18n="entorno_hero_lede">Vall de Boí</span>
@@ -33,6 +51,7 @@
 
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
 <script src="js/main.js"></script>
 <script>
   function renderEntornoList() {
@@ -40,13 +59,13 @@
     document.getElementById("entorno-list").innerHTML = ENTORNO_ITEMS.map(
       (item) => `
       <div class="entorno-detail" id="${item.slug}">
-        <img data-img-key="${item.image}" alt="${tr(item.name)}" />
+        <img data-img-key="${item.image}" width="640" height="480" alt="${tr(item.name)}" />
         <div class="body">
           <h3>${tr(item.name)}</h3>
           <p>${tr(item.longDescription)}</p>
           ${item.externalLink && item.externalLink !== "#"
-            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">${tr(item.linkLabel)} &rarr;</a>`
-            : `<span style="font-size:.78rem;color:var(--text-light);">${t.entorno_link_pendiente}</span>`}
+            ? `<a href="${item.externalLink}" target="_blank" rel="noopener" class="btn btn-light btn-sm">${tr(item.linkLabel)} <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg><span class="sr-only"> (${t.opens_new_tab})</span></a>`
+            : `<span class="note-small">${t.entorno_link_pendiente}</span>`}
         </div>
       </div>`
     ).join("");
